@@ -1,2 +1,20 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<%= simple_form_for :search, url: search_products_path, method: :get do |f| %>
+  <%= f.input :name, label: "Rechercher un produit", placeholder: "Nom du produit" %>
+  <%= f.input :address, label: "Ville", placeholder: "Lille, Paris..." %>
+  <%= f.button :submit, "Rechercher" %>
+<% end %>
+
+
+<% if @products.any? %>
+  <h2>Produits trouvés :</h2>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <strong><%= product.name %></strong><br>
+        Lieu : <%= product.user.address || "Adresse inconnue" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Aucun produit trouvé pour cette recherche.</p>
+<% end %>
