@@ -1,0 +1,13 @@
+<div class="container">
+  <%= simple_form_for :search, url: search_products_path, method: :get, wrapper: :no_margin do |f| %>
+    <div class="col-auto">
+      <%= f.input :name, label: "Rechercher un produit", placeholder: "Nom du produit", input_html: { class: 'form-control' } %>
+    </div>
+    <div class="col-auto">
+      <%= f.input :address, label: "Ville", placeholder: "Lille, Paris...", input_html: { class: 'form-control' } %>
+    </div>
+    <div class="col-auto">
+      <%= f.button :submit, "Rechercher", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

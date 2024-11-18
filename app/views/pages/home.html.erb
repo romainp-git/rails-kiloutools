@@ -1,5 +1,1 @@
-<%= simple_form_for :search, url: search_products_path, method: :get do |f| %>
-  <%= f.input :name, label: "Rechercher un produit", placeholder: "Nom du produit" %>
-  <%= f.input :address, label: "Ville", placeholder: "Lille, Paris..." %>
-  <%= f.button :submit, "Rechercher" %>
-<% end %>
+<%= render "shared/product_search_form" %>

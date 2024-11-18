@@ -352,6 +352,20 @@ SimpleForm.setup do |config|
     b.use :hint, wrap_with: { class: 'form-text' }
   end
 
+  config.wrappers :no_margin, class: 'form-group mb-0', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: 'form-label'
+
+    b.use :input, class: 'form-control'
+    b.use :error, wrap_with: { tag: 'span', class: 'text-danger' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'text-muted' }
+  end
 
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :vertical_form
