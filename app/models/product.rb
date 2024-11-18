@@ -1,8 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :brand
   belongs_to :category
-  belongs_to :user
-
+  belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
+  
   has_many :bookings
   has_many :customers
 
@@ -10,6 +10,6 @@ class Product < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_user_id?
 
   def address
-    user.address
+    owner.address
   end
 end

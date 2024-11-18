@@ -1,34 +1,317 @@
+# This file should ensure the existence of records required to run the application in every environment (production,
+# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
+# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+#
+# Example:
+#
+#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
+#     MovieGenre.find_or_create_by!(name: genre_name)
+#   end
 
-puts "Cleaning database..."
+
+Booking.destroy_all
 Product.destroy_all
-Category.destroy_all
-Brand.destroy_all
 User.destroy_all
+Brand.destroy_all
+Category.destroy_all
 
-["Electro", "Jardin"].each do |cat|
-  Category.create!(name: cat)
+Brand.count
+Category.count
+User.count
+Product.count
+Booking.count
+
+# ==========================================================================
+# CATEGORIES CREATION
+
+categories = [
+  { name: "Jardinage" },
+  { name: "Bricolage" },
+  { name: "Menuiserie" },
+  { name: "Plomberie" },
+  { name: "Maçonnerie" },
+  { name: "Peinture" },
+  { name: "Mécanique" },
+  { name: "Soudure" },
+  { name: "Nettoyage" }
+]
+
+categories.each do |category|
+  Category.create(name: category[:name])
 end
 
-["Bosch", "Parkside"].each do |brand|
-  Brand.create!(name: brand)
+# ==========================================================================
+# BRANDS CREATION
+
+brands = [
+  {name: "Bosch" },
+  {name: "DeWalt" },
+  {name: "Makita" },
+  {name: "Black & Decker" },
+  {name: "Milwaukee" },
+  {name: "Stanley" },
+  {name: "Ryobi" },
+  {name: "Hitachi" },
+  {name: "Craftsman" },
+  {name: "Husqvarna" },
+  {name: "Snap-on" },
+  {name: "Festool" },
+  {name: "Karcher" },
+  {name: "Fein" },
+  {name: "Hilti" },
+  {name: "Metabo" },
+  {name: "Ridgid" },
+  {name: "Porter-Cable" },
+  {name: "Skil" },
+  {name: "Irwin" }
+]
+
+brands.each do |brand|
+  Brand.create(name: brand[:name])
 end
 
-user = User.create!(
-  email: 'test@example.com',
-  password: 'password123',
-  password_confirmation: 'password123',
-  address: 'Lille'
-)
+# ==========================================================================
+# USERS CREATION
 
-user2 = User.create!(
-  email: 'testazfa@example.com',
-  password: 'password123',
-  password_confirmation: 'password123',
-  address: 'Paris'
-)
+require 'faker'
 
-["Perceuse", "Visseuse", "Scie", "Tournevis"].each do |outil|
-  Product.create!(name: outil, category: Category.last, brand: Brand.last, user: user)
+addresses = [
+  "123 Rue de la République, 59000 Lille, France",
+  "456 Avenue des Champs-Élysées, 59000 Lille, France",
+  "789 Boulevard Saint-Germain, 59000 Lille, France",
+  "101 Rue de Rivoli, 59000 Lille, France",
+  "202 Rue de la Liberté, 59000 Lille, France",
+  "303 Rue de la Gare, 59110 La Madeleine, France",
+  "404 Rue de la Mairie, 59260 Lezennes, France",
+  "505 Rue de la République, 59320 Haubourdin, France",
+  "606 Rue de la Liberté, 59650 Villeneuve-d'Ascq, France",
+  "707 Rue de la Gare, 59120 Loos, France"
+]
+
+users = [
+  {
+    email: "jean.dupont@example.com",
+    password: "password",
+    first_name: "Jean",
+    last_name: "Dupont",
+    username: "jeandupont"
+  },
+  {
+    email: "marie.martin@example.com",
+    password: "password",
+    first_name: "Marie",
+    last_name: "Martin",
+    username: "mariemartin"
+  },
+  {
+    email: "pierre.durand@example.com",
+    password: "password",
+    first_name: "Pierre",
+    last_name: "Durand",
+    username: "pierredurand"
+  },
+  {
+    email: "sophie.lefevre@example.com",
+    password: "password",
+    first_name: "Sophie",
+    last_name: "Lefevre",
+    username: "sophielefevre"
+  },
+  {
+    email: "luc.bernard@example.com",
+    password: "password",
+    first_name: "Luc",
+    last_name: "Bernard",
+    username: "lucbernard"
+  },
+  {
+    email: "claire.roux@example.com",
+    password: "password",
+    first_name: "Claire",
+    last_name: "Roux",
+    username: "claireroux"
+  },
+  {
+    email: "marc.leclerc@example.com",
+    password: "password",
+    first_name: "Marc",
+    last_name: "Leclerc",
+    username: "marcleclerc"
+  },
+  {
+    email: "isabelle.moreau@example.com",
+    password: "password",
+    first_name: "Isabelle",
+    last_name: "Moreau",
+    username: "isabellemoreau"
+  },
+  {
+    email: "julien.girard@example.com",
+    password: "password",
+    first_name: "Julien",
+    last_name: "Girard",
+    username: "juliengirard"
+  },
+  {
+    email: "laura.dubois@example.com",
+    password: "password",
+    first_name: "Laura",
+    last_name: "Dubois",
+    username: "lauradubois"
+  }
+]
+
+users.each_with_index do |user, index|
+  User.create(
+    email: user[:email],
+    password: user[:password],
+    password_confirmation: user[:password],
+    first_name: user[:first_name],
+    last_name: user[:last_name],
+    username: user[:username],
+    address: addresses[index],
+    photo_url: Faker::Avatar.image
+  )
 end
 
-Product.create!(name: "Perceuse", category: Category.first, brand: Brand.first, user: user2)
+# ==========================================================================
+# PRODUCTS CREATION
+
+users = User.all
+
+products = [
+  {
+    name: "Tondeuse à gazon",
+    description: "Tondeuse à gazon électrique pour jardins de taille moyenne.",
+    state: "Bon état",
+    model: "GLM 120",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 150.0,
+    brand_id: Brand.find_by(name: "Bosch").id,
+    category_id: Category.find_by(name: "Jardinage").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Perceuse",
+    description: "Perceuse sans fil avec batterie lithium-ion.",
+    state: "Neuf",
+    model: "DCD771C2",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 80.0,
+    brand_id: Brand.find_by(name: "DeWalt").id,
+    category_id: Category.find_by(name: "Bricolage").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Scie circulaire",
+    description: "Scie circulaire portable pour coupes précises.",
+    state: "Très bon état",
+    model: "561534-7",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 120.0,
+    brand_id: Brand.find_by(name: "Makita").id,
+    category_id: Category.find_by(name: "Menuiserie").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Clé à molette",
+    description: "Clé à molette ajustable pour divers travaux de plomberie.",
+    state: "Bon état",
+    model: "85601",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 20.0,
+    brand_id: Brand.find_by(name: "Stanley").id,
+    category_id: Category.find_by(name: "Plomberie").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Truelle",
+    description: "Truelle en acier inoxydable pour travaux de maçonnerie.",
+    state: "Neuf",
+    model: "12345",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 15.0,
+    brand_id: Brand.find_by(name: "Ryobi").id,
+    category_id: Category.find_by(name: "Maçonnerie").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Pistolet à peinture",
+    description: "Pistolet à peinture électrique pour travaux de peinture.",
+    state: "Très bon état",
+    model: "W970",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 70.0,
+    brand_id: Brand.find_by(name: "Black & Decker").id,
+    category_id: Category.find_by(name: "Peinture").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Cric hydraulique",
+    description: "Cric hydraulique pour levage de véhicules.",
+    state: "Bon état",
+    model: "3-Ton",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 50.0,
+    brand_id: Brand.find_by(name: "Craftsman").id,
+    category_id: Category.find_by(name: "Mécanique").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Poste à souder",
+    description: "Poste à souder à l'arc pour travaux de soudure.",
+    state: "Neuf",
+    model: "Easyweld 2.0",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 200.0,
+    brand_id: Brand.find_by(name: "Husqvarna").id,
+    category_id: Category.find_by(name: "Soudure").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Aspirateur",
+    description: "Aspirateur sans fil pour nettoyage domestique.",
+    state: "Très bon état",
+    model: "V8 Absolute",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 100.0,
+    brand_id: Brand.find_by(name: "Karcher").id,
+    category_id: Category.find_by(name: "Nettoyage").id,
+    user_id: User.all.sample.id
+  },
+  {
+    name: "Scie sauteuse",
+    description: "Scie sauteuse pour coupes précises et courbes.",
+    state: "Bon état",
+    model: "JS300",
+    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
+    price: 90.0,
+    brand_id: Brand.find_by(name: "Bosch").id,
+    category_id: Category.find_by(name: "Bricolage").id,
+    user_id: User.all.sample.id
+  }
+]
+
+products.each do |product|
+  Product.create(product)
+end
+
+# ==========================================================================
+# BOOKINGS CREATION
+
+require 'faker'
+
+# Statuts possibles pour les réservations
+statuses = ["Pending", "Accepted", "Refused"]
+
+# Générer 10 réservations avec des données fictives
+10.times do
+  Booking.create(
+    start_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
+    end_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
+    status: statuses.sample,
+    amount: Faker::Commerce.price,
+    product_id: Product.all.sample.id, # Sélectionne un produit aléatoire parmi tous les produits
+    user_id: User.all.sample.id # Sélectionne un utilisateur aléatoire parmi tous les utilisateurs
+  )
+end
