@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
     @products = filter_products(params[:search])
+    @markers = set_markers(@products)
   end
 
   def show
@@ -9,6 +10,7 @@ class ProductsController < ApplicationController
 
   def search
     @products = filter_products(params[:search])
+    @markers = set_markers(@products)
     render :index
   end
 
@@ -25,5 +27,14 @@ class ProductsController < ApplicationController
       end
     end
     return products
+  end
+
+  def set_markers(products)
+    products.map do |product|
+      {
+        lat: product.latitude,
+        lng: product.longitude,
+      }
+    end
   end
 end

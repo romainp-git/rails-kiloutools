@@ -353,6 +353,7 @@ SimpleForm.setup do |config|
   end
 
   config.wrappers :no_margin, class: 'form-group mb-0', error_class: 'has-error' do |b|
+    config.input_mappings = { required: false }
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
