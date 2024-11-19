@@ -32,7 +32,8 @@ class ProductsController < ApplicationController
         render :new
       end
     rescue => e
-      log_error(e)
+      # log_error(e)
+      Rails.logger.error("Error creating product: #{e}")
       flash[:alert] = "Failed to create product"
       redirect_back(fallback_location: root_path)
     end
@@ -51,7 +52,8 @@ class ProductsController < ApplicationController
         render :edit
       end
     rescue => e
-      log_error(e)
+      # log_error(e)
+      Rails.logger.error("Error creating product: #{e}")
       flash[:alert] = "Failed to update product"
       redirect_back(fallback_location: root_path)
     end
@@ -67,7 +69,8 @@ class ProductsController < ApplicationController
         redirect_to product_path(@product)
       end
     rescue => e
-      log_error(e)
+      # log_error(e)
+      Rails.logger.error("Error creating product: #{e}")
       flash[:alert] = "Failed to delete product"
       redirect_back(fallback_location: root_path)
     end
@@ -83,7 +86,8 @@ class ProductsController < ApplicationController
     begin
       @product = Product.find(params[:id])
     rescue => e
-      log_error(e)
+      # log_error(e)
+      Rails.logger.error("Error creating product: #{e}")
       flash[:alert] = "Product not found"
       redirect_to products_path
     end
