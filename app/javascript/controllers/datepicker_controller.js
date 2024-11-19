@@ -10,6 +10,7 @@ export default class extends Controller {
       mode: "range",
       plugins: [new rangePlugin({ input: this.endDateTarget })],
       altInput: true,
+      minDate: "today",
       altFormat: "d-m-Y",
       dateFormat: "Y-m-d",
       onChange: this.handleDateChange.bind(this)
