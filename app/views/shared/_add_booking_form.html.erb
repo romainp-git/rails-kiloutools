@@ -19,7 +19,7 @@
     <div class="mb-4">
       <%= f.hidden_field :price_per_day, value: price, data: { datepicker_target: "pricePerDay" } %>
       <%= f.label :amount, "Montant total", class: "form-label fw-bold" %>
-      <%= f.input :amount, label: false, input_html: { value: "", class: "form-control", placeholder: "Sélectionnez des dates", readonly: true, data: { datepicker_target: "amount" } } %>
+      <%= f.input :amount, as: :string, label: false, input_html: { value: "", class: "form-control", placeholder: "Sélectionnez des dates", readonly: true, data: { datepicker_target: "amount" } } %>
     </div>
   </div>
 
