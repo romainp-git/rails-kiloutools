@@ -1,9 +1,10 @@
 import { Application } from "@hotwired/stimulus"
+import FlatpickrController from "./flatpickr_controller";
 
 const application = Application.start()
 
-// Configure Stimulus development experience
 application.debug = false
 window.Stimulus   = application
+application.register("flatpickr", FlatpickrController);
 
 export { application }

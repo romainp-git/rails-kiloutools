@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :brand
-  belongs_to :categorie
+  belongs_to :category
   belongs_to :owner, class_name: 'User', foreign_key: 'user_id'
 
   has_many :bookings
