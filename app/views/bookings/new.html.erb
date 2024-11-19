@@ -1,0 +1,10 @@
+<h1>add booking</h1>
+<h3>product detail</h3>
+<img src="<%= @product.photo_url%>" alt="<%= @product.name %>">
+<p><%= @product.name %></p>
+<p><%= @product.description %></p>
+<p><%= @product.brand.name %></p>
+<p><%= @product.state %></p>
+<p><%= @product.category.name %></p>
+<p><%= @product.price %> €/jour</p>
+<%= render 'shared/add_booking_form', { booking: @booking, price: @price }%>

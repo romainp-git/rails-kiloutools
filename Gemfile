@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.3.5"
 
 gem "devise"
+gem "faker"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.5"
@@ -52,6 +53,7 @@ gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 gem "cloudinary"
+gem 'geocoder'
 
 group :development, :test do
   gem "dotenv-rails"
