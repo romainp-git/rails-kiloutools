@@ -9,7 +9,10 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.user = current_user
+    @product = Product.find(params[:product_id])
+    @booking.product = @product
     @booking.status = "Pending"
+
     if @booking.save
       redirect_to booking_path(@booking)
     else
