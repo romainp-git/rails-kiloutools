@@ -1,10 +1,10 @@
 import { Application } from "@hotwired/stimulus"
-import FlatpickrController from "./flatpickr_controller";
+import DatepickerController from "./datepicker_controller";
 
 const application = Application.start()
 
 application.debug = false
 window.Stimulus   = application
-application.register("flatpickr", FlatpickrController);
+application.register("datepicker", DatepickerController);
 
 export { application }

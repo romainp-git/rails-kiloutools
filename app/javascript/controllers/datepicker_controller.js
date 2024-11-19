@@ -1,4 +1,6 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
+import flatpickr from "flatpickr";
+import "flatpickr/dist/plugins/rangePlugin";
 
 export default class extends Controller {
   static targets = ["startDate", "endDate","amount", "pricePerDay"];
