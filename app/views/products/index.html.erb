@@ -10,8 +10,10 @@
   <ul>
     <% @products.each do |product| %>
       <li>
-        <strong><%= product.name %></strong><br>
-        Lieu : <%= product.user.address || "Adresse inconnue" %>
+        <%= link_to product_path(product), class: "text-decoration-none" do %>
+          <strong><%= product.name %> (<%= product.id %>)</strong><br>
+        <% end %>
+        Lieu : <%= product.owner.address || "Adresse inconnue" %>
       </li>
     <% end %>
   </ul>
