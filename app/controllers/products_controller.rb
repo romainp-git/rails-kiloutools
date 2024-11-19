@@ -8,7 +8,10 @@ class ProductsController < ApplicationController
   end
 
   def search
+<<<<<<< Updated upstream
     @products = filter_products(params[:search])
+=======
+>>>>>>> Stashed changes
     render :index
   end
 
