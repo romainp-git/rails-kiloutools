@@ -7,8 +7,8 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @booking = Booking.new(booking_params)
     @booking.user = current_user
-    @booking = Booking.new(booking_params.merge(user_id: current_user))
     if @booking.save
       redirect_to booking_path(@booking)
     else
