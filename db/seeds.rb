@@ -185,9 +185,9 @@ products = [
     state: "New",
     model: "GLM 120",
     price: 150.0,
-    brand_id: Brand.find_by(name: "Bosch"),
-    category_id: Category.find_by(name: "Jardinage"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Bosch").id,
+    category_id: Category.find_by(name: "Jardinage").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Perceuse",
@@ -195,9 +195,9 @@ products = [
     state: "Like new",
     model: "DCD771C2",
     price: 80.0,
-    brand_id: Brand.find_by(name: "DeWalt"),
-    category_id: Category.find_by(name: "Bricolage"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "DeWalt").id,
+    category_id: Category.find_by(name: "Bricolage").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Scie circulaire",
@@ -205,9 +205,9 @@ products = [
     state: "Good",
     model: "561534-7",
     price: 120.0,
-    brand_id: Brand.find_by(name: "Makita"),
-    category_id: Category.find_by(name: "Menuiserie"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Makita").id,
+    category_id: Category.find_by(name: "Menuiserie").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Clé à molette",
@@ -215,9 +215,9 @@ products = [
     state: "Fair",
     model: "85601",
     price: 20.0,
-    brand_id: Brand.find_by(name: "Stanley"),
-    category_id: Category.find_by(name: "Plomberie"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Stanley").id,
+    category_id: Category.find_by(name: "Plomberie").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Truelle",
@@ -225,9 +225,9 @@ products = [
     state: "Poor",
     model: "12345",
     price: 15.0,
-    brand_id: Brand.find_by(name: "Ryobi"),
-    category_id: Category.find_by(name: "Maçonnerie"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Ryobi").id,
+    category_id: Category.find_by(name: "Maçonnerie").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Pistolet à peinture",
@@ -235,9 +235,9 @@ products = [
     state: "New",
     model: "W970",
     price: 70.0,
-    brand_id: Brand.find_by(name: "Black & Decker"),
-    category_id: Category.find_by(name: "Peinture"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Black & Decker").id,
+    category_id: Category.find_by(name: "Peinture").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Cric hydraulique",
@@ -245,9 +245,9 @@ products = [
     state: "Like new",
     model: "3-Ton",
     price: 50.0,
-    brand_id: Brand.find_by(name: "Craftsman"),
-    category_id: Category.find_by(name: "Mécanique"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Craftsman").id,
+    category_id: Category.find_by(name: "Mécanique").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Poste à souder",
@@ -255,9 +255,9 @@ products = [
     state: "Good",
     model: "Easyweld 2.0",
     price: 200.0,
-    brand_id: Brand.find_by(name: "Husqvarna"),
-    category_id: Category.find_by(name: "Soudure"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Husqvarna").id,
+    category_id: Category.find_by(name: "Soudure").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Aspirateur",
@@ -265,9 +265,9 @@ products = [
     state: "Fair",
     model: "V8 Absolute",
     price: 100.0,
-    brand_id: Brand.find_by(name: "Karcher"),
-    category_id: Category.find_by(name: "Nettoyage"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Karcher").id,
+    category_id: Category.find_by(name: "Nettoyage").id,
+    user_id: User.all.sample.id
   },
   {
     name: "Scie sauteuse",
@@ -275,32 +275,30 @@ products = [
     state: "Poor",
     model: "JS300",
     price: 90.0,
-    brand_id: Brand.find_by(name: "Bosch"),
-    category_id: Category.find_by(name: "Bricolage"),
-    user_id: User.all.sample
+    brand_id: Brand.find_by(name: "Bosch").id,
+    category_id: Category.find_by(name: "Bricolage").id,
+    user_id: User.all.sample.id
   }
 ]
 
 products.each do |product|
-  Product.create(product)
+  Product.create!(product)
 end
 
 # ==========================================================================
 # BOOKINGS CREATION
-
-require 'faker'
 
 # Statuts possibles pour les réservations
 statuses = ["Pending", "Accepted", "Refused"]
 
 # Générer 10 réservations avec des données fictives
 10.times do
-  Booking.create(
+  Booking.create!(
     start_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
     end_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
     status: statuses.sample,
     amount: Faker::Commerce.price,
-    product_id: Product.all.sample,
-    user_id: User.all.sample
+    product_id: Product.all.sample.id,
+    user_id: User.all.sample.id
   )
 end

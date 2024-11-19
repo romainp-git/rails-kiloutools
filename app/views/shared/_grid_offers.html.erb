@@ -2,7 +2,7 @@
   <% @products.each do |product| %>
     <div class="product-card">
       <div class="product-card-image">
-        <img src="<%= product.photo_url %>" alt="<%= product.name %>">
+        <img src="<%= product.photo %>" alt="<%= product.name %>">
       </div>
       <div class="product-card-content">
         <h5 class="product-card-title"><%= product.name %></h5>
