@@ -1,5 +1,5 @@
-<%= simple_form_for :search, url: search_products_path, method: :get do |f| %>
-  <%= f.input :name, label: "Rechercher un produit", placeholder: "Nom du produit" %>
-  <%= f.input :address, label: "Ville", placeholder: "Lille, Paris..." %>
-  <%= f.button :submit, "Rechercher" %>
-<% end %>
+<div class=" d-flex justify-content-center align-items-center vh-100">
+  <div class="container border border-1 p-4 rounded-3 w-75">
+    <%= render "shared/product_search_form" %>
+  </div>
+</div>

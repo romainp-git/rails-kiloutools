@@ -84,7 +84,7 @@ addresses = [
   "303 Rue de la Gare, 59110 La Madeleine, France",
   "404 Rue de la Mairie, 59260 Lezennes, France",
   "505 Rue de la République, 59320 Haubourdin, France",
-  "606 Rue de la Liberté, 59650 Villeneuve-d'Ascq, France",
+  "159 Boulevard Voltaire, 75011 Paris, France",
   "707 Rue de la Gare, 59120 Loos, France"
 ]
 

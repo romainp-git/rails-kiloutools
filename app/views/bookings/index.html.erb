@@ -1,0 +1,9 @@
+<h1>BList of your booking</h1>
+<p>Retrieve all your bookings</p>
+<% @bookings.each do |booking| %>
+  <div><%= booking.product.name %></div>
+  <div><%= booking.start_date %></div>
+  <div><%= booking.end_date %></div>
+  <div><%= booking.state %></div>
+  <div><%= booking.amount %>€</div>
+<% end %>

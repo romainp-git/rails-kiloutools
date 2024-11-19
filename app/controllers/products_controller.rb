@@ -1,24 +1,19 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
-  # INDEX + SHOW ========================
+  before_action :load_products, only: [:index, :search]
+  
   def index
-    @products = filter_products(params[:search])
   end
 
   def show
-    @fTitle = "View #{@product.name} (#{@product.id})"
   end
 
   def search
-    @products = filter_products(params[:search])
     render :index
   end
-
-  # NEW + CREATE ========================
+  
   def new
     @product = Product.new
-    @fTitle = "Create a new product"
   end
 
   def create
@@ -38,9 +33,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  # EDIT + UPDATE ========================
   def edit
-    @fTitle = "Modify #{@product.name} (#{@product.id})"
   end
 
   def update
@@ -59,7 +52,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DESTROY ========================
   def destroy
     begin
       if @product.destroy
@@ -76,7 +68,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # =================================
   private
 
   def product_params
@@ -84,7 +75,6 @@ class ProductsController < ApplicationController
   end
 
   def set_product
-    # Si l'id demandé n'existe pas alors retour sur index et affichage message alert
     begin
       @product = Product.find(params[:id])
     rescue => e
@@ -93,9 +83,15 @@ class ProductsController < ApplicationController
       redirect_to products_path
     end
   end
+    
+  def load_products
+    @products = filter_products(params[:search])
+    @markers = set_markers(@products)
+  end
 
   def filter_products(search_params)
     products = Product.all
+
     if search_params.present?
       if search_params[:address].present?
         products = products.near(search_params[:address], 10)
@@ -104,6 +100,16 @@ class ProductsController < ApplicationController
         products = products.where("products.name ILIKE ?", "%#{search_params[:name]}%")
       end
     end
-    return products
+
+    products
+  end
+
+  def set_markers(products)
+    products.map do |product|
+      {
+        lat: product.latitude,
+        lng: product.longitude,
+      }
+    end
   end
 end
