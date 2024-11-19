@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   end
   
   resources :bookings, only: [:show, :index, :destroy]
+  resources :profils, only: [:show]
 end
