@@ -84,7 +84,7 @@ addresses = [
   "303 Rue de la Gare, 59110 La Madeleine, France",
   "404 Rue de la Mairie, 59260 Lezennes, France",
   "505 Rue de la République, 59320 Haubourdin, France",
-  "606 Rue de la Liberté, 59650 Villeneuve-d'Ascq, France",
+  "159 Boulevard Voltaire, 75011 Paris, France",
   "707 Rue de la Gare, 59120 Loos, France"
 ]
 
@@ -183,7 +183,7 @@ products = [
   {
     name: "Tondeuse à gazon",
     description: "Tondeuse à gazon électrique pour jardins de taille moyenne.",
-    state: "Bon état",
+    state: "New",
     model: "GLM 120",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 150.0,
@@ -194,7 +194,7 @@ products = [
   {
     name: "Perceuse",
     description: "Perceuse sans fil avec batterie lithium-ion.",
-    state: "Neuf",
+    state: "Like new",
     model: "DCD771C2",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 80.0,
@@ -205,7 +205,7 @@ products = [
   {
     name: "Scie circulaire",
     description: "Scie circulaire portable pour coupes précises.",
-    state: "Très bon état",
+    state: "Good",
     model: "561534-7",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 120.0,
@@ -216,7 +216,7 @@ products = [
   {
     name: "Clé à molette",
     description: "Clé à molette ajustable pour divers travaux de plomberie.",
-    state: "Bon état",
+    state: "Fair",
     model: "85601",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 20.0,
@@ -227,7 +227,7 @@ products = [
   {
     name: "Truelle",
     description: "Truelle en acier inoxydable pour travaux de maçonnerie.",
-    state: "Neuf",
+    state: "Poor",
     model: "12345",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 15.0,
@@ -238,7 +238,7 @@ products = [
   {
     name: "Pistolet à peinture",
     description: "Pistolet à peinture électrique pour travaux de peinture.",
-    state: "Très bon état",
+    state: "New",
     model: "W970",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 70.0,
@@ -249,7 +249,7 @@ products = [
   {
     name: "Cric hydraulique",
     description: "Cric hydraulique pour levage de véhicules.",
-    state: "Bon état",
+    state: "Like new",
     model: "3-Ton",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 50.0,
@@ -260,7 +260,7 @@ products = [
   {
     name: "Poste à souder",
     description: "Poste à souder à l'arc pour travaux de soudure.",
-    state: "Neuf",
+    state: "Good",
     model: "Easyweld 2.0",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 200.0,
@@ -271,7 +271,7 @@ products = [
   {
     name: "Aspirateur",
     description: "Aspirateur sans fil pour nettoyage domestique.",
-    state: "Très bon état",
+    state: "Fair",
     model: "V8 Absolute",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 100.0,
@@ -282,7 +282,7 @@ products = [
   {
     name: "Scie sauteuse",
     description: "Scie sauteuse pour coupes précises et courbes.",
-    state: "Bon état",
+    state: "Poor",
     model: "JS300",
     photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 90.0,

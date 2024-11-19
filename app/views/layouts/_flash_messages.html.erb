@@ -1,0 +1,8 @@
+<% flash.each do |key, message| %>
+  <div class="alert alert-<%= key %>">
+    <%= message %>
+  </div>
+<% end %>
+
+<%# A mettre dans la page où afficher les messages %>
+<%# <%= render 'layouts/flash_messages' %>
