@@ -1,0 +1,29 @@
+<%= simple_form_for(booking, url: product_bookings_path(params[:product_id]), html: { class: "form-container shadow-sm p-4 bg-white rounded" }) do |f| %>
+  <div class="form-group d-none">
+    <%= f.input :product_id, as: :hidden, input_html: { value: params[:product_id] } %>
+    <%= f.hidden_field :price_per_day, value: price, data: { datepicker_target: "pricePerDay" } %>
+  </div>
+  <h2 class="mb-4">Choisissez votre plage de dates</h2>
+
+  <div data-controller="datepicker" class="mb-4">
+    <div class="mb-3">
+      <%= f.label :start_date, "Date de début location", class: "form-label fw-bold" %>
+      <%= f.text_field :start_date, as: :string, class: "form-control", placeholder: "Choisissez une date", data: { datepicker_target: "startDate" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :end_date, "Date de fin location", class: "form-label fw-bold" %>
+      <%= f.text_field :end_date, as: :string, class: "form-control", placeholder: "Choisissez une date", data: { datepicker_target: "endDate" } %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.hidden_field :price_per_day, value: price, data: { datepicker_target: "pricePerDay" } %>
+      <%= f.label :amount, "Montant total", class: "form-label fw-bold" %>
+      <%= f.input :amount, label: false, input_html: { value: "", class: "form-control", placeholder: "Sélectionnez des dates", readonly: true, data: { datepicker_target: "amount" } } %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit "Réserver", class: "btn btn-primary btn-lg w-100" %>
+  </div>
+<% end %>
