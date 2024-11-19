@@ -74,6 +74,10 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :description, :state, :model, :photo_url, :price)
   end
 
+  def search_params
+    params.fetch(:search, {}).permit(:name, :address, :start_date, :end_date)
+  end
+
   def set_product
     begin
       @product = Product.find(params[:id])
@@ -85,6 +89,7 @@ class ProductsController < ApplicationController
   end
 
   def load_products
+    @search_params = search_params
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
   end
@@ -98,6 +103,16 @@ class ProductsController < ApplicationController
       end
       if search_params[:name].present?
         products = products.where("products.name ILIKE ?", "%#{search_params[:name]}%")
+      end
+      if search_params[:start_date].present? && search_params[:end_date].present?
+        start_date = Date.parse(search_params[:start_date])
+        end_date = Date.parse(search_params[:end_date])
+
+        products = products.select do |product|
+          product.bookings.none? do |booking|
+            (booking.start_date <= end_date) && (booking.end_date >= start_date)
+          end
+        end
       end
     end
 

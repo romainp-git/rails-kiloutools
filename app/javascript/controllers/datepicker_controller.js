@@ -5,13 +5,17 @@ import "flatpickr/dist/plugins/rangePlugin";
 export default class extends Controller {
   static targets = ["startDate", "endDate","amount", "pricePerDay"];
   connect() {
+    if (this.pickrInstance) {
+      this.pickrInstance.destroy();
+    }
 
-    flatpickr(this.startDateTarget, {
+    this.pickrInstance = flatpickr(this.startDateTarget, {
       mode: "range",
       plugins: [new rangePlugin({ input: this.endDateTarget })],
       altInput: true,
       altFormat: "d-m-Y",
       dateFormat: "Y-m-d",
+      minDate: "today",
       onChange: this.handleDateChange.bind(this)
     });
   }
@@ -37,5 +41,9 @@ export default class extends Controller {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
+  }
+
+  disconnect() {
+    if (this.pickrInstance) this.pickrInstance.destroy();
   }
 }
