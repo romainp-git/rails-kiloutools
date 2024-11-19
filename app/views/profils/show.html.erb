@@ -1,0 +1,11 @@
+<div class="container">
+<h1>Your Profil</h1>
+<p><%= @user.first_name %></p>
+<p><%= @user.last_name %></p>
+<p><%= @user.email %></p>
+<p><%= @user.username %></p>
+<p><%= @user.address %></p>
+<%= cl_image_tag @article.photo.key, height: 300, width: 400, crop: :fill %>
+
+<%= link_to "Edit Password", edit_user_registration_path(@user)  %>
+</div>
