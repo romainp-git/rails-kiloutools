@@ -1,6 +1,6 @@
 <div class="products">
   <div class="left-container">
-    <div class="border border-1 p-4 w-100">
+    <div class="border-bottom border-1 p-4 w-100">
       <div class="container">
         <%= render "shared/product_search_form" %>
       </div>
@@ -9,22 +9,7 @@
     <% if @products.any? %>
       <div class="mt-3 p-3">
         <h3>Produits trouvés :</h3>
-        <div class="product-cards">
-          <% @products.each do |product| %>
-            <div class="product-card">
-              <div class="product-card-image">
-                <img src="<%= product.photo_url %>" alt="<%= product.name %>">
-              </div>
-              <div class="product-card-content">
-                <h5 class="product-card-title"><%= product.name %></h5>
-                <p class="product-card-description"><%= product.description %></p>
-                <p class="product-card-price"><%= product.price %>€/jour</p>
-                <%= link_to "Voir produit", product_path(product), class: "btn-buy"%>
-              </div>
-            </div>
-          <% end %>
-
-        </div>
+        <%= render 'shared/grid_offers', products: @products%>
       </div>
     <% else %>
       <p>Aucun produit trouvé pour cette recherche.</p>

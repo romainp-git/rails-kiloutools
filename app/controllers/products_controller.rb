@@ -6,6 +6,11 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @count_products_per_owner = count_products_per_owner
+    @place_name = find_place_name
+
+    @booking = Booking.new()
+    @price = @product.price
   end
 
   def search
@@ -74,6 +79,10 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:name, :description, :state, :model, :photo_url, :price)
   end
 
+  def search_params
+    params.fetch(:search, {}).permit(:name, :address, :start_date, :end_date)
+  end
+
   def set_product
     begin
       @product = Product.find(params[:id])
@@ -85,6 +94,7 @@ class ProductsController < ApplicationController
   end
 
   def load_products
+    @search_params = search_params
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
   end
@@ -99,6 +109,16 @@ class ProductsController < ApplicationController
       if search_params[:name].present?
         products = products.where("products.name ILIKE ?", "%#{search_params[:name]}%")
       end
+      if search_params[:start_date].present? && search_params[:end_date].present?
+        start_date = Date.parse(search_params[:start_date])
+        end_date = Date.parse(search_params[:end_date])
+
+        products = products.select do |product|
+          product.bookings.none? do |booking|
+            (booking.start_date <= end_date) && (booking.end_date >= start_date)
+          end
+        end
+      end
     end
 
     products
@@ -112,4 +132,21 @@ class ProductsController < ApplicationController
       }
     end
   end
+
+  def find_place_name
+    current_product = Product.find(params[:id])
+    results = Geocoder.search(current_product.owner.address)
+    if results.present?
+      place_name = results.first.data["place_name"]
+    else
+      place_name = "No valid address"
+    end
+    return place_name
+  end
+
+  def count_products_per_owner
+    current_product = Product.find(params[:id])
+    return Product.where(user_id: current_product[:user_id]).count
+  end
+
 end
