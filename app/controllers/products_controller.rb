@@ -9,7 +9,6 @@ class ProductsController < ApplicationController
   end
 
   def search
-    @products = filter_products(params[:search])
     render :index
   end
 
