@@ -169,8 +169,7 @@ users.each_with_index do |user, index|
     first_name: user[:first_name],
     last_name: user[:last_name],
     username: user[:username],
-    address: addresses[index],
-    photo_url: Faker::Avatar.image
+    address: addresses[index]
   )
 end
 
@@ -185,110 +184,100 @@ products = [
     description: "Tondeuse à gazon électrique pour jardins de taille moyenne.",
     state: "New",
     model: "GLM 120",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 150.0,
-    brand_id: Brand.find_by(name: "Bosch").id,
-    category_id: Category.find_by(name: "Jardinage").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Bosch"),
+    category_id: Category.find_by(name: "Jardinage"),
+    user_id: User.all.sample
   },
   {
     name: "Perceuse",
     description: "Perceuse sans fil avec batterie lithium-ion.",
     state: "Like new",
     model: "DCD771C2",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 80.0,
-    brand_id: Brand.find_by(name: "DeWalt").id,
-    category_id: Category.find_by(name: "Bricolage").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "DeWalt"),
+    category_id: Category.find_by(name: "Bricolage"),
+    user_id: User.all.sample
   },
   {
     name: "Scie circulaire",
     description: "Scie circulaire portable pour coupes précises.",
     state: "Good",
     model: "561534-7",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 120.0,
-    brand_id: Brand.find_by(name: "Makita").id,
-    category_id: Category.find_by(name: "Menuiserie").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Makita"),
+    category_id: Category.find_by(name: "Menuiserie"),
+    user_id: User.all.sample
   },
   {
     name: "Clé à molette",
     description: "Clé à molette ajustable pour divers travaux de plomberie.",
     state: "Fair",
     model: "85601",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 20.0,
-    brand_id: Brand.find_by(name: "Stanley").id,
-    category_id: Category.find_by(name: "Plomberie").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Stanley"),
+    category_id: Category.find_by(name: "Plomberie"),
+    user_id: User.all.sample
   },
   {
     name: "Truelle",
     description: "Truelle en acier inoxydable pour travaux de maçonnerie.",
     state: "Poor",
     model: "12345",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 15.0,
-    brand_id: Brand.find_by(name: "Ryobi").id,
-    category_id: Category.find_by(name: "Maçonnerie").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Ryobi"),
+    category_id: Category.find_by(name: "Maçonnerie"),
+    user_id: User.all.sample
   },
   {
     name: "Pistolet à peinture",
     description: "Pistolet à peinture électrique pour travaux de peinture.",
     state: "New",
     model: "W970",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 70.0,
-    brand_id: Brand.find_by(name: "Black & Decker").id,
-    category_id: Category.find_by(name: "Peinture").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Black & Decker"),
+    category_id: Category.find_by(name: "Peinture"),
+    user_id: User.all.sample
   },
   {
     name: "Cric hydraulique",
     description: "Cric hydraulique pour levage de véhicules.",
     state: "Like new",
     model: "3-Ton",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 50.0,
-    brand_id: Brand.find_by(name: "Craftsman").id,
-    category_id: Category.find_by(name: "Mécanique").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Craftsman"),
+    category_id: Category.find_by(name: "Mécanique"),
+    user_id: User.all.sample
   },
   {
     name: "Poste à souder",
     description: "Poste à souder à l'arc pour travaux de soudure.",
     state: "Good",
     model: "Easyweld 2.0",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 200.0,
-    brand_id: Brand.find_by(name: "Husqvarna").id,
-    category_id: Category.find_by(name: "Soudure").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Husqvarna"),
+    category_id: Category.find_by(name: "Soudure"),
+    user_id: User.all.sample
   },
   {
     name: "Aspirateur",
     description: "Aspirateur sans fil pour nettoyage domestique.",
     state: "Fair",
     model: "V8 Absolute",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 100.0,
-    brand_id: Brand.find_by(name: "Karcher").id,
-    category_id: Category.find_by(name: "Nettoyage").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Karcher"),
+    category_id: Category.find_by(name: "Nettoyage"),
+    user_id: User.all.sample
   },
   {
     name: "Scie sauteuse",
     description: "Scie sauteuse pour coupes précises et courbes.",
     state: "Poor",
     model: "JS300",
-    photo_url: Faker::LoremFlickr.image(size: "300x300", search_terms: ['tools']),
     price: 90.0,
-    brand_id: Brand.find_by(name: "Bosch").id,
-    category_id: Category.find_by(name: "Bricolage").id,
-    user_id: User.all.sample.id
+    brand_id: Brand.find_by(name: "Bosch"),
+    category_id: Category.find_by(name: "Bricolage"),
+    user_id: User.all.sample
   }
 ]
 
@@ -311,7 +300,7 @@ statuses = ["Pending", "Accepted", "Refused"]
     end_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
     status: statuses.sample,
     amount: Faker::Commerce.price,
-    product_id: Product.all.sample.id, # Sélectionne un produit aléatoire parmi tous les produits
-    user_id: User.all.sample.id # Sélectionne un utilisateur aléatoire parmi tous les utilisateurs
+    product_id: Product.all.sample,
+    user_id: User.all.sample
   )
 end
