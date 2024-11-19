@@ -6,6 +6,11 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @count_products_per_owner = count_products_per_owner
+    @place_name = find_place_name
+
+    @booking = Booking.new()
+    @price = @product.price
   end
 
   def search
@@ -127,4 +132,21 @@ class ProductsController < ApplicationController
       }
     end
   end
+
+  def find_place_name
+    current_product = Product.find(params[:id])
+    results = Geocoder.search(current_product.owner.address)
+    if results.present?
+      place_name = results.first.data["place_name"]
+    else
+      place_name = "No valid address"
+    end
+    return place_name
+  end
+
+  def count_products_per_owner
+    current_product = Product.find(params[:id])
+    return Product.where(user_id: current_product[:user_id]).count
+  end
+
 end
