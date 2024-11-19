@@ -2,6 +2,7 @@
   <%= simple_form_for :search, url: search_products_path, method: :get, html: { class: 'row align-items-end' } do |f| %>
     <div class="col-lg-5 col-md-6 col-12 mb-3 mb-lg-0 px-1">
       <%= f.input :name,
+                  as: :string,
                   label: "Nom du produit",
                   placeholder: "Exemple : Perceuse",
                   wrapper: :no_margin,
@@ -10,6 +11,7 @@
     </div>
     <div class="col-lg-4 col-md-6 col-12 mb-3 mb-lg-0 px-1">
       <%= f.input :address,
+                  as: :string,
                   label: "Ville",
                   placeholder: "Exemple : Lille",
                   wrapper: :no_margin,
