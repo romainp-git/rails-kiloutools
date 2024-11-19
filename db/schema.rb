@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_18_162552) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_19_122140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,9 +78,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_162552) do
     t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.float "latitude"
     t.float "longitude"
+    t.bigint "user_id"
     t.index ["brand_id"], name: "index_products_on_brand_id"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["user_id"], name: "index_products_on_user_id"
@@ -106,6 +106,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_18_162552) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "products"
+  add_foreign_key "bookings", "users"
   add_foreign_key "products", "brands"
   add_foreign_key "products", "categories"
+  add_foreign_key "products", "users"
 end

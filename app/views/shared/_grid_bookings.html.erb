@@ -1,0 +1,18 @@
+<div class="product-cards">
+  <% @bookings.each do |booking| %>
+    <%= link_to booking_path(booking) do %>
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="<%= booking.product.photo_url %>" alt="<%= booking.product.name %>">
+          <div class="product-card-state"><%= booking.status %></div>
+        </div>
+        <div class="product-card-content">
+          <h5 class="product-card-title"><%= booking.product.name %></h5>
+          <p class="product-card-description"><%= booking.start_date %></p>
+          <p class="product-card-description"><%= booking.end_date %></p>
+          <p class="product-card-price"><%= booking.amount %> €</p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

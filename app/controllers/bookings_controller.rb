@@ -7,8 +7,9 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @booking = Booking.new(booking_params)
     @booking.user = current_user
-    @booking = Booking.new(booking_params.merge(user_id: current_user))
+    @booking.status = "Pending"
     if @booking.save
       redirect_to booking_path(@booking)
     else
@@ -17,7 +18,7 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:booking_id])
+    @booking = Booking.find(params[:id])
   end
 
   def index
