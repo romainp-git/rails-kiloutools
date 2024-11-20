@@ -63,7 +63,7 @@
                               <% end %>
                             </td>
                             <% end %>
-                            <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                            <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
                             <td><%= link_to item.start_date, booking_path(item) %></td>
                             <td><%= link_to item.end_date, booking_path(item) %></td>
                             <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -104,7 +104,7 @@
                             <span class="badge bg-success"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -146,7 +146,7 @@
                             <span class="badge bg-danger"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -188,7 +188,7 @@
                             <span class="badge bg-secondary"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
