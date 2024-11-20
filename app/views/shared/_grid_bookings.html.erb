@@ -3,7 +3,7 @@
     <%= link_to booking_path(booking) do %>
       <div class="product-card">
         <div class="product-card-image">
-          <img src="<%= booking.product.photo_url %>" alt="<%= booking.product.name %>">
+          <img src="<%= booking.product.photo %>" alt="<%= booking.product.name %>">
           <div class="product-card-state"><%= booking.status %></div>
         </div>
         <div class="product-card-content">
