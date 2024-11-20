@@ -1,12 +1,12 @@
 <%= simple_form_for(booking, url: product_bookings_path(params[:id]), html: { class: "form-container p-4 bg-white rounded" }) do |f| %>
   <div class="form-group d-none">
     <%= f.input :product_id, as: :hidden, input_html: { value: params[:product_id] } %>
-    <%= f.hidden_field :price_per_day, value: price, data: { datepicker_target: "pricePerDay" } %>
   </div>
   <h2 class="mb-4">Choisissez votre plage de dates</h2>
 
   <div data-controller="datepicker" class="mb-4">
     <div class="mb-3">
+      <%= f.hidden_field :bookings_dates, value: bookings_dates, data: { datepicker_target: "bookingsDates" } %>
       <%= f.label :start_date, "Date de début location", class: "form-label fw-bold" %>
       <%= f.text_field :start_date, as: :string, class: "form-control", placeholder: "Choisissez une date", data: { datepicker_target: "startDate" } %>
     </div>

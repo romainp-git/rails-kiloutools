@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :load_products, only: [:index, :search]
 
   def index
+    @bookings_dates = {}.to_json
   end
 
   def show
@@ -11,6 +12,14 @@ class ProductsController < ApplicationController
 
     @booking = Booking.new()
     @price = @product.price
+    @product = Product.find(params[:id])
+    @bookings = @product.bookings
+    @bookings_dates = @bookings.map do |booking|
+      {
+        from: booking.start_date,
+        to: booking.end_date
+      }
+    end.to_json
 
     if @start_date.present? && @end_date.present?
       @availability = @product.bookings.where(

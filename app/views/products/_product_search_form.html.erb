@@ -42,6 +42,7 @@
 
       <div class="col-md-6 col-12 px-1 mb-3">
         <%= f.label :end_date, "Date de fin", class: "form-label" %>
+        <%= f.hidden_field :bookings_dates, value: [], data: { datepicker_target: "bookingsDates" } %>
         <%= f.text_field :end_date,
                           class: "form-control",
                           placeholder: "Choisissez une date",
