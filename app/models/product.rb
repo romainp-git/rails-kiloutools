@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   has_many :bookings
   has_many :customers
 
-  has_one_attached :photo
+  has_many_attached :photos
 
   validates :name, :description, :state, :model, :price, presence: true
   validates :state, inclusion: { in: STATES, message: "%{value} isn't a valid state" }
