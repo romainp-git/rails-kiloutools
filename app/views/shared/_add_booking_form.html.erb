@@ -1,4 +1,4 @@
-<%= simple_form_for(booking, url: product_bookings_path(params[:id]), html: { class: "form-container shadow-sm p-4 bg-white rounded" }) do |f| %>
+<%= simple_form_for(booking, url: product_bookings_path(params[:id]), html: { class: "form-container p-4 bg-white rounded" }) do |f| %>
   <div class="form-group d-none">
     <%= f.input :product_id, as: :hidden, input_html: { value: params[:product_id] } %>
     <%= f.hidden_field :price_per_day, value: price, data: { datepicker_target: "pricePerDay" } %>

@@ -12,9 +12,6 @@ class ProductsController < ApplicationController
     @booking = Booking.new()
     @price = @product.price
 
-    @start_date = session[:start_date]
-    @end_date = session[:end_date]
-
     if @start_date.present? && @end_date.present?
       @availability = @product.bookings.where(
         "(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
@@ -26,8 +23,6 @@ class ProductsController < ApplicationController
   end
 
   def search
-    session[:start_date] = params[:search][:start_date] if params[:search][:start_date].present?
-    session[:end_date] = params[:search][:end_date] if params[:search][:end_date].present?
     render :index
   end
 
@@ -118,7 +113,7 @@ class ProductsController < ApplicationController
   end
 
   def load_products
-    @search_params = search_params
+    @search_params = search_params || {}
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
   end
@@ -149,7 +144,7 @@ class ProductsController < ApplicationController
   end
 
   def set_markers(products)
-    products.geocoded.map do |product|
+    products.map do |product|
       {
         lat: product.latitude,
         lng: product.longitude,
