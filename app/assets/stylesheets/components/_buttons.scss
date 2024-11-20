@@ -1,0 +1,15 @@
+.btn {
+  background-color: orange;
+  color: #fff;
+  border: none;
+  font-size: 0.8rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: darkorange;
+  color: #fff;
+}

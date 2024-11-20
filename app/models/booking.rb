@@ -4,5 +4,6 @@ class Booking < ApplicationRecord
   has_one :owner, through: :products, source: :user
 
   STATUS = ["Pending", "Accepted", "Refused"]
+  # STATUS = ["En attente", "Accepté", "Refusé"]
 
 end

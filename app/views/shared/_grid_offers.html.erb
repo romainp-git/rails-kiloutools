@@ -2,13 +2,13 @@
   <% @products.each do |product| %>
     <div class="product-card">
       <div class="product-card-image">
-        <img src="<%= product.photo %>" alt="<%= product.name %>">
+        <img src="<%= product.photos %>" alt="<%= product.name %>">
       </div>
       <div class="product-card-content">
         <h5 class="product-card-title"><%= product.name %></h5>
         <p class="product-card-description"><%= product.description %></p>
         <p class="product-card-price"><%= product.price %>€/jour</p>
-        <%= link_to "Voir produit", product_path(product), class: "btn-buy"%>
+        <%= link_to "Voir produit", product_path(product), class: "btn w-100 rounded-3 mt-3"%>
       </div>
     </div>
   <% end %>

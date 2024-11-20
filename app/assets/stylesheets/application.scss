@@ -13,6 +13,11 @@
 @import "components/index";
 @import "pages/index";
 
+body {
+  font-family: "poppins";
+  margin: 0;
+  padding: 0;
+}
 
 // CSS pour les flash ALERT ===========
 a {

@@ -1,29 +1,52 @@
 <div class="profil-container">
-  <h1>Your Profile</h1>
+  <h1> <%=  @user.username %> </h1>
   <div class="cards">
-  <div class="card-info">
-    <p><%= @user.first_name %></p>
-    <p><%= @user.last_name %> </p>
-    <p><%= @user.email %></p>
-    <p><%= @user.username %></p>
-    <p><%= @user.address %></p>
-    </div>
+    <div class="card-info">
+      <p><%= @user.first_name %></p>
+      <p><%= @user.last_name %> </p>
+      <p><%= @user.email %></p>
+      <p><%= @user.address %></p>
+    <%#= input type="checkbox" id="scales" name="scales" checked if %>
+      </div>
     <div class="card-picture">
-    <%= cl_image_tag(@user.photo.key,transformation: [
-      {gravity: "face", height: 200, width: 200, crop: "thumb"},
-      {radius: "max"},
-      {fetch_format: "auto"}])%>
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag @user.photo.key, class: "avatar", alt: "dropdown menu" %>
+        <% else %>
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar" alt="dropdown menu" >
+        <% end %>
     </div>
   </div>
+  <% if current_user == @user %>
+    <%= link_to "Modifier mon mots de passe", edit_user_registration_path(@user), class: "btn btn-light" %>
+    <div data-controller="toggle">
+      <button data-action="click->toggle#display" class="btn btn-outline-primary">Modifier mon profil</button>
+      <div class="d-none" data-toggle-target="form">
+        <%= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
+          <%= f.input :first_name %>
+          <%= f.input :last_name %>
+          <%= f.input :username %>
+          <%= f.input :email %>
+          <%= f.input :address %>
+          <%= f.input :photo, as: :file %>
+          <%= f.submit %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 
-  <%= link_to "Edit Password", edit_user_registration_path(@user), class:"btn btn-light" %>
+    <% if @user.products %>
+      <ul>
+        <% @user.products.each do |product| %>
+          <% if product.photos.attached? %>
+
+            <% product.photos.each do |photo| %>
+              <li> <%= cl_image_tag(photo.key, height: 300, width: 400, crop: :fill) %> <%= product.name %> - <%= product.price %></li>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+    <% else %>
+      <p> Aucun produits proposé par cet utilisateur</p>
+    <% end %>
+
 </div>
-
-<%#%=  <%= simple_form_for(user) do |f| %>
-  <%#= f.input :first_name %>
-  <%#= f.input :last_name %>
-  <%#= f.input :username %>
-  <%#= f.input :email %>
-  <%#= f.input :address %>
-  <%#= f.submit %>
-<%# end %>

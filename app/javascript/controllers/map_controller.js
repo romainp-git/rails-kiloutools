@@ -13,11 +13,10 @@ export default class extends Controller {
     const map = new mapboxgl.Map({
       container: this.element,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [2.3522, 48.8566], // Centre initial (ici Paris)
+      center: [2.3522, 48.8566],
       zoom: 12
     });
 
-    // Ajouter les markers
     this.markersValue.forEach((marker) => {
       const el = document.createElement("div");
       el.className = "marker";
@@ -31,7 +30,6 @@ export default class extends Controller {
         .addTo(map);
     });
 
-    // Ajuster les bounds
     if (this.markersValue.length) {
       const bounds = new mapboxgl.LngLatBounds();
       this.markersValue.forEach((marker) =>

@@ -182,7 +182,7 @@ products = [
   {
     name: "Tondeuse à gazon",
     description: "Tondeuse à gazon électrique pour jardins de taille moyenne.",
-    state: "New",
+    state: Product::STATES.sample,
     model: "GLM 120",
     price: 150.0,
     brand_id: Brand.find_by(name: "Bosch").id,
@@ -192,7 +192,7 @@ products = [
   {
     name: "Perceuse",
     description: "Perceuse sans fil avec batterie lithium-ion.",
-    state: "Like new",
+    state: Product::STATES.sample,
     model: "DCD771C2",
     price: 80.0,
     brand_id: Brand.find_by(name: "DeWalt").id,
@@ -202,7 +202,7 @@ products = [
   {
     name: "Scie circulaire",
     description: "Scie circulaire portable pour coupes précises.",
-    state: "Good",
+    state: Product::STATES.sample,
     model: "561534-7",
     price: 120.0,
     brand_id: Brand.find_by(name: "Makita").id,
@@ -212,7 +212,7 @@ products = [
   {
     name: "Clé à molette",
     description: "Clé à molette ajustable pour divers travaux de plomberie.",
-    state: "Fair",
+    state: Product::STATES.sample,
     model: "85601",
     price: 20.0,
     brand_id: Brand.find_by(name: "Stanley").id,
@@ -222,7 +222,7 @@ products = [
   {
     name: "Truelle",
     description: "Truelle en acier inoxydable pour travaux de maçonnerie.",
-    state: "Poor",
+    state: Product::STATES.sample,
     model: "12345",
     price: 15.0,
     brand_id: Brand.find_by(name: "Ryobi").id,
@@ -232,7 +232,7 @@ products = [
   {
     name: "Pistolet à peinture",
     description: "Pistolet à peinture électrique pour travaux de peinture.",
-    state: "New",
+    state: Product::STATES.sample,
     model: "W970",
     price: 70.0,
     brand_id: Brand.find_by(name: "Black & Decker").id,
@@ -242,7 +242,7 @@ products = [
   {
     name: "Cric hydraulique",
     description: "Cric hydraulique pour levage de véhicules.",
-    state: "Like new",
+    state: Product::STATES.sample,
     model: "3-Ton",
     price: 50.0,
     brand_id: Brand.find_by(name: "Craftsman").id,
@@ -252,7 +252,7 @@ products = [
   {
     name: "Poste à souder",
     description: "Poste à souder à l'arc pour travaux de soudure.",
-    state: "Good",
+    state: Product::STATES.sample,
     model: "Easyweld 2.0",
     price: 200.0,
     brand_id: Brand.find_by(name: "Husqvarna").id,
@@ -262,7 +262,7 @@ products = [
   {
     name: "Aspirateur",
     description: "Aspirateur sans fil pour nettoyage domestique.",
-    state: "Fair",
+    state: Product::STATES.sample,
     model: "V8 Absolute",
     price: 100.0,
     brand_id: Brand.find_by(name: "Karcher").id,
@@ -272,7 +272,7 @@ products = [
   {
     name: "Scie sauteuse",
     description: "Scie sauteuse pour coupes précises et courbes.",
-    state: "Poor",
+    state: Product::STATES.sample,
     model: "JS300",
     price: 90.0,
     brand_id: Brand.find_by(name: "Bosch").id,
@@ -289,7 +289,7 @@ end
 # BOOKINGS CREATION
 
 # Statuts possibles pour les réservations
-statuses = ["Pending", "Accepted", "Refused"]
+STATUS = ["En attente", "Accepté", "Refusé"]
 
 # Générer 10 réservations avec des données fictives
 10.times do

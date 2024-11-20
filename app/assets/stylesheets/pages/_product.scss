@@ -1,0 +1,186 @@
+.product-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  margin-top: 56px;
+}
+
+.product-container .left-container {
+  flex: 2;
+  padding: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product-details {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0;
+  align-items: center;
+}
+
+.product-details .price {
+  text-align: end;
+  font-size: 22px;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.product-info-group {
+  margin: 20px 0;
+}
+
+.product-info {
+  margin-bottom: 10px;
+}
+
+.info-label {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.info-value {
+  font-size: 1rem;
+  color: #333;
+}
+
+.product-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.product-actions .btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.product-actions .btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.owner-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  margin: 20px 0;
+}
+
+.owner-photo {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.img-owner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}
+
+.owner-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.owner-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-location {
+  width: 16px;
+  height: 16px;
+  background-image: url('/path/to/location-icon.svg');
+  background-size: cover;
+}
+
+.location {
+  font-size: 14px;
+  color: #555;
+}
+
+.username {
+  font-size: 16px;
+  color: #333;
+}
+
+.owner-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.owner-joined,
+.owner-products {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-calendar,
+.icon-tools {
+  width: 16px;
+  height: 16px;
+  background-size: cover;
+}
+
+.icon-calendar {
+  background-image: url('/path/to/calendar-icon.svg');
+}
+
+.icon-tools {
+  background-image: url('/path/to/tools-icon.svg');
+}
+
+.joined-date,
+.products-count {
+  font-size: 14px;
+  color: #555;
+}
+
+.product-container .right-container {
+  flex: 1;
+  position: sticky;
+  top: 76px;
+  height: fit-content;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

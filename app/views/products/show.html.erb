@@ -1,0 +1,90 @@
+<%= render "modal_delete" %>
+
+<div class="product-container">
+  <!-- Colonne gauche -->
+  <div class="left-container">
+
+    <div class="product-details">
+      <div>
+        <span class="badge text-bg-secondary"><%= @product.state %></span>
+        <h1 class="product-title"><%= @product.name %></h1>
+        <p class="product-description"><%= @product.category.name %></p>
+      </div>
+      <div class="price">
+        <h5 class="fw-bold m-0"><%= @product.price %> €</h5>
+        <p class="product-description">par jour</p>
+      </div>
+    </div>
+
+    <div class="product-image">
+      <% if @product.photo.present? %>
+        <%= image_tag @product.photo, class: "mx-auto", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
+      <% else %>
+        <%= image_tag 'no_picture.jpg', class: "mx-auto", alt: "No picture available" %>
+      <% end %>
+    </div>
+
+    <div class="owner-info">
+      <div class="owner-photo">
+        <% if @product.owner.photo.present? %>
+          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
+        <% else %>
+          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "No picture available" %>
+        <% end %>
+      </div>
+
+      <div class="owner-details">
+        <div class="owner-location">
+          <i class="bi bi-geo-alt color-black"></i>
+          <p class="location"><%= @place_name %></p>
+        </div>
+        <div class="owner-name">
+          <p class="username"><strong><%= @product.owner.username %></strong></p>
+        </div>
+      </div>
+
+      <div class="owner-stats">
+        <div class="owner-joined">
+          <i class="bi bi-calendar3 color-black"></i>
+          <p class="joined-date"><%= @product.owner.created_at.strftime("%d-%m-%Y") %></p>
+        </div>
+        <div class="owner-products">
+          <i class="bi bi-tools"></i>
+          <p class="products-count"><%= @count_products_per_owner %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-info-group">
+      <div class="product-info">
+        <p class="info-label"><strong>Catégorie</strong></p>
+        <p class="info-value"><%= @product.category.name %></p>
+      </div>
+      <div class="product-info">
+        <p class="info-label"><strong>Description</strong></p>
+        <p class="info-value"><%= @product.description %></p>
+      </div>
+      <div class="product-info">
+        <p class="info-label"><strong>Marque</strong></p>
+        <p class="info-value"><%= @product.brand.name %></p>
+      </div>
+      <div class="product-info">
+        <p class="info-label"><strong>Modèle</strong></p>
+        <p class="info-value"><%= @product.model %></p>
+      </div>
+    </div>
+
+    <div class="product-actions">
+      <%= link_to "Retour", products_path, class: "btn btn-secondary" %>
+      <%= link_to "Éditer", edit_product_path(@product), class: "btn" %>
+      <% if @product.can_be_destroyed? %>
+        <%= link_to "Supprimer", "#", class: "btn btn-danger text-white", data: { bs_toggle: "modal", bs_target: "#deleteModal" } %>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="right-container">
+    <%= render 'shared/add_booking_form', { booking: @booking, price: @price }%>
+  </div>
+</div>
