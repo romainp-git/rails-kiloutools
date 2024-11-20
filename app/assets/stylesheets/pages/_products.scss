@@ -9,14 +9,14 @@ p {
 
 .products {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - var(--header-height));
 }
 
 .products .left-container {
   flex: 2;
   overflow-y: auto;
   position: relative;
-  min-height: calc(100vh-56px);
+  min-height: calc(100vh - var(--header-height));
   scrollbar-width: none;
 }
 
@@ -24,14 +24,13 @@ p {
   display: none;
 }
 
-.products .left-container .products-grid {
-  margin-top: 80px;
+.products .products-grid{
+  margin-top: 20px;
 }
 
 .products .right-container {
   flex: 1;
   position: relative;
-  margin-top: 56px;
 }
 
 .map {
@@ -52,17 +51,16 @@ p {
   height: 100%;
 }
 
-
 .carousel-inner img {
-  width: 100%;      /* S'adapte à la largeur de l'élément parent */
-  height: auto;     /* Maintient les proportions */
-  max-height: 500px; /* Limite la hauteur */
+  width: 100%;
+  height: auto;
+  max-height: 500px;
 }
 
 .search-container {
   font-family: "poppins";
   position: sticky;
-  top: 80px;
+  top: 20px;
   z-index: 1000;
   width: 70%;
   max-width: 800px;
