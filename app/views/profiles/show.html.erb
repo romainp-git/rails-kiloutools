@@ -1,14 +1,22 @@
-<div class="container">
+<div class="profil-container">
   <h1>Your Profile</h1>
-  <p><%= @user.first_name %></p>
-  <p><%= @user.last_name %> </p>
-  <p><%= @user.email %></p>
-  <p><%= @user.username %></p>
-  <p><%= @user.address %></p> 
-  <%= cl_image_tag(@user.photo.key,
-        width: 150, height: 150, crop: :thumb, gravity: :face) %>
+  <div class="cards">
+  <div class="card-info">
+    <p><%= @user.first_name %></p>
+    <p><%= @user.last_name %> </p>
+    <p><%= @user.email %></p>
+    <p><%= @user.username %></p>
+    <p><%= @user.address %></p>
+    </div>
+    <div class="card-picture">
+    <%= cl_image_tag(@user.photo.key,transformation: [
+      {gravity: "face", height: 200, width: 200, crop: "thumb"},
+      {radius: "max"},
+      {fetch_format: "auto"}])%>
+    </div>
+  </div>
 
-  <%= link_to "Edit Password", edit_user_registration_path(@user)  %>
+  <%= link_to "Edit Password", edit_user_registration_path(@user), class:"btn btn-light" %>
 </div>
 
 <%#%=  <%= simple_form_for(user) do |f| %>
