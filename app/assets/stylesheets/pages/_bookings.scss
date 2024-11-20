@@ -1,0 +1,93 @@
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.request-details h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.dates {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.date-item {
+  background: #f3f3f3;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.date-item p {
+  margin: 5px 0;
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.rental-summary {
+  flex: 1;
+  min-width: 300px;
+}
+
+.renter-info {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.renter-info strong {
+  font-size: 1.2em;
+}
+
+.rental-summary ul {
+  list-style: none;
+  padding: 0;
+}
+
+.rental-summary ul li {
+  margin: 5px 0;
+}
+
+.other-details {
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+.material-list {
+  flex: 1;
+  min-width: 300px;
+}
+
+.item {
+  background: #f3f3f3;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.item p {
+  margin: 5px 0;
+}
+
+.status {
+  color: green;
+  font-weight: bold;
+}
