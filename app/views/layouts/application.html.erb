@@ -12,12 +12,13 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="<%= "#{controller_name}-#{action_name}" %>">
 
     <%= render "shared/navbar" %>
-    <%= yield %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
+    <main class="page-container">
+      <%= yield %>
+    </main>
+    <%= render "shared/flashes" %>
+
   </body>
 </html>
