@@ -11,9 +11,23 @@ class ProductsController < ApplicationController
 
     @booking = Booking.new()
     @price = @product.price
+
+    @start_date = session[:start_date]
+    @end_date = session[:end_date]
+
+    if @start_date.present? && @end_date.present?
+      @availability = @product.bookings.where(
+        "(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
+        @end_date, @start_date, @end_date, @start_date
+      )
+    else
+      @availability = []
+    end
   end
 
   def search
+    session[:start_date] = params[:search][:start_date] if params[:search][:start_date].present?
+    session[:end_date] = params[:search][:end_date] if params[:search][:end_date].present?
     render :index
   end
 
@@ -129,7 +143,7 @@ class ProductsController < ApplicationController
   end
 
   def set_markers(products)
-    products.map do |product|
+    products.geocoded.map do |product|
       {
         lat: product.latitude,
         lng: product.longitude,
@@ -138,8 +152,7 @@ class ProductsController < ApplicationController
   end
 
   def find_place_name
-    current_product = Product.find(params[:id])
-    results = Geocoder.search(current_product.owner.address)
+    results = Geocoder.search(@product.owner.address)
     if results.present?
       place_name = results.first.data["place_name"]
     else
@@ -149,8 +162,7 @@ class ProductsController < ApplicationController
   end
 
   def count_products_per_owner
-    current_product = Product.find(params[:id])
-    return Product.where(user_id: current_product[:user_id]).count
+    return Product.where(user_id: @product [:user_id]).count
   end
 
 end
