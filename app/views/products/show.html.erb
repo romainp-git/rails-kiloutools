@@ -19,12 +19,12 @@
 
 
 <%# START OF THE VIEW =============================================== %>
-<%# @product.owner.photo_url %>
+<%# @product.owner.photo %>
 <div class="container">
   <div class="row align-items-start pt-4">
     <div class="col d-flex flex-row gap-3">
       <div class="">
-        <% if @product.owner.photo_url.present? %>
+        <% if @product.owner.photo.present? %>
           <%= image_tag 'no_profil.jpg', class: "img-owner rounded-circle", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
         <% else %>
           <%= image_tag 'no_profil.jpg', class: "img-owner rounded-circle", alt: "No picture available" %>
@@ -57,8 +57,8 @@
     </div>
     <div class="col-6">
       <div class="product-image">
-        <% if @product.photo_url.present? %>
-          <%= image_tag @product.photo_url, class: "mx-auto d-block", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
+        <% if @product.photo.present? %>
+          <%= image_tag @product.photo, class: "mx-auto d-block", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
         <% else %>
           <%= image_tag 'no_picture.jpg', class: "mx-auto d-block", alt: "No picture available" %>
         <% end %>
