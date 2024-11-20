@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  STATES = ["New", "Like new", "Good", "Fair", "Poor"]
+  STATES = ["Neuf", "Comme neuf", "Très bon état", "Bon état", "Usagé"]
 
   belongs_to :brand
   belongs_to :category
@@ -8,10 +8,10 @@ class Product < ApplicationRecord
   has_many :bookings
   has_many :customers
 
-  has_one_attached :photo
+  has_many_attached :photos
 
   validates :name, :description, :state, :model, :price, presence: true
-  validates :state, inclusion: { in: STATES, message: "%{value} isn't a valid state" }
+  validates :state, inclusion: { in: STATES }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
   geocoded_by :address

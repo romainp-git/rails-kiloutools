@@ -28,23 +28,26 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @product.user_id = current_user.
   end
 
   def create
     @product = Product.new(product_params)
+    @product
     begin
       if @product.save
-        flash[:notice] = "Product was successfully created"
-        redirect_to @product
+        raise
+        # flash[:notice] = "Product was successfully created"
+        redirect_to product_path(@product)
       else
-        flash[:alert] = "Failed to create product"
-        render :new
+        # flash[:alert] = "Failed to create product"
+        render :new, status: :unprocessable_entity
       end
     rescue => e
-      # log_error(e)
       Rails.logger.error("Error creating product: #{e}")
-      flash[:alert] = "Failed to create product"
+      # flash[:alert] = "Failed to create product"
       redirect_back(fallback_location: root_path)
+      # render :new, status: :unprocessable_entity
     end
   end
 
@@ -54,16 +57,15 @@ class ProductsController < ApplicationController
   def update
     begin
       if @product.update(product_params)
-        flash[:notice] = "Product was successfully updated"
-        redirect_to @product
+        # flash[:notice] = "Product was successfully updated"
+        product_path(@product)
       else
-        flash[:alert] = "Failed to update product"
+        # flash[:alert] = "Failed to update product"
         render :edit
       end
     rescue => e
-      # log_error(e)
       Rails.logger.error("Error creating product: #{e}")
-      flash[:alert] = "Failed to update product"
+      # flash[:alert] = "Failed to update product"
       redirect_back(fallback_location: root_path)
     end
   end
@@ -71,16 +73,16 @@ class ProductsController < ApplicationController
   def destroy
     begin
       if @product.destroy
-        flash[:notice] = "Product was successfully destroyed"
+        # flash[:notice] = "Product was successfully destroyed"
         redirect_to products_path
       else
-        flash[:alert] = "Failed to delete product"
+        # flash[:alert] = "Failed to delete product"
         redirect_to product_path(@product)
       end
     rescue => e
       # log_error(e)
       Rails.logger.error("Error creating product: #{e}")
-      flash[:alert] = "Failed to delete product"
+      # flash[:alert] = "Failed to delete product"
       redirect_back(fallback_location: root_path)
     end
   end
@@ -88,7 +90,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :state, :model, :photo_url, :price)
+    params.require(:product).permit(:name, :description, :state, :model, :price, photos: [])
   end
 
   def search_params
@@ -101,7 +103,7 @@ class ProductsController < ApplicationController
     rescue => e
       # log_error(e)
       Rails.logger.error("Error creating product: #{e}")
-      flash[:alert] = "Product not found"
+      # flash[:alert] = "Product not found"
       redirect_to products_path
     end
   end

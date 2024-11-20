@@ -52,28 +52,6 @@ p {
   height: 100%;
 }
 
-.form-control.is-valid,
-.form-control:valid,
-.select2-container--default .select2-selection--single .is-valid,
-.select2-container--default .select2-selection--multiple .is-valid {
-  border-color: #ced4da;
-}
-
-.form-control.is-valid ~ .valid-feedback,
-.form-control:valid ~ .valid-feedback,
-.select2-container--default .select2-selection--single .is-valid ~ .valid-feedback,
-.select2-container--default .select2-selection--multiple .is-valid ~ .valid-feedback,
-.valid-feedback {
-  display: none;
-}
-
-.form-control.is-valid,
-.form-control:valid,
-.select2-container--default .select2-selection--single .is-valid,
-.select2-container--default .select2-selection--multiple .is-valid {
-  background-image: none !important;
-}
-
 .search-container {
   font-family: "poppins";
   position: sticky;

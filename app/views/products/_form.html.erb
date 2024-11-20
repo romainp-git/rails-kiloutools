@@ -1,26 +1,27 @@
 <div class="container">
   <div class="row align-items-center pb-4">
-    <div class="col-6">
+    <div class="col-10">
       <h1><%= @fTitle %></h1>
 
       <%= simple_form_for @product do |f| %>
-        <%= f.error_notification %>
-
         <div class="form-inputs">
-          <%= f.input :name %>
-          <%= f.input :description %>
-          <%= f.input :state %>
-          <%= f.input :model %>
-          <%= f.input :photo %>
-          <%= f.input :price %>
-          <%= f.association :brand %>
-          <%= f.association :category %>
-          <%= f.input :latitude %>
-          <%= f.input :longitude %>
+          <%= f.input :name, label: "Nom du produit" %>
+          <%= f.association :category, label: "Catégorie" %>
+          <%= f.association :brand, label: "Marque" %>
+          <%= f.input :model, label: "Modèle" %>
+          <%= f.input :description, label: "Description du produit" %>
+          <%= f.input :state, as: :select, label: "Etat", collection: Product::STATES, include_blank: "Sélectionner un état" %>
+          <%= f.input :price, label: "Prix de location à la journée" %>
+          <%= f.input :photos, as: :file, label: "Sélectionner vos photos", input_html: { multiple: true } %>
+          <% if form_mode != :new %>
+            <%= f.input :latitude, label: "Latitude", input_html: { disabled: true } %>
+            <%= f.input :longitude, label: "Longitude", input_html: { disabled: true } %>
+          <% end %>
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit %>
+          <%= link_to "Annuler", products_path, class: "btn btn-secondary" %>
+          <%= f.button :submit, label_submit || "Enregistrer", class: "btn btn-primary" %>
         </div>
       <% end %>
 
