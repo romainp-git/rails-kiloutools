@@ -17,62 +17,103 @@
   </div>
 </div>
 
+<%# LIGNE DE TITRE =============================================== %>
 
-<%# START OF THE VIEW =============================================== %>
-<%# @product.owner.photo_url %>
 <div class="container">
-  <div class="row align-items-start pt-4">
-    <div class="col d-flex flex-row gap-3">
-      <div class="">
-        <% if @product.owner.photo_url.present? %>
+  <div class="row py-4">
+    <div class="col-2 d-flex justify-content-end align-items-center">
+      <p class="fs-4 rounded-4 badge bg-info text-dark align-middle text-end"><%= @product.state %></p>
+    </div>
+    <div class="col-8 text-nowrap d-flex flex-column align-items-center">
+      <label class="fs-1 fw-bold"><%= @product.name %> (<%= @product.id %>)</label>
+      <label class="fs-3"><%= @product.category.name %> </label>
+    </div>
+    <div class="col-2 text-end align-middle">
+      <span class="color-secondary">per day</span>
+      <h1 class="fs-2 fw-bold"><%= @product.price %> €</h1>
+    </div>
+  </div>
+</div>
+
+<%# LIGNE OWNER =============================================== %>
+
+<div class="container border-top border-bottom py-3">
+  <div class="row">
+    <div class="col-1">
+        <% if @product.owner.photo.present? %>
           <%= image_tag 'no_profil.jpg', class: "img-owner rounded-circle", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
         <% else %>
           <%= image_tag 'no_profil.jpg', class: "img-owner rounded-circle", alt: "No picture available" %>
         <% end %>
+    </div>
+    <div class="col-5">
+      <div class="row d-flex flex-row">
+        <i class="bi bi-geo-alt color-black"></i>
+        <p><%= @place_name %></p>
       </div>
-      <p><%= @product.owner.username %></p>
-      <i class="bi bi-geo-alt color-black"></i>
-      <p><%= @place_name %></p>
+      <div class="row fw-bold pt-2">
+        <p><%= @product.owner.username %></p>
+      </div>
+    </div>
+    <div class="col-3">
       <i class="bi bi-calendar3 color-black"></i>
       <p><%= @product.owner.created_at.strftime("%d-%m-%Y") %></p>
+    </div>
+    <div class="col-3">
       <i class="bi bi-tools"></i>
       <p><%= @count_products_per_owner %></p>
-
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="row align-items-center pb-4">
-    <div class="col-6">
-      <h1><%= @product.name %> (<%= @product.id %>)</h1>
-      <p><strong>Description:</strong> <%= @product.description %></p>
-      <p><strong>State:</strong> <%= @product.state %></p>
-      <p><strong>Model:</strong> <%= @product.model %></p>
-      <p><strong>Price:</strong> <%= @product.price %> €</p>
-      <p><strong>Brand:</strong> <%= @product.brand.name %></p>
-      <p><strong>Category:</strong> <%= @product.category.name %></p>
-      <p><strong>Owner:</strong> <%= @product.owner.username %></p>
-      <p><strong>Latitude:</strong> <%= @product.latitude %></p>
-      <p><strong>Longitude:</strong> <%= @product.longitude %></p>
-    </div>
+
+<%# LIGNE PHOTO ET FINANCES =============================== %>
+
+<div class="container py-3 mb-3 border-bottom">
+  <div class="row">
     <div class="col-6">
       <div class="product-image">
-        <% if @product.photo_url.present? %>
-          <%= image_tag @product.photo_url, class: "mx-auto d-block", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
+        <% if @product.photo.present? %>
+          <%= image_tag @product.photo, class: "mx-auto d-block", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
         <% else %>
           <%= image_tag 'no_picture.jpg', class: "mx-auto d-block", alt: "No picture available" %>
         <% end %>
       </div>
     </div>
+    <div class="col-6">
+      <%= render 'shared/add_booking_form', { booking: @booking, price: @price }%>
+    </div>
   </div>
 </div>
 
-<div class="container form-group mt-3 mb-5 pt-0">
+<%# LIGNE DETAILS =============================== %>
+
+<div class="container mt-3 px-5">
+  <div class="row">
+    <div class="col-2 text-align-start"><strong>Category:</strong></div>
+    <div class="col-10 text-align-start"><%= @product.category.name %></div>
+  </div>
+  <div class="row">
+    <div class="col-2 text-align-start"><strong>Description:</strong></div>
+    <div class="col-10 text-align-start"><%= @product.description %></div>
+  </div>
+  <div class="row">
+    <div class="col-2 text-align-start"><strong>Brand:</strong></div>
+    <div class="col-10 text-align-start"><%= @product.brand.name %></div>
+  </div>
+  <div class="row">
+    <div class="col-2 text-align-start"><strong>Model:</strong></div>
+    <div class="col-10 text-align-start"><%= @product.model %></div>
+  </div>
+  <div class="row">
+    <div class="col-2 text-align-start"><strong>State:</strong></div>
+    <div class="col-10 text-align-start"><%= @product.state %></div>
+  </div>
+</div>
+
+<div class="container form-group mt-3 mb-5 px-5 pt-0">
   <%= link_to "Cancel", products_path, class: "btn btn-secondary" %>
   <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
   <% if @product.can_be_destroyed? %>
     <%= link_to "Delete", "#", class: "btn btn-danger text-white", data: { bs_toggle: "modal", bs_target: "#deleteModal" } %>
   <% end %>
 </div>
-
-<%= render 'shared/add_booking_form', { booking: @booking, price: @price }%>
