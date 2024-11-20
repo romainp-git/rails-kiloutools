@@ -72,8 +72,10 @@
   <div class="row">
     <div class="col-6">
       <div class="product-image">
-        <% if @product.photo.present? %>
-          <%= image_tag @product.photo, class: "mx-auto d-block", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
+        <% if @product.photos.present? %>
+          <% @product.photos.each do |photo| %>
+            <%= cl_image_tag photo.key, heigth: 300, width: 400, crop: :fill %>
+          <% end %>
         <% else %>
           <%= image_tag 'no_picture.jpg', class: "mx-auto d-block", alt: "No picture available" %>
         <% end %>
@@ -110,7 +112,7 @@
   </div>
 </div>
 
-<div class="container form-group mt-3 mb-5 px-5 pt-0">
+<div class="container mt-3 px-5 form-group mb-5 pt-0">
   <%= link_to "Cancel", products_path, class: "btn btn-secondary" %>
   <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
   <% if @product.can_be_destroyed? %>
