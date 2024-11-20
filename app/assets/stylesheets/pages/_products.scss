@@ -9,14 +9,19 @@ p {
 
 .products {
   display: flex;
-  height: calc(100vh - 66px);
+  height: 100vh;
 }
 
 .left-container {
+  margin-top: 56px;
   flex: 2;
   overflow-y: auto;
+  position: relative;
+  min-height:  calc(100vh-56px);
 }
+
 .right-container {
+  margin-top: 56px;
   flex: 1;
   position: relative;
 }
@@ -39,16 +44,13 @@ p {
   height: 100%;
 }
 
-
-/* Désactiver les contours verts pour les champs validés */
 .form-control.is-valid,
 .form-control:valid,
 .select2-container--default .select2-selection--single .is-valid,
 .select2-container--default .select2-selection--multiple .is-valid {
-  border-color: #ced4da; /* Couleur de bordure par défaut */
+  border-color: #ced4da;
 }
 
-/* Désactiver les icônes de validation */
 .form-control.is-valid ~ .valid-feedback,
 .form-control:valid ~ .valid-feedback,
 .select2-container--default .select2-selection--single .is-valid ~ .valid-feedback,
@@ -57,10 +59,83 @@ p {
   display: none;
 }
 
-/* Désactiver les icônes de coche verte */
 .form-control.is-valid,
 .form-control:valid,
 .select2-container--default .select2-selection--single .is-valid,
 .select2-container--default .select2-selection--multiple .is-valid {
   background-image: none !important;
+}
+
+.search-container {
+  font-family: "poppins";
+  position: sticky;
+  top: 10px;
+  z-index: 1000;
+  width: 70%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+.search-container.expanded {
+  width: 90%;
+}
+
+.search-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  cursor: pointer;
+}
+
+.search-summary span {
+  font-size: 14px;
+  flex-grow: 1;
+  color: #555;
+  border-right: solid 1px;
+  padding: 0 20px;
+  text-align: start;
+}
+
+.search-summary button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: orange;
+  cursor: pointer;
+  outline: none;
+  transition: color 0.3s ease;
+  margin-left:15px;
+}
+
+.search-summary button:hover {
+  color: darkorange;
+  text-decoration: underline;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 25px;
+  gap: 15px;
+}
+
+.search-form .form-control {
+  font-size: 14px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-form .form-group {
+  flex: 1;
+  min-width: calc(50% - 15px);
 }
