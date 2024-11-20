@@ -39,34 +39,8 @@ p {
   height: 100%;
 }
 
-
-// /* Désactiver les contours verts pour les champs validés */
-// .form-seleect.is-valid,
-// .form-select:valid,
-// .form-control.is-valid,
-// .form-control:valid,
-// .select2-container--default .select2-selection--single .is-valid,
-// .select2-container--default .select2-selection--multiple .is-valid {
-//   border-color: #ced4da; /* Couleur de bordure par défaut */
-// }
-
-// /* Désactiver les icônes de validation */
-// // .form-seleect.is-valid,
-// // .form-select:valid,
-// .form-control.is-valid ~ .valid-feedback,
-// .form-control:valid ~ .valid-feedback,
-// .select2-container--default .select2-selection--single .is-valid ~ .valid-feedback,
-// .select2-container--default .select2-selection--multiple .is-valid ~ .valid-feedback,
-// .valid-feedback {
-//   display: none;
-// }
-
-// /* Désactiver les icônes de coche verte */
-// .form-seleect.is-valid,
-// .form-select:valid,
-// .form-control.is-valid,
-// .form-control:valid,
-// .select2-container--default .select2-selection--single .is-valid,
-// .select2-container--default .select2-selection--multiple .is-valid {
-//   background-image: none !important;
-// }
+.carousel-inner img {
+  width: 100%;      /* S'adapte à la largeur de l'élément parent */
+  height: auto;     /* Maintient les proportions */
+  max-height: 500px; /* Limite la hauteur */
+}
