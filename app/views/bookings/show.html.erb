@@ -1,2 +1,51 @@
-<h1>Booking detail</h1>
-<p>Booki</p>
+<div class="container">
+        <div class="header">
+            <h1>Interviews</h1>
+        </div>
+
+        <div class="request-details">
+            <h2>Votre demande</h2>
+            <div class="dates">
+                <div class="date-item">
+                    <p><%= @booking.start_date %></p>
+                    <p>Départ matériel<br>Après <strong>15:00</strong></p>
+                </div>
+                <div class="date-item">
+                    <p><%= @booking.end_date %></p>
+                    <p>Retour matériel<br>Avant <strong>12:00</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="details">
+            <div class="rental-summary">
+                <div class="renter-info">
+                    <p><strong><%=@booking.product.owner%></strong></p>
+                    <p>⭐️ - (Aucun avis vérifié)</p>
+                </div>
+                <ul>
+                    <li><%= @booking.product.price%>€ x 2 jour(s): <strong><%=@booking.amount %>€</strong></li>
+                    <li>Prix location HT: <strong><%=@booking.amount %>€</strong></li>
+                    <li>Services: <strong>0.00€</strong></li>
+                    <li>Assurance: <strong>0.00€</strong></li>
+                    <li>Frais de service HT (5%): <strong>7.00€</strong></li>
+                </ul>
+                <p>Total (HT): <strong>115.76€</strong></p>
+                <p>TVA: <strong>1.40€</strong></p>
+                <p>Total TTC: <strong>117.16€</strong></p>
+                <div class="other-details">
+                    <p>Dépôt de garantie: <strong>340.00€</strong></p>
+                    <p>Valeur de remplacement: <strong>2800.00€</strong></p>
+                </div>
+            </div>
+            <div class="material-list">
+                <h2>Liste matériel</h2>
+                <div class="item">
+                    <p><strong>Caméras DSLR</strong></p>
+                    <p>Sony Alpha 7 IV</p>
+                    <p>Quantité: 1</p>
+                    <p><strong>100.00€ HT</strong> <span class="status">Validé</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
