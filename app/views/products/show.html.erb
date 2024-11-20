@@ -15,9 +15,9 @@
         <p class="product-description">par jour</p>
       </div>
     </div>
-    
+
     <div class="product-image">
-      <% if @product.photo.present? %>
+      <% if @product.photos.present? %>
         <%= render 'shared/products_carroussel', product: @product %>
       <% else %>
         <%= image_tag 'no_picture.jpg', class: "mx-auto", alt: "No picture available" %>
