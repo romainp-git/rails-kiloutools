@@ -16,7 +16,11 @@
           </li>
           <li class="nav-item dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= cl_image_tag current_user.photo.key, class: "avatar", alt: "dropdown menu" %>
+            <% if @user && @user.photo.attached? %>
+              <%= cl_image_tag @user.photo.key, class: "avatar", alt: "dropdown menu" %>
+            <% else %>
+              <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar" alt="dropdown menu" >
+            <% end %>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%#= link_to "Edit Password", edit_user_password_pat(@user), class: "dropdown-item" %>
