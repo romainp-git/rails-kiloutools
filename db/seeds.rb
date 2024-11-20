@@ -296,7 +296,7 @@ STATUS = ["En attente", "Accepté", "Refusé"]
   Booking.create!(
     start_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
     end_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
-    status: statuses.sample,
+    status: STATUS.sample,
     amount: Faker::Commerce.price,
     product_id: Product.all.sample.id,
     user_id: User.all.sample.id

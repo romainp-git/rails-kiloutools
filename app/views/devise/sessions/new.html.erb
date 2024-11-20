@@ -8,7 +8,7 @@
                 autofocus: true,
                 input_html: { autocomplete: "email" } %>
     <%= f.input :password,
-                as: :string,
+                as: :password,
                 required: false,
                 input_html: { autocomplete: "current-password" } %>
     <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
