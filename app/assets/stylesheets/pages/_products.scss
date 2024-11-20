@@ -35,6 +35,32 @@ p {
 }
 
 .img-owner {
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Désactiver les contours verts pour les champs validés */
+.form-control.is-valid,
+.form-control:valid,
+.select2-container--default .select2-selection--single .is-valid,
+.select2-container--default .select2-selection--multiple .is-valid {
+  border-color: #ced4da; /* Couleur de bordure par défaut */
+}
+
+/* Désactiver les icônes de validation */
+.form-control.is-valid ~ .valid-feedback,
+.form-control:valid ~ .valid-feedback,
+.select2-container--default .select2-selection--single .is-valid ~ .valid-feedback,
+.select2-container--default .select2-selection--multiple .is-valid ~ .valid-feedback,
+.valid-feedback {
+  display: none;
+}
+
+/* Désactiver les icônes de coche verte */
+.form-control.is-valid,
+.form-control:valid,
+.select2-container--default .select2-selection--single .is-valid,
+.select2-container--default .select2-selection--multiple .is-valid {
+  background-image: none !important;
 }

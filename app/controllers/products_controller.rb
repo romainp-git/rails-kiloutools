@@ -140,6 +140,7 @@ class ProductsController < ApplicationController
   def find_place_name
     current_product = Product.find(params[:id])
     results = Geocoder.search(current_product.owner.address)
+
     if results.present?
       place_name = results.first.data["place_name"]
     else
