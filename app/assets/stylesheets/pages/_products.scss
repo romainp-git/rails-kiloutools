@@ -52,6 +52,13 @@ p {
   height: 100%;
 }
 
+
+.carousel-inner img {
+  width: 100%;      /* S'adapte à la largeur de l'élément parent */
+  height: auto;     /* Maintient les proportions */
+  max-height: 500px; /* Limite la hauteur */
+}
+
 .search-container {
   font-family: "poppins";
   position: sticky;

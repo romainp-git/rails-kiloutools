@@ -28,15 +28,15 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @product.user_id = current_user.
   end
 
   def create
+    # Rails.logger.debug @product.inspect
     @product = Product.new(product_params)
-    @product
+    @product.user_id = current_user.id
+
     begin
       if @product.save
-        raise
         # flash[:notice] = "Product was successfully created"
         redirect_to product_path(@product)
       else
@@ -45,6 +45,7 @@ class ProductsController < ApplicationController
       end
     rescue => e
       Rails.logger.error("Error creating product: #{e}")
+      Rails.logger.debug @product.inspect
       # flash[:alert] = "Failed to create product"
       redirect_back(fallback_location: root_path)
       # render :new, status: :unprocessable_entity
@@ -58,13 +59,14 @@ class ProductsController < ApplicationController
     begin
       if @product.update(product_params)
         # flash[:notice] = "Product was successfully updated"
-        product_path(@product)
+        redirect_to product_path(@product)
       else
         # flash[:alert] = "Failed to update product"
         render :edit
       end
     rescue => e
       Rails.logger.error("Error creating product: #{e}")
+      Rails.logger.debug @product.inspect
       # flash[:alert] = "Failed to update product"
       redirect_back(fallback_location: root_path)
     end
@@ -82,6 +84,7 @@ class ProductsController < ApplicationController
     rescue => e
       # log_error(e)
       Rails.logger.error("Error creating product: #{e}")
+      Rails.logger.debug @product.inspect
       # flash[:alert] = "Failed to delete product"
       redirect_back(fallback_location: root_path)
     end
@@ -90,7 +93,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :state, :model, :price, photos: [])
+    params.require(:product).permit(:name, :description, :state, :model, :price, :category_id, :brand_id, photos: [])
   end
 
   def search_params
@@ -103,6 +106,7 @@ class ProductsController < ApplicationController
     rescue => e
       # log_error(e)
       Rails.logger.error("Error creating product: #{e}")
+      Rails.logger.debug @product.inspect
       # flash[:alert] = "Product not found"
       redirect_to products_path
     end

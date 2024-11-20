@@ -15,10 +15,10 @@
         <p class="product-description">par jour</p>
       </div>
     </div>
-
+    
     <div class="product-image">
       <% if @product.photo.present? %>
-        <%= image_tag @product.photo, class: "mx-auto", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
+        <%= render 'shared/products_carroussel', product: @product %>
       <% else %>
         <%= image_tag 'no_picture.jpg', class: "mx-auto", alt: "No picture available" %>
       <% end %>
@@ -27,7 +27,7 @@
     <div class="owner-info">
       <div class="owner-photo">
         <% if @product.owner.photo.present? %>
-          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
+          <%= image_tag @product.owner.photo, class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
         <% else %>
           <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "No picture available" %>
         <% end %>
