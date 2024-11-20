@@ -1,51 +1,88 @@
-<div class="container">
-        <div class="header">
-            <h1>Interviews</h1>
-        </div>
+<div class="container my-5">
+  <div class="mb-4">
+    <h1 class="fw-bold">Ma réservation n°<%= @booking.id %></h1>
+  </div>
+  <%=  %>
+<div class="row">
 
-        <div class="request-details">
-            <h2>Votre demande</h2>
-            <div class="dates">
-                <div class="date-item">
-                    <p><%= @booking.start_date %></p>
-                    <p>Départ matériel<br>Après <strong>15:00</strong></p>
-                </div>
-                <div class="date-item">
-                    <p><%= @booking.end_date %></p>
-                    <p>Retour matériel<br>Avant <strong>12:00</strong></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="details">
-            <div class="rental-summary">
-                <div class="renter-info">
-                    <p><strong><%=@booking.product.owner%></strong></p>
-                    <p>⭐️ - (Aucun avis vérifié)</p>
-                </div>
-                <ul>
-                    <li><%= @booking.product.price%>€ x 2 jour(s): <strong><%=@booking.amount %>€</strong></li>
-                    <li>Prix location HT: <strong><%=@booking.amount %>€</strong></li>
-                    <li>Services: <strong>0.00€</strong></li>
-                    <li>Assurance: <strong>0.00€</strong></li>
-                    <li>Frais de service HT (5%): <strong>7.00€</strong></li>
-                </ul>
-                <p>Total (HT): <strong>115.76€</strong></p>
-                <p>TVA: <strong>1.40€</strong></p>
-                <p>Total TTC: <strong>117.16€</strong></p>
-                <div class="other-details">
-                    <p>Dépôt de garantie: <strong>340.00€</strong></p>
-                    <p>Valeur de remplacement: <strong>2800.00€</strong></p>
-                </div>
-            </div>
-            <div class="material-list">
-                <h2>Liste matériel</h2>
-                <div class="item">
-                    <p><strong>Caméras DSLR</strong></p>
-                    <p>Sony Alpha 7 IV</p>
-                    <p>Quantité: 1</p>
-                    <p><strong>100.00€ HT</strong> <span class="status">Validé</span></p>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-8 mb-4">
+  <div class="card mb-4 p-4">
+    <h5 class="fw-bold">Votre demande</h5>
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <div class="text-center">
+        <p class="fw-bold text-uppercase mb-1"><%= l(@booking.start_date, format: :short) %></p>
+        <p class="mb-0">Départ matériel<br><strong>Après 15:00</strong></p>
+      </div>
+      <div>
+        <i class="bi bi-arrow-right fs-4"></i>
+      </div>
+      <div class="text-center">
+        <p class="fw-bold text-uppercase mb-1"><%= l(@booking.end_date, format: :short) %></p>
+        <p class="mb-0">Retour matériel<br><strong>Avant 12:00</strong></p>
+      </div>
     </div>
+  </div>
+
+  <div class="card mb-4 p-4 d-none">
+    <h5 class="fw-bold">Partager votre avis</h5>
+    <p>Ce avis sera publié sur le profil du loueur.</p>
+    <div class="my-3">
+      <span class="text-warning fs-5">★★★★★</span>
+      <span class="ms-2 fw-bold">5 / 5</span>
+    </div>
+    <textarea class="form-control mb-3" rows="4" placeholder="Le matériel était en très bon état, Yanis est quelqu’un de sérieux..."></textarea>
+    <button class="btn btn-primary w-100" disabled>Publier</button>
+  </div>
+
+
+      <div class="card p-4">
+        <h5 class="fw-bold">Liste matériel</h5>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <div class="d-flex">
+            <img src="<%= @booking.product.photo %>" class="rounded me-3" alt="Owner" width="50" height="50">
+          <div>
+            <p class="fw-bold mb-0"><%= @booking.product.name %></p>
+            <p class="mb-0"><%= @booking.product.category.name %></p>
+            <p class="mb-0">Quantité: 1</p>
+          </div>
+          </div>
+          <div class="text-end">
+            <p class="fw-bold  mb-0"><%= @booking.amount %>€ TTC</p>
+             <% if @booking.status == "Pending" %>
+                <span class="badge bg-secondary"><%= @booking.status%></span>
+              <% else %>
+                <span class="badge <%= @booking.status == 'Refused' ? 'bg-danger' : 'bg-success' %>">
+                  <%= @booking.status%>
+                </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card p-4">
+        <div class="d-flex align-items-center mb-3">
+          <img src="<%= @booking.product.owner.photo %>" class="rounded-circle me-3" alt="Owner" width="50" height="50">
+          <div>
+            <p class="fw-bold mb-0"><%= @booking.product.owner.username %></p>
+            <p class="text-muted mb-0 d-none">⭐️ - (Aucun avis vérifié)</p>
+          </div>
+        </div>
+        <ul class="list-unstyled">
+          <li><%= @booking.product.price %>€ x <%= (@booking.end_date - @booking.start_date).to_i%> jour(s)</li>
+          <li>Prix location HT: <strong><%= ht = @booking.amount - @booking.amount * 0.2%>€</strong></li>
+          <li>Services: <strong>0.00€</strong></li>
+          <li>Frais de service HT (5%): <strong><%=fee= ht * 0.05 %>€</strong></li>
+          <%=  %>
+        </ul>
+        <hr>
+        <p>Total (HT): <strong><%= ht %>€</strong></p>
+        <p>TVA: <strong><%= @booking.amount * 0.2%>€</strong></p>
+        <p>Total TTC: <strong><%= @booking.amount %>€</strong></p>
+        <hr>
+        <p>Dépôt de garantie: <strong><%= @booking.amount * 0.15%>€</strong></p>
+        <p>Valeur de remplacement: <strong>2800.00€</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
