@@ -1,121 +1,90 @@
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<%= render "modal_delete" %>
+
+<div class="product-container">
+  <!-- Colonne gauche -->
+  <div class="left-container">
+
+    <div class="product-details">
+      <div>
+        <span class="badge text-bg-secondary"><%= @product.state %></span>
+        <h1 class="product-title"><%= @product.name %></h1>
+        <p class="product-description"><%= @product.category.name %></p>
       </div>
-      <div class="modal-body">
-        Are you sure you want to delete this item?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <%= button_to "Delete", product_path(@product), method: :delete, class: "btn btn-danger", form: { id: "deleteForm" } %>
+      <div class="price">
+        <h5 class="fw-bold m-0"><%= @product.price %> €</h5>
+        <p class="product-description">par jour</p>
       </div>
     </div>
-  </div>
-</div>
 
-<%# LIGNE DE TITRE =============================================== %>
-
-<div class="container">
-  <div class="row py-4">
-    <div class="col-2 d-flex justify-content-end align-items-center">
-      <p class="fs-4 rounded-4 badge bg-info text-dark align-middle text-end"><%= @product.state %></p>
+    <div class="product-image">
+      <% if @product.photo.present? %>
+        <%= image_tag @product.photo, class: "mx-auto", alt: "#{@product.name}", onerror: "this.onerror=null;this.src='#{asset_path('no_picture.jpg')}';" %>
+      <% else %>
+        <%= image_tag 'no_picture.jpg', class: "mx-auto", alt: "No picture available" %>
+      <% end %>
     </div>
-    <div class="col-8 text-nowrap d-flex flex-column align-items-center">
-      <label class="fs-1 fw-bold"><%= @product.name %> (<%= @product.id %>)</label>
-      <label class="fs-3"><%= @product.category.name %> </label>
-    </div>
-    <div class="col-2 text-end align-middle">
-      <span class="color-secondary">per day</span>
-      <h1 class="fs-2 fw-bold"><%= @product.price %> €</h1>
-    </div>
-  </div>
-</div>
 
-<%# LIGNE OWNER =============================================== %>
-
-<div class="container border-top border-bottom py-3">
-  <div class="row">
-    <div class="col-1">
+    <div class="owner-info">
+      <div class="owner-photo">
         <% if @product.owner.photo.present? %>
-          <%= image_tag 'no_profil.jpg', class: "img-owner rounded-circle", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
+          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
         <% else %>
-          <%= image_tag 'no_profil.jpg', class: "img-owner rounded-circle", alt: "No picture available" %>
-        <% end %>
-    </div>
-    <div class="col-5">
-      <div class="row d-flex flex-row">
-        <i class="bi bi-geo-alt color-black"></i>
-        <p><%= @place_name %></p>
-      </div>
-      <div class="row fw-bold pt-2">
-        <p><%= @product.owner.username %></p>
-      </div>
-    </div>
-    <div class="col-3">
-      <i class="bi bi-calendar3 color-black"></i>
-      <p><%= @product.owner.created_at.strftime("%d-%m-%Y") %></p>
-    </div>
-    <div class="col-3">
-      <i class="bi bi-tools"></i>
-      <p><%= @count_products_per_owner %></p>
-    </div>
-  </div>
-</div>
-
-<%# LIGNE PHOTO ET FINANCES =============================== %>
-
-<div class="container py-3 mb-3 border-bottom">
-  <div class="row">
-    <div class="col-6">
-      <div class="product-image">
-        <% if @product.photos.present? %>
-          <% @product.photos.each do |photo| %>
-            <%= cl_image_tag photo.key, heigth: 300, width: 400, crop: :fill %>
-          <% end %>
-        <% else %>
-          <%= image_tag 'no_picture.jpg', class: "mx-auto d-block", alt: "No picture available" %>
+          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "No picture available" %>
         <% end %>
       </div>
+
+      <div class="owner-details">
+        <div class="owner-location">
+          <i class="bi bi-geo-alt color-black"></i>
+          <p class="location"><%= @place_name %></p>
+        </div>
+        <div class="owner-name">
+          <p class="username"><strong><%= @product.owner.username %></strong></p>
+        </div>
+      </div>
+
+      <div class="owner-stats">
+        <div class="owner-joined">
+          <i class="bi bi-calendar3 color-black"></i>
+          <p class="joined-date"><%= @product.owner.created_at.strftime("%d-%m-%Y") %></p>
+        </div>
+        <div class="owner-products">
+          <i class="bi bi-tools"></i>
+          <p class="products-count"><%= @count_products_per_owner %></p>
+        </div>
+      </div>
     </div>
-    <div class="col-6">
-      <%= render 'shared/add_booking_form', { booking: @booking, price: @price }%>
+
+    <div class="product-info-group">
+      <div class="product-info">
+        <p class="info-label"><strong>Catégorie</strong></p>
+        <p class="info-value"><%= @product.category.name %></p>
+      </div>
+      <div class="product-info">
+        <p class="info-label"><strong>Description</strong></p>
+        <p class="info-value"><%= @product.description %></p>
+      </div>
+      <div class="product-info">
+        <p class="info-label"><strong>Marque</strong></p>
+        <p class="info-value"><%= @product.brand.name %></p>
+      </div>
+      <div class="product-info">
+        <p class="info-label"><strong>Modèle</strong></p>
+        <p class="info-value"><%= @product.model %></p>
+      </div>
     </div>
-  </div>
-</div>
 
-<%# LIGNE DETAILS =============================== %>
+    <div class="product-actions">
+      <%= link_to "Retour", products_path, class: "btn btn-secondary" %>
+      <%= link_to "Éditer", edit_product_path(@product), class: "btn" %>
+      <% if @product.can_be_destroyed? %>
+        <%= link_to "Supprimer", "#", class: "btn btn-danger text-white", data: { bs_toggle: "modal", bs_target: "#deleteModal" } %>
+      <% end %>
+    </div>
 
-<div class="container mt-3 px-5">
-  <div class="row">
-    <div class="col-2 text-align-start"><strong>Category:</strong></div>
-    <div class="col-10 text-align-start"><%= @product.category.name %></div>
   </div>
-  <div class="row">
-    <div class="col-2 text-align-start"><strong>Description:</strong></div>
-    <div class="col-10 text-align-start"><%= @product.description %></div>
-  </div>
-  <div class="row">
-    <div class="col-2 text-align-start"><strong>Brand:</strong></div>
-    <div class="col-10 text-align-start"><%= @product.brand.name %></div>
-  </div>
-  <div class="row">
-    <div class="col-2 text-align-start"><strong>Model:</strong></div>
-    <div class="col-10 text-align-start"><%= @product.model %></div>
-  </div>
-  <div class="row">
-    <div class="col-2 text-align-start"><strong>State:</strong></div>
-    <div class="col-10 text-align-start"><%= @product.state %></div>
-  </div>
-</div>
 
-<div class="container mt-3 px-5 form-group mb-5 pt-0">
-  <%= link_to "Cancel", products_path, class: "btn btn-secondary" %>
-  <%= link_to "Edit", edit_product_path(@product), class: "btn btn-primary" %>
-  <% if @product.can_be_destroyed? %>
-    <%= link_to "Delete", "#", class: "btn btn-danger text-white", data: { bs_toggle: "modal", bs_target: "#deleteModal" } %>
-  <% end %>
+  <div class="right-container">
+    <%= render 'shared/add_booking_form', { booking: @booking, price: @price }%>
+  </div>
 </div>

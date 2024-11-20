@@ -1,5 +1,36 @@
-// Specific CSS for your home-page
 p {
   margin:0;
   padding:0;
+}
+
+#home-container{
+  background-image: url('tools.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+#home-container .container {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#home-container .input {
+  height:40px;
+}
+
+
+#home-container .btn {
+  height:40px;
+  background-color: orange;
+  border: none;
+  transition: background-color .5s ease;
+}
+
+#home-container .btn:hover {
+  background-color: darkorange;
 }
