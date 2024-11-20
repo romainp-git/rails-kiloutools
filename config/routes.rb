@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'store/index'
   devise_for :users
   root to: "pages#home"
 
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
 
   resources :bookings, only: [:show, :index, :destroy]
   resources :profiles, only: [:show, :update]
+  resources :stores, only: [:index]
 end

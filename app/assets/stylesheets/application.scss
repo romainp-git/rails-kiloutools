@@ -20,6 +20,11 @@ body {
 }
 
 // CSS pour les flash ALERT ===========
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .alert-alert {
   background-color: #f8d7da;
   color: #721c24;

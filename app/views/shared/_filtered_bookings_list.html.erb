@@ -1,0 +1,202 @@
+<ul class="nav nav-tabs mb-4" id="reservationTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">
+                Toutes
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab">
+                Annulées
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted" type="button" role="tab">
+                Acceptées
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">
+                En attente
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="reservationTabsContent">
+        <div class="tab-pane fade show active" id="all" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Locataire</th>
+                            <th>Status</th>
+                            <th>Produit</th>
+                            <th>Départ</th>
+                            <th>Retour</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% @bookings.each do |item| %>
+                          <tr>
+                            <td>
+                              <%= link_to booking_path(item) do %>
+                                <div class ="d-fex">
+                                  <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                  <%= item.product.owner.username %>
+                                </div>
+                              <% end %>
+                            </td>
+                            <% if item.status == "Pending" %>
+                            <td>
+                              <%= link_to booking_path(item) do %>
+                                <span class="badge bg-secondary">
+                                    <%= item.status.capitalize %>
+                                </span>
+                              <% end %>
+                            </td>
+                            <% else %>
+                            <td>
+                              <%= link_to booking_path(item) do %>
+                                <span class="badge <%= item.status == 'Refused' ? 'bg-danger' : 'bg-success' %>">
+                                  <%= item.status.capitalize %>
+                                </span>
+                              <% end %>
+                            </td>
+                            <% end %>
+                            <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                            <td><%= link_to item.start_date, booking_path(item) %></td>
+                            <td><%= link_to item.end_date, booking_path(item) %></td>
+                            <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
+                          </tr>
+                      <% end %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="accepted" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Locataire</th>
+                            <th>Status</th>
+                            <th>Produit</th>
+                            <th>Départ</th>
+                            <th>Retour</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% filtered_list = @bookings.select { |booking| booking.status == "Accepted"} %>
+                      <% filtered_list.each do |item| %>
+                        <tr>
+                          <td>
+                            <%= link_to booking_path(item) do %>
+                              <div class ="d-fex">
+                                <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                <%= item.product.owner.username %>
+                              </div>
+                            <% end %>
+                          </td>
+                          <td><%= link_to booking_path(item) do %>
+                            <span class="badge bg-success"><%= item.status.capitalize %></span>
+                            <% end %>
+                          </td>
+                          <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <td><%= link_to item.start_date, booking_path(item) %></td>
+                          <td><%= link_to item.end_date, booking_path(item) %></td>
+                          <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
+                        </tr>
+                      <% end %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Annulées -->
+        <div class="tab-pane fade" id="cancelled" role="tabpanel">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Locataire</th>
+                            <th>Status</th>
+                            <th>Produit</th>
+                            <th>Départ</th>
+                            <th>Retour</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% filtered_list = @bookings.select { |booking| booking.status == "Refused"} %>
+                      <% filtered_list.each do |item| %>
+                        <tr>
+                          <td>
+                            <%= link_to booking_path(item) do %>
+                              <div class ="d-fex">
+                                <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                <%= item.product.owner.username %>
+                              </div>
+                            <% end %>
+                          </td>
+                          <td><%= link_to booking_path(item) do %>
+                            <span class="badge bg-danger"><%= item.status.capitalize %></span>
+                            <% end %>
+                          </td>
+                          <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <td><%= link_to item.start_date, booking_path(item) %></td>
+                          <td><%= link_to item.end_date, booking_path(item) %></td>
+                          <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
+                        </tr>
+                      <% end %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- En attente -->
+        <div class="tab-pane fade" id="pending" role="tabpanel">
+           <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Locataire</th>
+                            <th>Status</th>
+                            <th>Produit</th>
+                            <th>Départ</th>
+                            <th>Retour</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% filtered_list = @bookings.select { |booking| booking.status == "Pending"} %>
+                      <% filtered_list.each do |item| %>
+                        <tr>
+                          <td>
+                            <%= link_to booking_path(item) do %>
+                              <div class ="d-fex">
+                                <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                <%= item.product.owner.username %>
+                              </div>
+                            <% end %>
+                            </td>
+                          <td><%= link_to booking_path(item) do %>
+                            <span class="badge bg-secondary"><%= item.status.capitalize %></span>
+                            <% end %>
+                          </td>
+                          <td><img src="<%= item.product.photo %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <td><%= link_to item.start_date, booking_path(item) %></td>
+                          <td><%= link_to item.end_date, booking_path(item) %></td>
+                          <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
+                        </tr>
+                      <% end %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

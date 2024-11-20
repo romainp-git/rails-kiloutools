@@ -1,0 +1,9 @@
+<div class="container mt-5">
+      <h1 class="mb-4">Annonces</h1>
+      <p class="text-muted">Retrouvez ici toutes vos annonces</p>
+  <% if @products.any? %>
+        <%= render 'shared/grid_offers', product: @products%>
+    <% else %>
+      <p>Aucune annonce pour le moment.</p>
+  <% end %>
+</div>
