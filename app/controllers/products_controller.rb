@@ -171,8 +171,8 @@ class ProductsController < ApplicationController
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
 
-    session[:start_date] = params[:search][:start_date] if params[:search][:start_date]
-    session[:end_date] = params[:search][:end_date] if params[:search][:end_date]
+    session[:start_date] = params[:search][:start_date] if params[:search].present? && params[:search][:start_date].present?
+    session[:end_date] = params[:search][:end_date] if params[:search].present? && params[:search][:end_date].present?
   end
 
   def filter_products(search_params)
