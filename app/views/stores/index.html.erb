@@ -53,10 +53,12 @@
       </div>
       <div class="col-md-6">
         <div class="dashboard-card card shadow-sm border-0 text-center p-4">
-          <div class="card-body">
-            <h5 class="dashboard-card-title text-dark fw-bold mb-2">Mes annonces</h5>
-            <p class="dashboard-card-text text-muted">Modifiez vos produits en location</p>
-          </div>
+          <%=link_to product_summary_path do %>
+            <div class="card-body">
+              <h5 class="dashboard-card-title text-dark fw-bold mb-2">Mes annonces</h5>
+              <p class="dashboard-card-text text-muted">Modifiez vos produits en location</p>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

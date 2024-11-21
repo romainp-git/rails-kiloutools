@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, only: [:summary, :update_active]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :load_products, only: [:index, :search]
+  skip_before_action :verify_authenticity_token, only: [:update_active]
 
   def index
     @bookings_dates = {}.to_json
@@ -87,6 +89,21 @@ class ProductsController < ApplicationController
       Rails.logger.debug @product.inspect
       # flash[:alert] = "Failed to delete product"
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def summary
+    @user = current_user
+    @products = Product.where(user_id: @user)
+  end
+
+  def update_active
+    @product = Product.find(params[:id])
+    active_status = params[:active]
+    if @product.update(active: active_status)
+      render json: { success: true, active: @product.active }
+    else
+      render json: { success: false, error: 'Erreur de mise à jour' }, status: 400
     end
   end
 
