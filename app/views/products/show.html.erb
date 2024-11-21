@@ -27,9 +27,9 @@
     <div class="owner-info">
       <div class="owner-photo">
         <% if @product.owner.photo.present? %>
-          <%= image_tag @product.owner.photo, class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
+          <%= image_tag @product.owner.photo, class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profile.png')}';" %>
         <% else %>
-          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "No picture available" %>
+          <%= image_tag 'no_profile.png', class: "img-owner", alt: "No picture available" %>
         <% end %>
       </div>
 
