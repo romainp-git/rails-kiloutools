@@ -1,18 +1,29 @@
-<div class="profil-container">
-  <div data-controller="toggle">
-    <h1> <%=  @user.username %> </h1>
+<div class="container" data-controller="toggle">
+
+  <div class="card-profile">
     <div class="cards">
-      <div class="card-picture">
+      <div class="img-profile">
           <% if @user.photo.attached? %>
             <%= cl_image_tag @user.photo.key, class: "avatar-profil", alt: "dropdown menu" %>
           <% else %>
             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="avatar-profil" alt="dropdown menu" >
           <% end %>
+           <% if current_user == @user %>
+            <div data-toggle-target="form">
+              <p class="old-value">Modifier photo <i class="fa-regular fa-pen-to-square edit-icon" data-action="click->toggle#display"></i></p>
+              <div class="d-none new-value"> </p>
+                <%= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
+                  <%= f.input :photo, label: false %>
+                  <%= f.submit %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
       </div>
-
       <div class="card-info">
+      <h1> <%=  @user.username %> </h1>
+      <p><i class="fa-solid fa-star">5</i></p>
         <% if current_user == @user %>
-
           <div data-toggle-target="form">
             <p class="old-value"><%= @user.first_name %> <i class="fa-regular fa-pen-to-square edit-icon" data-action="click->toggle#display"></i></p>
             <div class="d-none new-value"> </p>
@@ -45,84 +56,32 @@
           <%= link_to "Modifier mon mots de passe", edit_user_registration_path(@user), class: "btn btn-light" %>
         <% end %>
       </div>
-
-    </div>
-    <%# <% if current_user == @user %>
-
-        <%# <button data-action="click->toggle#display"><i class="fa-regular fa-pen-to-square"></i></button>
-        <div class="d-none" data-toggle-target="form"> %>
-          <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-            <%#= f.input :first_name %>
-            <%#= f.input :last_name %>
-            <%#= f.input :username %>
-            <%#= f.input :email %>
-            <%#= f.input :address %>
-            <%#= f.input :photo, as: :file %>
-            <%#= f.submit %>
-          <%# <% end %>
-        <%# </div> %>
-    <%# <% end %>
-
-      <% if @user.products %>
-        <ul>
-          <% @user.products.each do |product| %>
-            <% if product.photos.attached? %>
-              <% product.photos.each do |photo| %>
-                <li> <%= cl_image_tag(photo.key, height: 300, width: 400, crop: :fill) %> <%= product.name %> - <%= product.price %></li>
-              <% end %>
-              <% else %>
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" class="carousel-inner img">
-            <% end %>
+      <div class="description">
+          <p>Description :</p>
+          <% if current_user == @user %>
+            <div data-toggle-target="form">
+              <p class="old-value"><%= @user.description %><i class="fa-regular fa-pen-to-square edit-icon" data-action="click->toggle#display"></i></p>
+              <div class="d-none new-value"> </p>
+                <%= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
+                  <%= f.input :description, label: false %>
+                  <%= f.submit %>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <%= @user.description %>
           <% end %>
-        </ul>
-      <% else %>
-        <p> Aucun produits proposé par cet utilisateur</p>
-      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+ <h3> <%= "Mes Objets à louer" %> </h3>
+  <div class="card-product">
+    <% if @user.products %>
+      <%= render 'shared/grid_offers', { products: @user.products }%>
+    <% else %>
+      <p> Aucun produits proposé par cet utilisateur</p>
+    <% end %>
   </div>
 </div>
-
-
-    <%# <% if current_user == @user %>
-          <%# <div class="d-none" data-toggle-target="form"> %>
-          <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-            <%#= f.input :last_name %>
-              <%# <a href="#" class="edit-icon"><i class="fa-regular fa-pen-to-square"></i></a> %>
-            <%#= f.submit %>
-          <%# <% end %>
-    <%# <% end %>
-      <%#<div class="d-none" data-toggle-target="form"> %>
-        <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-          <%#= f.input :first_name %>
-          <%#= f.submit %>
-        <%# end %>
-      <%# </div>
-      <div class="d-none" data-toggle-target="form"> %>
-        <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-          <%#= f.input :username %>
-          <%#= f.submit %>
-        <%# end %>
-      <%# </div>
-      <div class="d-none" data-toggle-target="form"> %>
-        <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-          <%#= f.input :email %>
-          <%#= f.submit %>
-        <%# end %>
-      <%# </div>
-      <div class="d-none" data-toggle-target="form"> %>
-        <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-          <%#= f.input :address %>
-          <%#= f.submit %>
-        <%# end %>
-      <%# </div>
-      <div class="d-none" data-toggle-target="form"> %>
-        <%#= simple_form_for(@user, url: :profile, method: :patch) do |f| %>
-          <%#= f.input :photo, as: :file %>
-          <%#= f.submit %>
-        <%# end %>
-      <%# </div> %>
-
-  <%# </div>
-    <a href="#" data-action="click->toggle#display" class="edit-icon">
-      <i class="fa-regular fa-pen-to-square"></i>
-    </a>
-  </p> %>

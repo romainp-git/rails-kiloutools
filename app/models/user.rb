@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :customers, through: :bookings, source: :user
 
   has_one_attached :photo
+
+  validates :description, length: { maximum: 250 }
 end
