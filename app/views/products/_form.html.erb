@@ -1,3 +1,15 @@
+<!-- Affectation du chemin de retour en fonction de l'origine  -->
+<% back_path = if controller_name == "products" && action_name == "new" %>
+  label_submit: "Créer le produit"
+  products_path
+<% elsif controller_name == "products" && action_name == "edit" %>
+  label_submit: "Enregistrer les modifications"
+  product_path(@product)
+<% else %>
+  root_path
+<% end %>
+
+<!-- Formulaire du produit -->
 <div class="container">
   <div class="row align-items-center pb-4">
     <div class="col-10">
@@ -16,7 +28,7 @@
         </div>
 
         <div class="form-actions">
-          <%= link_to "Annuler", product_path(@product), class: "btn btn-secondary" %>
+          <%= link_to "Annuler", back_path, class: "btn btn-secondary" %>
           <%= f.button :submit, label_submit || "Enregistrer", class: "btn btn-primary" %>
         </div>
       <% end %>
