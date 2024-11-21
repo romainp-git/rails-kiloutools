@@ -10,8 +10,8 @@ class ProductsController < ApplicationController
 
   def show
     @booking = Booking.new()
-    @start_date = Date.strptime(session[:start_date], "%d-%m-%Y")
-    @end_date = Date.strptime(session[:end_date], "%d-%m-%Y")
+    @start_date = Date.strptime(session[:start_date], "%d-%m-%Y") if session[:start_date]
+    @end_date = Date.strptime(session[:end_date], "%d-%m-%Y") if session[:end_date]
 
     @count_products_per_owner = count_products_per_owner
     @place_name = find_place_name
