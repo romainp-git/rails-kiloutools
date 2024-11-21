@@ -1,0 +1,42 @@
+<div class="container py-5">
+  <h1 class="mb-4">Liste de vos produits</h1>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Produit</th>
+          <th>Description</th>
+          <th>Activer/Désactiver</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="<%= product.photos %>" alt="Product Image" class="img-thumbnail" style="max-width: 50px;">
+                <span class="ms-3"><%= product.name %></span>
+              </div>
+            </td>
+            <td><%= product.description %></td>
+            <td>
+              <div class="form-check form-switch" data-controller="toggle-product">
+                <input class="form-check-input" type="checkbox" role="switch" id="product_<%= product.id %>"
+                       <%= "checked" if product.active %>
+                       data-action="change->toggle-product#toggle"
+                       data-toggle-product-target="checkbox"
+                       data-product-id="<%= product.id %>">
+                <label class="form-check-label" for="product_<%= product.id %>">Activer/Désactiver</label>
+              </div>
+            </td>
+            <td>
+              <%= link_to 'Editer', edit_product_path(product), class: 'btn btn-outline-primary btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

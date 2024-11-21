@@ -1,0 +1,42 @@
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Locataire</th>
+        <th>Produit</th>
+        <th>Départ</th>
+        <th>Retour</th>
+        <th>Montant</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% bookings.each do |item| %>
+        <tr>
+          <td>
+            <%= link_to booking_path(item) do %>
+              <div class="d-flex align-items-center">
+                <img src="<%= item.product.owner.photo %>" class="me-3" alt="Product Image" style="max-width: 50px;">
+                <%= item.product.owner.username %>
+              </div>
+            <% end %>
+          </td>
+          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
+          <td><%= link_to item.start_date, booking_path(item) %></td>
+          <td><%= link_to item.end_date, booking_path(item) %></td>
+          <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
+          <td class="text-end">
+            <select class="form-select form-select-sm custom-select"
+                    data-controller="status"
+                    data-action="change->status#updateStatus"
+                    data-booking-id="<%= item.id %>">
+              <option value="Pending" <%= "selected" if item.status == "Pending" %>>En attente</option>
+              <option value="Accepted" <%= "selected" if item.status == "Accepted" %>>Acceptée</option>
+              <option value="Refused" <%= "selected" if item.status == "Refused" %>>Annulée</option>
+            </select>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

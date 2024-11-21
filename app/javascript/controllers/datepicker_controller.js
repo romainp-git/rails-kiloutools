@@ -3,7 +3,7 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/plugins/rangePlugin";
 
 export default class extends Controller {
-  static targets = ["startDate", "endDate","amount", "pricePerDay"];
+  static targets = ["startDate", "endDate","amount", "pricePerDay", "bookingsDates"];
   connect() {
     if (this.pickrInstance) {
       this.pickrInstance.destroy();
@@ -17,7 +17,10 @@ export default class extends Controller {
       altFormat: "d-m-Y",
       dateFormat: "Y-m-d",
       minDate: "today",
-      onChange: this.handleDateChange.bind(this)
+      disable: JSON.parse(this.bookingsDatesTarget.value || "[]"),
+      onChange: this.handleDateChange.bind(this),
+
+
     });
   }
 

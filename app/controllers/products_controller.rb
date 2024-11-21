@@ -1,8 +1,11 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, only: [:summary, :update_active]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :load_products, only: [:index, :search]
+  skip_before_action :verify_authenticity_token, only: [:update_active]
 
   def index
+    @bookings_dates = {}.to_json
   end
 
   def show
@@ -11,15 +14,14 @@ class ProductsController < ApplicationController
 
     @booking = Booking.new()
     @price = @product.price
-
-    if @start_date.present? && @end_date.present?
-      @availability = @product.bookings.where(
-        "(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
-        @end_date, @start_date, @end_date, @start_date
-      )
-    else
-      @availability = []
-    end
+    @product = Product.find(params[:id])
+    @bookings = @product.bookings.where(status: ['Pending', 'Accepted'])
+    @bookings_dates = @bookings.map do |booking|
+      {
+        from: booking.start_date,
+        to: booking.end_date
+      }
+    end.to_json
   end
 
   def search
@@ -87,6 +89,21 @@ class ProductsController < ApplicationController
       Rails.logger.debug @product.inspect
       # flash[:alert] = "Failed to delete product"
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def summary
+    @user = current_user
+    @products = Product.where(user_id: @user)
+  end
+
+  def update_active
+    @product = Product.find(params[:id])
+    active_status = params[:active]
+    if @product.update(active: active_status)
+      render json: { success: true, active: @product.active }
+    else
+      render json: { success: false, error: 'Erreur de mise à jour' }, status: 400
     end
   end
 
