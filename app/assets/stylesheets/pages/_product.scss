@@ -9,15 +9,14 @@
 
 .product-container .left-container {
   flex: 2;
-  padding: 10px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .product-image {
   width: 100%;
-  height: 300px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -28,11 +27,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 10px;
 }
 
 .product-details {
-  padding: 10px;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 0;
@@ -41,7 +39,6 @@
 
 .product-details .price {
   text-align: end;
-  font-size: 22px;
 }
 
 .product-title {
@@ -50,12 +47,22 @@
   margin-bottom: 0;
 }
 
+.product-description,
 .product-info-group {
+  padding: 0 20px;
   margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .product-info {
   margin-bottom: 10px;
+}
+
+.product-info-group .product-info:last-child  {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 .info-label {
@@ -89,10 +96,10 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 10px;
+  padding: 10px 20px;
   border-top: 1px solid #eaeaea;
   border-bottom: 1px solid #eaeaea;
-  margin: 20px 0;
+  margin-bottom: 20px;
 }
 
 .owner-photo {
@@ -116,17 +123,10 @@
   gap: 5px;
 }
 
-.owner-location {
+.owner-location, .owner-name {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.icon-location {
-  width: 16px;
-  height: 16px;
-  background-image: url('/path/to/location-icon.svg');
-  background-size: cover;
 }
 
 .location {
@@ -174,6 +174,11 @@
   color: #555;
 }
 
+.product-container #map{
+  width: 100%;
+  height: 300px;
+}
+
 .product-container .right-container {
   flex: 1;
   position: sticky;
@@ -183,4 +188,15 @@
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 890px) {
+  .product-container {
+    flex-direction: column-reverse; /* Les éléments s'empilent */
+  }
+
+  .product-container .right-container {
+    position: relative;
+    top:0;
+  }
 }

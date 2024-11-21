@@ -1,18 +1,17 @@
 <%= render "modal_delete" %>
 
 <div class="product-container">
-  <!-- Colonne gauche -->
-  <div class="left-container">
 
+  <div class="left-container">
     <div class="product-details">
       <div>
         <span class="badge text-bg-secondary"><%= @product.state %></span>
         <h1 class="product-title"><%= @product.name %></h1>
-        <p class="product-description"><%= @product.category.name %></p>
+        <p class="info-value"><%= @product.category.name %></p>
       </div>
       <div class="price">
-        <h5 class="fw-bold m-0"><%= @product.price %> €</h5>
-        <p class="product-description">par jour</p>
+        <h4 class="fw-bold m-0"><%= @product.price %> €</h4>
+        <p class="info-value">par jour</p>
       </div>
     </div>
 
@@ -36,10 +35,11 @@
       <div class="owner-details">
         <div class="owner-location">
           <i class="bi bi-geo-alt color-black"></i>
-          <p class="location"><%= @place_name %></p>
+          <p><%= @place_name %></p>
         </div>
         <div class="owner-name">
-          <p class="username"><strong><%= @product.owner.username %></strong></p>
+          <i class="fa-regular fa-circle-user"></i>
+          <p><strong><%= @product.owner.username %></strong></p>
         </div>
       </div>
 
@@ -61,10 +61,6 @@
         <p class="info-value"><%= @product.category.name %></p>
       </div>
       <div class="product-info">
-        <p class="info-label"><strong>Description</strong></p>
-        <p class="info-value"><%= @product.description %></p>
-      </div>
-      <div class="product-info">
         <p class="info-label"><strong>Marque</strong></p>
         <p class="info-value"><%= @product.brand.name %></p>
       </div>
@@ -74,17 +70,24 @@
       </div>
     </div>
 
-    <div class="product-actions">
-      <%= link_to "Retour", products_path, class: "btn btn-secondary" %>
-      <%= link_to "Éditer", edit_product_path(@product), class: "btn" %>
-      <% if @product.can_be_destroyed? %>
-        <%= link_to "Supprimer", "#", class: "btn btn-danger text-white", data: { bs_toggle: "modal", bs_target: "#deleteModal" } %>
-      <% end %>
+    <div class="product-description">
+     <div class="product-info">
+        <p class="info-label"><strong>Description</strong></p>
+        <p class="info-value"><%= @product.description %></p>
+      </div>
+    </div>
+
+    <div id="map" data-controller="map"
+      data-map-api-key-value='<%= ENV["MAPBOX_API_KEY"] %>'
+      data-map-markers-value='<%= raw @markers.to_json %>'>
     </div>
 
   </div>
 
+
+
   <div class="right-container">
     <%= render 'shared/add_booking_form', { booking: @booking, price: @price, bookings_dates: @bookings_dates }%>
   </div>
+
 </div>
