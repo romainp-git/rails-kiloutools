@@ -10,8 +10,8 @@ class ProductsController < ApplicationController
 
   def show
     @booking = Booking.new()
-    @start_date = params[:start_date] || session[:start_date]
-    @end_date = params[:end_date] || session[:end_date]
+    @start_date = session[:start_date]
+    @end_date = session[:end_date]
 
     @count_products_per_owner = count_products_per_owner
     @place_name = find_place_name
@@ -136,13 +136,12 @@ class ProductsController < ApplicationController
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
 
-    session[:start_date] = params[:start_date] if params[:start_date]
-    session[:end_date] = params[:end_date] if params[:end_date]
+    session[:start_date] = params[:search][:start_date] if params[:search][:start_date]
+    session[:end_date] = params[:search][:end_date] if params[:search][:end_date]
   end
 
   def filter_products(search_params)
     products = Product.all
-    products = products.select { |product| product.active }
 
     if search_params.present?
       if search_params[:address].present?
@@ -163,7 +162,7 @@ class ProductsController < ApplicationController
       end
     end
 
-    products
+    products = products.select { |product| product.active }
   end
 
   def set_markers(products)

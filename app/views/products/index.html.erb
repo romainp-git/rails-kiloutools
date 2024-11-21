@@ -2,14 +2,14 @@
   <div class="left-container">
     <%= render "product_search_form" %>
 
-    <% if @products.any? %>
-      <div class="products-grid p-3">
-        <p><strong><%= @products.size %></strong> produit(s) trouvé(s)</p>
-        <%= render 'shared/grid_offers', products: @products%>
-      </div>
-    <% else %>
-      <p>Aucun produit trouvé pour cette recherche.</p>
-    <% end %>
+    <div class="products-grid p-3">
+      <% if @products.any? %>
+          <p><strong><%= @products.size %></strong> produit(s) trouvé(s)</p>
+          <%= render 'shared/grid_offers', products: @products%>
+      <% else %>
+        <p>Aucun produit trouvé pour cette recherche.</p>
+      <% end %>
+    </div>
   </div>
 
   <div class="right-container">

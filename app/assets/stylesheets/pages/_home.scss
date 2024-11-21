@@ -8,10 +8,12 @@ p {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  overflow: hidden;
   height: 100vh;
 }
 
 #home-container .container {
+  position: relative;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -22,7 +24,6 @@ p {
 #home-container .input {
   height:40px;
 }
-
 
 #home-container .btn {
   height:40px;

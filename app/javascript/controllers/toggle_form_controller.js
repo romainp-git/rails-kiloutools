@@ -1,10 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["summary", "form"];
+  static targets = ["summary", "form", "product", "city", "startDate", "endDate",
+                    "productInput", "cityInput", "startDateInput", "endDateInput"];
 
   connect() {
-    console.log("hello");
     this.collapse();
     document.addEventListener("click", this.handleClickOutside.bind(this));
   }
@@ -20,6 +20,11 @@ export default class extends Controller {
   }
 
   collapse() {
+    this.productTarget.innerText = this.productInputTarget.value != "" ? this.productInputTarget.value : "Tous";
+    this.cityTarget.innerText = this.cityInputTarget.value != "" ? this.cityInputTarget.value : "Partout";
+    this.startDateTarget.innerText = this.startDateInputTarget.value;
+    this.endDateTarget.innerText = this.endDateInputTarget.value;
+
     this.element.classList.remove("expanded");
     this.formTarget.classList.add("d-none");
     this.summaryTarget.classList.remove("d-none");
