@@ -8,6 +8,11 @@ export default class extends Controller {
   connect() {
     this.baseUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
     this.list = document.createElement("ul");
+    document.addEventListener("click", this.handleClickOutside.bind(this));
+  }
+
+  disconnect() {
+    document.removeEventListener("click", this.handleClickOutside.bind(this));
   }
 
   search(event) {
@@ -18,7 +23,7 @@ export default class extends Controller {
       return;
     }
 
-    fetch(`${this.baseUrl}${encodeURIComponent(query)}.json?access_token=${this.apiKeyValue}&autocomplete=true`)
+    fetch(`${this.baseUrl}${encodeURIComponent(query)}.json?country=fr&types=place&access_token=${this.apiKeyValue}&autocomplete=true`)
       .then((response) => response.json())
       .then((data) => {
         this.updateResults(data.features);
@@ -41,5 +46,11 @@ export default class extends Controller {
   selectSuggestion(feature) {
     this.inputTarget.value = feature.place_name;
     this.resultsTarget.innerHTML = "";
+  }
+
+  handleClickOutside(event) {
+    if (!this.inputTarget.contains(event.target) && !this.list.contains(event.target)) {
+      this.resultsTarget.removeChild(this.list);
+    }
   }
 }
