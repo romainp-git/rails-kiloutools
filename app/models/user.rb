@@ -9,4 +9,7 @@ class User < ApplicationRecord
   has_many :customers, through: :bookings, source: :user
 
   has_one_attached :photo
+
+  validates :email, :username, :address, presence: true;
+  validates :email, :username, uniqueness: true;
 end

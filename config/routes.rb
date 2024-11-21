@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
     member do
       patch 'update_active'
+      patch 'add_photos'
+      delete 'destroy_photo'
     end
+
   end
 
   resources :bookings, only: [:show, :index, :destroy, :update]

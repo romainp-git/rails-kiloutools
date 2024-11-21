@@ -73,8 +73,6 @@ end
 # ==========================================================================
 # USERS CREATION
 
-require 'faker'
-
 addresses = [
   "123 Rue de la République, 59000 Lille, France",
   "456 Avenue des Champs-Élysées, 59000 Lille, France",
@@ -90,87 +88,92 @@ addresses = [
 
 users = [
   {
-    email: "jean.dupont@example.com",
+    email: "pym@gmail.com",
     password: "password",
-    first_name: "Jean",
-    last_name: "Dupont",
-    username: "jeandupont"
+    first_name: "Pierre-Yves",
+    last_name: "MEVEL",
+    username: "PYM"
   },
   {
-    email: "marie.martin@example.com",
+    email: "sam@gmail.com",
     password: "password",
-    first_name: "Marie",
-    last_name: "Martin",
-    username: "mariemartin"
+    first_name: "Samuel",
+    last_name: "WILLEM",
+    username: "SAM"
   },
   {
-    email: "pierre.durand@example.com",
+    email: "rom@gmail.com",
     password: "password",
-    first_name: "Pierre",
-    last_name: "Durand",
-    username: "pierredurand"
+    first_name: "Romain",
+    last_name: "PORTIER",
+    username: "ROM"
   },
   {
-    email: "sophie.lefevre@example.com",
+    email: "abe@gmail.com",
     password: "password",
-    first_name: "Sophie",
-    last_name: "Lefevre",
-    username: "sophielefevre"
+    first_name: "Aurélien",
+    last_name: "BERNARD",
+    username: "ABE"
   },
   {
     email: "luc.bernard@example.com",
     password: "password",
     first_name: "Luc",
     last_name: "Bernard",
-    username: "lucbernard"
+    username: "luc bernard"
   },
   {
     email: "claire.roux@example.com",
     password: "password",
     first_name: "Claire",
     last_name: "Roux",
-    username: "claireroux"
+    username: "claire roux"
   },
   {
     email: "marc.leclerc@example.com",
     password: "password",
     first_name: "Marc",
     last_name: "Leclerc",
-    username: "marcleclerc"
+    username: "marc leclerc"
   },
   {
     email: "isabelle.moreau@example.com",
     password: "password",
     first_name: "Isabelle",
     last_name: "Moreau",
-    username: "isabellemoreau"
+    username: "isabelle moreau"
   },
   {
     email: "julien.girard@example.com",
     password: "password",
     first_name: "Julien",
     last_name: "Girard",
-    username: "juliengirard"
+    username: "julien girard"
   },
   {
     email: "laura.dubois@example.com",
     password: "password",
     first_name: "Laura",
     last_name: "Dubois",
-    username: "lauradubois"
+    username: "laura dubois"
   }
 ]
 
 users.each_with_index do |user, index|
-  User.create(
-    email: user[:email],
-    password: user[:password],
-    password_confirmation: user[:password],
-    first_name: user[:first_name],
-    last_name: user[:last_name],
-    username: user[:username],
-    address: addresses[index]
-  )
+  begin
+    current_user = User.create!(
+      email: user[:email],
+      password: user[:password],
+      password_confirmation: user[:password],
+      first_name: user[:first_name],
+      last_name: user[:last_name],
+      username: user[:username],
+      address: addresses[index] || Faker::Address.full_address # Utiliser Faker si l'index dépasse le tableau
+    )
+    puts "Created user: #{current_user.email}"
+  rescue => e
+    puts "Failed to create user #{user[:email]}: #{e.message}"
+  end
 end
 
 # ==========================================================================
