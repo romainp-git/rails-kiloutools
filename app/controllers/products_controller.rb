@@ -10,8 +10,8 @@ class ProductsController < ApplicationController
 
   def show
     @booking = Booking.new()
-    @start_date = params[:start_date] || session[:start_date]
-    @end_date = params[:end_date] || session[:end_date]
+    @start_date = Date.strptime(session[:start_date], "%d-%m-%Y") if session[:start_date]
+    @end_date = Date.strptime(session[:end_date], "%d-%m-%Y") if session[:end_date]
 
     @count_products_per_owner = count_products_per_owner
     @place_name = find_place_name
@@ -35,12 +35,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    # Rails.logger.debug @product.inspect
     @product = Product.new(product_params)
     @product.user_id = current_user.id
 
     begin
       if @product.save
+        # ajout des photos issues du submit new
+        @product.photos.attach(params[:product][:photos])
+
         # flash[:notice] = "Product was successfully created"
         redirect_to product_path(@product)
       else
@@ -62,8 +64,38 @@ class ProductsController < ApplicationController
   def update
     begin
       if @product.update(product_params)
+        # ajout des photos issues du submit edit
+        @product.photos.attach(params[:product][:photos])
         # flash[:notice] = "Product was successfully updated"
         redirect_to product_path(@product)
+      else
+        # flash[:alert] = "Failed to update product"
+        render :edit
+      end
+    rescue => e
+      Rails.logger.error("Error creating product: #{e}")
+      Rails.logger.debug @product.inspect
+      # flash[:alert] = "Failed to update product"
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def destroy_photo
+    @product = Product.find(params[:id])
+    @photo = ActiveStorage::Attachment.find(params[:photo_id])
+
+    @photo.purge # Supprime la photo du stockage
+    redirect_to edit_product_path(@product), notice: "Photo supprimée avec succès."
+  end
+
+  def add_photos
+    @product = Product.find(params[:id])
+    begin
+      if @product.update(product_params)
+        # ajout des photos issues du submit edit
+        @product.photos.attach(params[:product][:photos])
+        # flash[:notice] = "Product was successfully updated"
+        redirect_to edit_product_path(@product), notice: "Photo(s) ajoutée(s) avec succès."
       else
         # flash[:alert] = "Failed to update product"
         render :edit
@@ -112,7 +144,10 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :state, :model, :price, :category_id, :brand_id, photos: [])
+    # Les photos ne sont plus dans le permit car ça ne fonctionne pas
+    # pour la gestion des ajouts ou suppression unitaires
+    # La construction du tableau photos se fait dans update et save
+    params.require(:product).permit(:name, :description, :state, :model, :price, :category_id, :brand_id)
   end
 
   def search_params
@@ -136,13 +171,12 @@ class ProductsController < ApplicationController
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
 
-    session[:start_date] = params[:start_date] if params[:start_date]
-    session[:end_date] = params[:end_date] if params[:end_date]
+    session[:start_date] = params[:search][:start_date] if params[:search][:start_date]
+    session[:end_date] = params[:search][:end_date] if params[:search][:end_date]
   end
 
   def filter_products(search_params)
     products = Product.all
-    products = products.select { |product| product.active }
 
     if search_params.present?
       if search_params[:address].present?
@@ -163,7 +197,7 @@ class ProductsController < ApplicationController
       end
     end
 
-    products
+    products = products.select { |product| product.active }
   end
 
   def set_markers(products)

@@ -15,21 +15,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_21_152325) do
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.string "name", null: false # champs utilisé dans les has_... du model
+    t.string "record_type", null: false # nom du model (Product, user)
+    t.bigint "record_id", null: false # id de l'instance de l'objet du model (record_type)
+    t.bigint "blob_id", null: false # idem id mais pour plusieurs éléments
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
-    t.string "key", null: false
-    t.string "filename", null: false
+    t.string "key", null: false # id active_record
+    t.string "filename", null: false # nom du fichier
     t.string "content_type"
     t.text "metadata"
-    t.string "service_name", null: false
+    t.string "service_name", null: false # service utilisé
     t.bigint "byte_size", null: false
     t.string "checksum"
     t.datetime "created_at", null: false

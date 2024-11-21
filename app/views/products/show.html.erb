@@ -26,9 +26,9 @@
     <div class="owner-info">
       <div class="owner-photo">
         <% if @product.owner.photo.present? %>
-          <%= image_tag @product.owner.photo, class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profil.jpg')}';" %>
+          <%= image_tag @product.owner.photo, class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profile.png')}';" %>
         <% else %>
-          <%= image_tag 'no_profil.jpg', class: "img-owner", alt: "No picture available" %>
+          <%= image_tag 'no_profile.png', class: "img-owner", alt: "No picture available" %>
         <% end %>
       </div>
 
@@ -87,7 +87,7 @@
 
 
   <div class="right-container">
-    <%= render 'shared/add_booking_form', { booking: @booking, price: @price, bookings_dates: @bookings_dates }%>
+    <%= render 'shared/add_booking_form', { booking: @booking, price: @product.price, bookings_dates: @bookings_dates, start_date: @start_date, end_date: @end_date }%>
   </div>
 
 </div>

@@ -11,4 +11,6 @@ class User < ApplicationRecord
   has_one_attached :photo
 
   validates :description, length: { maximum: 250 }
+  validates :email, :username, :address, presence: true;
+  validates :email, :username, uniqueness: true;
 end

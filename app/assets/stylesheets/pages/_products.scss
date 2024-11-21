@@ -53,7 +53,7 @@
   position: sticky;
   top: 20px;
   z-index: 1000;
-  width: 70%;
+  width: 60%;
   max-width: 800px;
   margin: 0 auto;
   border-radius: 10px;
@@ -62,27 +62,32 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: all 0.5s ease;
-  overflow: hidden;
 }
+
 .search-container.expanded {
   width: 90%;
 }
 
 .search-summary {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 15px 25px;
+  padding: 10px 10px;
   cursor: pointer;
 }
 
 .search-summary span {
   font-size: 14px;
-  flex-grow: 1;
   color: #555;
-  border-right: solid 1px;
-  padding: 0 20px;
   text-align: start;
+}
+
+.search-summary p {
+  border-right: solid 1px;
+  display: flex;
+  padding: 0 20px;
+  flex-direction: column;
+  flex-grow: 1;
+  flex: 1;
 }
 
 .search-summary button {
