@@ -13,13 +13,24 @@
 @import "components/index";
 @import "pages/index";
 
+:root {
+  --header-height: 56px;
+}
+
 body {
   font-family: "poppins";
   margin: 0;
   padding: 0;
 }
 
-// CSS pour les flash ALERT ===========
+.page-container {
+  margin-top: var(--header-height);
+}
+
+body.pages-home .page-container {
+  margin-top: 0;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -56,4 +67,3 @@ a {
   padding: 10px;
   margin-bottom: 10px;
 }
-// ====================================

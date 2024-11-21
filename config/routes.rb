@@ -11,9 +11,14 @@ Rails.application.routes.draw do
     collection do
       get :search
     end
+
+    member do
+      patch 'update_active'
+    end
   end
 
-  resources :bookings, only: [:show, :index, :destroy]
+  resources :bookings, only: [:show, :index, :destroy, :update]
   resources :profiles, only: [:show, :update]
   resources :stores, only: [:index]
+  get 'stores/ads', to: 'products#summary', as: 'product_summary'
 end
