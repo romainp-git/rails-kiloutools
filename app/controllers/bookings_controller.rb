@@ -11,9 +11,15 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     @booking.user = current_user
     @product = Product.find(params[:product_id])
+
+    start_date = Date.strptime(params["booking"][:start_date], "%d-%m-%Y")
+    end_date = Date.strptime(params["booking"][:end_date], "%d-%m-%Y")
+    days_difference = (end_date - start_date).to_i
+    price_per_day = @product.price
+    total_price = days_difference * price_per_day
+    @booking.amount = total_price
     @booking.product = @product
     @booking.status = "Pending"
-
     if @booking.save
       redirect_to booking_path(@booking)
     else
@@ -47,7 +53,7 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:start_date, :end_date, :amount, :product_id)
+    params.require(:booking).permit(:start_date, :end_date, :product_id)
   end
 
   def strong_params
