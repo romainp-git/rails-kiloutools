@@ -12,15 +12,11 @@
           <%= f.input :description, label: "Description du produit" %>
           <%= f.input :state, as: :select, label: "Etat", collection: Product::STATES, include_blank: "Sélectionner un état" %>
           <%= f.input :price, label: "Prix de location à la journée" %>
-          <%= f.input :photos, as: :file, label: "Sélectionner vos photos", input_html: { multiple: true } %>
-          <% if form_mode != :new %>
-            <%= f.input :latitude, label: "Latitude", input_html: { disabled: true } %>
-            <%= f.input :longitude, label: "Longitude", input_html: { disabled: true } %>
-          <% end %>
+          <%# <%= f.input :photos, as: :file, label: "Sélectionner vos photos", input_html: { multiple: true } %>
         </div>
 
         <div class="form-actions">
-          <%= link_to "Annuler", products_path, class: "btn btn-secondary" %>
+          <%= link_to "Annuler", product_path(@product), class: "btn btn-secondary" %>
           <%= f.button :submit, label_submit || "Enregistrer", class: "btn btn-primary" %>
         </div>
       <% end %>
@@ -28,3 +24,47 @@
     </div>
   </div>
 </div>
+
+
+
+<% if @product.persisted? %>
+<div class="container mt-4 mb-4">
+  <h3>Photos du produit</h3>
+  <%= link_to "Ajouter des photos", "#addPhotosModal", class: "btn btn-primary mb-3", data: { bs_toggle: "modal" } %>
+  <div class="d-flex flex-wrap gap-3 justify-content-start">
+    <% @product.photos.each_with_index do |photo, index| %>
+      <div class="position-relative" style="width: 400px; height: 300px;">
+        <!-- Afficher l'image depuis Cloudinary -->
+        <%= cl_image_tag photo.key, class: "img-fluid rounded", height: 300, width: 400, crop: :fill, alt: "Photo #{index + 1}" %>
+
+        <!-- Icône poubelle pour suppression -->
+        <%= link_to destroy_photo_product_path(photo_id: photo), data: {turbo_method: "delete", turbo_confirm: "are you sure ?"}, class: "btn btn-danger btn-sm position-absolute bottom-0 end-0 m-2" do %>
+          <i class="bi bi-trash"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Modale Bootstrap -->
+<div class="modal fade" id="addPhotosModal" tabindex="-1" aria-labelledby="addPhotosModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPhotosModalLabel">Ajouter des photos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for @product, url: add_photos_product_path(@product), method: :patch, html: { multipart: true } do |f| %>
+          <%= f.input :photos, as: :file, label: "Sélectionnez vos photos", input_html: { multiple: true } %>
+          <%= f.submit "Ajouter", class: "btn btn-primary mt-3" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% else %>
+  <div class="container mt-4">
+    <p class="color-danger">Enregistrez le produit avant d'ajouter des photos.</p>
+  </div>
+<% end %>
