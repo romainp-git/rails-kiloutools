@@ -13,22 +13,13 @@ class ProductsController < ApplicationController
     @booking = Booking.new()
     @price = @product.price
     @product = Product.find(params[:id])
-    @bookings = @product.bookings
+    @bookings = @product.bookings.where(status: ['Pending', 'Accepted'])
     @bookings_dates = @bookings.map do |booking|
       {
         from: booking.start_date,
         to: booking.end_date
       }
     end.to_json
-
-    if @start_date.present? && @end_date.present?
-      @availability = @product.bookings.where(
-        "(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
-        @end_date, @start_date, @end_date, @start_date
-      )
-    else
-      @availability = []
-    end
   end
 
   def search

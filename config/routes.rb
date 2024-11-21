@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: [:show, :index, :destroy]
+  resources :bookings, only: [:show, :index, :destroy, :update]
   resources :profiles, only: [:show, :update]
   resources :stores, only: [:index]
 end
