@@ -8,7 +8,6 @@ export default class extends Controller {
     if (this.pickrInstance) {
       this.pickrInstance.destroy();
     }
-
     this.pickrInstance = flatpickr(this.startDateTarget, {
       mode: "range",
       plugins: [new rangePlugin({ input: this.endDateTarget })],
@@ -20,6 +19,8 @@ export default class extends Controller {
       disable: JSON.parse(this.bookingsDatesTarget.value || "[]"),
       onChange: this.handleDateChange.bind(this),
     });
+    this.handleDateChange(this.pickrInstance.selectedDates)
+
   }
 
   handleDateChange(selectedDates) {

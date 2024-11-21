@@ -8,10 +8,10 @@
   <div data-controller="datepicker">
     <div class="mb-4">
     <p class="fs-4 fw-bold">
-      <span data-datepicker-target="price" class="color-orange">0.0 €</span>
+      <span data-datepicker-target="price" class="color-orange"> <%= price %>€</span>
     </p>
     <p>
-      <span data-datepicker-target="slot">TTC</span>
+      <span data-datepicker-target="slot">TTC / jour</span>
     </p>
     </div>
 
@@ -19,12 +19,12 @@
       <div class="mb-3">
         <%= f.hidden_field :bookings_dates, value: bookings_dates, data: { datepicker_target: "bookingsDates" } %>
         <%= f.label :start_date, "Date de début location", class: "form-label fw-bold" %>
-        <%= f.text_field :start_date, as: :string, class: "form-control", placeholder: "Choisissez une date", data: { datepicker_target: "startDate" } %>
+        <%= f.text_field :start_date, as: :string, class: "form-control", value: start_date, placeholder: "Choisissez une date", data: { datepicker_target: "startDate" } %>
       </div>
 
       <div class="mb-3">
         <%= f.label :end_date, "Date de fin location", class: "form-label fw-bold" %>
-        <%= f.text_field :end_date, as: :string, class: "form-control", placeholder: "Choisissez une date", data: { datepicker_target: "endDate" } %>
+        <%= f.text_field :end_date, as: :string, class: "form-control", value: end_date, placeholder: "Choisissez une date", data: { datepicker_target: "endDate" } %>
       </div>
 
       <div class="mb-4">
