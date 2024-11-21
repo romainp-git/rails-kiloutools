@@ -1,29 +1,91 @@
-.profil-container {
-  margin-left: 200px;
-  margin-right: 200px;
-  h1{
-    text-align: center;
-    text-decoration: solid;
+.container {
+  margin-bottom: 10px;
+  h1 {
+   font-size: 24px;
   }
+ h2 {
+  font-size: 12px;
+  text-align: center;
+ }
+ h3 {
+  text-align: center;
+ }
+
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 70px;
+}
+.description {
+  word-wrap: break-word;
+}
+.card-profile{
+  width: 80%; /* Ajustez selon vos besoins */
+  margin: 0 auto; /* Centrer le container */
+  border: 2px solid #ddd; /* Bordure pour le cadre */
+  border-radius: 8px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Effet d'ombre */
+  background-color: #fff; /* Couleur de fond */
+  padding: 20px; /* Espacement intérieur */
+  display: flex; /* Activer Flexbox */
+  align-items: center; /* Aligner verticalement */
+  gap: 20px; /* Espacement entre les sections */
 }
 
-.cards {
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 8px;
+.img-profile {
+  flex: 1; /* Assure une largeur proportionnelle */
+  display: flex;
+  flex-direction: column; /* Aligner les éléments verticalement */
+  align-items: center; /* Centrer horizontalement */
+}
 
+.avatar-profil {
+  width: 150px; /* Taille de l'image */
+  height: 150px;
+  border-radius: 50%; /* Pour une image ronde */
+  object-fit: cover; /* S'assurer que l'image est bien centrée */
+  border: 2px solid #ccc; /* Optionnel : bordure autour de l'image */
+  margin-bottom: 10px;
 }
 
 .card-info {
-  padding: 50px;
+  flex: 2; /* Occupe plus d'espace que l'image */
+  display: flex;
+  flex-direction: column; /* Les informations s'empilent verticalement */
+  gap: 10px;
+  text-align: center; /* Espacement entre les informations */
 }
 
-.card-picture {
-  width: 10px;
-  height: 10px;
+.card-info p {
+  margin: 0; /* Supprimer le margin par défaut */
+  font-size: 1.1rem; /* Taille du texte */
+  color: #333; /* Couleur du texte */
 }
 
 .edit-icon {
-  cursor: pointer;
+  margin-left: 10px; /* Espacement avec le texte */
+  color: #555; /* Couleur de l'icône */
+  cursor: pointer; /* Change le curseur */
+  transition: color 0.2s ease;
+}
+
+.edit-icon:hover {
+  color: #007BFF; /* Couleur au survol */
+}
+
+.btn-light {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #f8f9fa; /* Couleur claire */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-light:hover {
+  background-color: #e2e6ea; /* Couleur au survol */
 }
