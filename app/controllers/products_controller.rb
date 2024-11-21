@@ -9,12 +9,14 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @booking = Booking.new()
+    @start_date = params[:start_date] || session[:start_date]
+    @end_date = params[:end_date] || session[:end_date]
+
     @count_products_per_owner = count_products_per_owner
     @place_name = find_place_name
+    @markers = [{lat: @product.latitude, lng: @product.longitude}]
 
-    @booking = Booking.new()
-    @price = @product.price
-    @product = Product.find(params[:id])
     @bookings = @product.bookings.where(status: ['Pending', 'Accepted'])
     @bookings_dates = @bookings.map do |booking|
       {
@@ -133,10 +135,14 @@ class ProductsController < ApplicationController
     @search_params = search_params || {}
     @products = filter_products(params[:search])
     @markers = set_markers(@products)
+
+    session[:start_date] = params[:start_date] if params[:start_date]
+    session[:end_date] = params[:end_date] if params[:end_date]
   end
 
   def filter_products(search_params)
     products = Product.all
+    products = products.select { |product| product.active }
 
     if search_params.present?
       if search_params[:address].present?
@@ -171,12 +177,11 @@ class ProductsController < ApplicationController
 
   def find_place_name
     results = Geocoder.search(@product.owner.address)
-    if results.present?
-      place_name = results.first.data["place_name"]
+    if results.present? && results.first.data["address"]
+      results.first.city || "Inconnu"
     else
-      place_name = "No valid address"
+      "Aucune information disponible"
     end
-    return place_name
   end
 
   def count_products_per_owner
