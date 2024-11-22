@@ -38,8 +38,12 @@
       <div class="card p-4">
         <h5 class="fw-bold">Liste matériel</h5>
         <div class="d-flex justify-content-between align-items-center mt-4">
-          <div class="d-flex">
-            <img src="<%= @booking.product.photos %>" class="rounded me-3" alt="Owner" width="50" height="50">
+          <div class="d-flex align-item-center">
+            <% if @booking.product.photos.present? %>
+              <%= cl_image_tag @booking.product.photos[0].key , class: "rounded", height: 50, width: 50 %>
+            <% else %>
+              <%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %>
+            <% end %>
           <div>
             <p class="fw-bold mb-0"><%= @booking.product.name %></p>
             <p class="mb-0"><%= @booking.product.category.name %></p>
@@ -62,7 +66,7 @@
     <div class="col-lg-4">
       <div class="card p-4">
         <div class="d-flex align-items-center mb-3">
-          <img src="<%= @booking.product.owner.photo %>" class="rounded-circle me-3" alt="Owner" width="50" height="50">
+          <%= cl_image_tag @booking.product.owner.photo.key, class: "avatar mr-4",  style: "max-width: 50px;" %>
           <div>
             <p class="fw-bold mb-0"><%= @booking.product.owner.username %></p>
             <p class="text-muted mb-0 d-none">⭐️ - (Aucun avis vérifié)</p>
@@ -72,7 +76,7 @@
           <li><%= @booking.product.price %>€ x <%= (@booking.end_date - @booking.start_date).to_i%> jour(s)</li>
           <li>Prix location HT: <strong><%= ht = @booking.amount - @booking.amount * 0.2%>€</strong></li>
           <li>Services: <strong>0.00€</strong></li>
-          <li>Frais de service HT (5%): <strong><%=fee= ht * 0.05 %>€</strong></li>
+          <li>Frais de service HT (5%): <strong><%= (ht * 0.05).round(2) %>€</strong></li>
           <%=  %>
         </ul>
         <hr>

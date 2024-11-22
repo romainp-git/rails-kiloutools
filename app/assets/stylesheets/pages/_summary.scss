@@ -1,0 +1,78 @@
+.my-annonces-container {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.my-annonces-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.my-annonces-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.my-annonces-image img {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.my-annonces-details {
+  flex-grow: 1;
+}
+
+.my-annonces-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.my-annonces-description {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.my-annonces-actions .btn {
+  width: 100%;
+}
+
+.my-annonces-actions .btn-primary {
+  background-color: #e67e22;
+  border-color: #e67e22;
+}
+
+.my-annonces-actions .btn-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.my-annonces-actions .btn-outline-secondary {
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.form-check .form-check-input {
+  width: 40px;
+  height: 20px;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
