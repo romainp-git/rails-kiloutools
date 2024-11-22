@@ -1,6 +1,6 @@
 <div class="product-cards">
   <% products.each do |product| %>
-    <%= link_to product_path(product) do %>
+
     <div class="product-card">
       <div class="card-header">
         <div class="availability">
@@ -30,15 +30,17 @@
       </div>
 
       <div class="card-footer">
-        <div class="tags">
-          <span class="tag"><%= product.category.name %></span>
+        <div class="footer-details">
+          <div class="tags">
+            <span class="tag"><%= product.category.name %></span>
+          </div>
+          <div class="rating">
+            ⭐⭐⭐⭐⭐ <span>(2)</span>
+          </div>
         </div>
-        <div class="rating">
-          ⭐⭐⭐⭐⭐ <span>(2)</span>
-        </div>
+        <%= link_to "Voir produit", product_path(product), class: "btn" %>
       </div>
     </div>
-    <% end %>
   <% end %>
 
 </div>
