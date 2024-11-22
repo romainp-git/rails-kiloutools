@@ -1,6 +1,10 @@
-<div class="container mt-5">
-      <h1 class="mb-4">Réservations</h1>
-      <p class="text-muted">Suivez l'évolution de vos réservations</p>
+<div class="container my-5 dashboard-renter py-5">
+  <div class="dashboard-header d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="dashboard-title fw-bold">Mes reservations <span>👋</span></h1>
+      <p class="dashboard-subtitle text-secondary fs-5">Suivez l'évolution de vos réservations</p>
+    </div>
+  </div>
   <% if @bookings.any? %>
         <%= render 'shared/filtered_bookings_list', booking: @bookings%>
     <% else %>

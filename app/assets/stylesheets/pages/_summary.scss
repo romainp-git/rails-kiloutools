@@ -58,21 +58,15 @@
   color: #333;
 }
 
-.form-check .form-check-input {
+.form-check-summary .form-check-input {
   width: 40px;
   height: 20px;
 }
 
-.badge {
+.badge-summary {
   font-size: 0.9rem;
   padding: 6px 12px;
   border-radius: 20px;
-}
-
-.bg-success {
-  background-color: #28a745 !important;
-}
-
-.bg-danger {
-  background-color: #dc3545 !important;
+  color: white;
+  font-weight: 500;
 }
