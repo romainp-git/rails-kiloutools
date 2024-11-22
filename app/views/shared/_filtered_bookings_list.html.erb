@@ -63,7 +63,11 @@
                               <% end %>
                             </td>
                             <% end %>
-                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                            <% if item.product.photos.present? %>
+                              <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                            <% else %>
+                              <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                            <% end %>
                             <td><%= link_to item.start_date, booking_path(item) %></td>
                             <td><%= link_to item.end_date, booking_path(item) %></td>
                             <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -104,7 +108,11 @@
                             <span class="badge bg-success"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% if item.product.photos.present? %>
+                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% else %>
+                            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                          <% end %>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -146,7 +154,11 @@
                             <span class="badge bg-danger"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% if item.product.photos.present? %>
+                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% else %>
+                            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                          <% end %>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -188,7 +200,11 @@
                             <span class="badge bg-secondary"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% if item.product.photos.present? %>
+                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% else %>
+                            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                          <% end %>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
