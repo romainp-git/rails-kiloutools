@@ -52,6 +52,11 @@
                               <%= link_to booking_path(item) do %>
                                 <div class ="d-fex">
                                   <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
+                                  <% if item.product.owner.photo.present? %>
+                                    <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
+                                  <% else %>
+                                    <%= image_tag 'no_profile.png', class: "avatar", alt: "No picture available"%>
+                                  <% end %>
                                   <%= item.product.owner.username %>
                                 </div>
                               <% end %>

@@ -74,9 +74,9 @@
       <div class=" p-4 dashboard-card">
         <div class="d-flex align-items-center mb-3">
           <% if @booking.product.owner.photo.present? %>
-            <%= cl_image_tag @booking.product.owner.photo.key, class: "dashboard-avatar me-3" %>
+            <%= cl_image_tag @booking.product.owner.photo.key, class: "avatar me-3" %>
           <% else %>
-            <%= image_tag 'no_picture.jpg', class: "dashboard-avatar me-3", alt: "No picture available" %>
+            <%= image_tag 'no_profile.png', class: "dashboard-avatar me-3", alt: "No picture available" %>
           <% end %>
           <div>
             <p class="fw-bold mb-0"><%= @booking.product.owner.username %></p>
