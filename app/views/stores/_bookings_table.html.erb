@@ -16,12 +16,12 @@
           <td>
             <%= link_to booking_path(item) do %>
               <div class="d-flex align-items-center">
-                <img src="<%= item.product.owner.photo %>" class="me-3" alt="Product Image" style="max-width: 50px;">
+                <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
                 <%= item.product.owner.username %>
               </div>
             <% end %>
           </td>
-          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
+          <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
           <td><%= link_to item.start_date, booking_path(item) %></td>
           <td><%= link_to item.end_date, booking_path(item) %></td>
           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
