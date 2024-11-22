@@ -24,6 +24,7 @@
     </div>
 
     <div class="owner-info">
+      <%= link_to profile_path(@product.owner) do %>
       <div class="owner-photo">
         <% if @product.owner.photo.present? %>
           <%= image_tag @product.owner.photo, class: "img-owner", alt: "#{@product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profile.png')}';" %>
@@ -31,6 +32,7 @@
           <%= image_tag 'no_profile.png', class: "img-owner", alt: "No picture available" %>
         <% end %>
       </div>
+      <% end %>
 
       <div class="owner-details">
         <div class="owner-location">
