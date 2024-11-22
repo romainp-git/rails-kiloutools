@@ -1,5 +1,6 @@
 <div class="search-container" data-controller="toggle-form">
   <div class="search-summary" data-toggle-form-target="summary" data-action="click->toggle-form#expand">
+    <div class="search-details">
       <p>
         <span><strong>Produit</strong></span>
         <span data-toggle-form-target = "product">
@@ -19,14 +20,17 @@
         <span data-toggle-form-target = "startDate">
           <%= params.dig(:search, :start_date).blank? ? "" : params.dig(:search, :start_date) %>
         </span>
-         -
+        -
         <span data-toggle-form-target = "endDate">
           <%= params.dig(:search, :end_date).blank? ? "" : params.dig(:search, :end_date) %>
         </span>
       </p>
-
-      <button>Modifier</button>
     </div>
+
+    <div class="floating-btn">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+  </div>
 
   <div class="search-form d-none" data-toggle-form-target="form" data-controller="datepicker">
     <%= simple_form_for :search, url: search_products_path, method: :get, html: { class: 'row align-items-end justify-content-end' } do |f| %>
