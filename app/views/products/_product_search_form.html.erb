@@ -36,8 +36,8 @@
     <%= simple_form_for :search, url: search_products_path, method: :get, html: { class: 'row align-items-end justify-content-end' } do |f| %>
       <div class="col-md-6 col-12 px-1">
         <%= f.input :name,
-                    label: "Nom du produit",
-                    placeholder: "Exemple : Perceuse",
+                    label: false,
+                    placeholder: "Perceuse, Visseuse, Scie...",
                     input_html: {
                       class: 'form-control',
                       value: params.dig(:search, :name),
@@ -49,10 +49,10 @@
       <div class="col-md-6 col-12 px-1" data-controller='mapbox-autocomplete'
     data-mapbox-autocomplete-api-key-value=<%= ENV["MAPBOX_API_KEY"] %>>
         <%= f.input :address,
-                    label: "Ville",
-                    placeholder: "Exemple : Lille",
+                    label: false,
+                    placeholder: "Lille, Paris, Tourcoing...",
                     input_html: {
-                      class: 'form-control',
+                      class: 'form-control mb-0',
                       value: params.dig(:search, :address),
                       autocomplete: 'off',
                       data: {
@@ -65,10 +65,12 @@
         <div id='mapbox-autocomplete' data-mapbox-autocomplete-target="results" ></div>
       </div>
 
+      <%= f.hidden_field :bookings_dates, value: [], data: { datepicker_target: "bookingsDates" } %>
+
       <div class="col-md-6 col-12 px-1 mb-3">
-        <%= f.label :start_date, "Date de début", class: "form-label" %>
         <%= f.text_field :start_date,
                           class: "form-control",
+                          label: false,
                           placeholder: "Choisissez une date",
                           value: params.dig(:search, :start_date)&.to_date&.strftime("%Y-%m-%d"),
                           data: {
@@ -78,10 +80,9 @@
       </div>
 
       <div class="col-md-6 col-12 px-1 mb-3">
-        <%= f.label :end_date, "Date de fin", class: "form-label" %>
-        <%= f.hidden_field :bookings_dates, value: [], data: { datepicker_target: "bookingsDates" } %>
         <%= f.text_field :end_date,
                           class: "form-control",
+                          label: false,
                           placeholder: "Choisissez une date",
                           value: params.dig(:search, :end_date)&.to_date&.strftime("%Y-%m-%d"),
                           data: {
