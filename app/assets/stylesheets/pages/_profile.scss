@@ -1,91 +1,88 @@
-.container {
-  margin-bottom: 10px;
+.profil-container {
+  display: flex;
+  justify-content: space-between;
+  margin:20px;
   h1 {
    font-size: 24px;
   }
- h2 {
+  h2 {
   font-size: 12px;
   text-align: center;
- }
- h3 {
-  text-align: center;
- }
-
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 70px;
-}
-.description {
+  }
+  .description {
   word-wrap: break-word;
-}
-.card-profile{
-  width: 80%; /* Ajustez selon vos besoins */
-  margin: 0 auto; /* Centrer le container */
-  border: 2px solid #ddd; /* Bordure pour le cadre */
-  border-radius: 8px; /* Coins arrondis */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Effet d'ombre */
-  background-color: #fff; /* Couleur de fond */
-  padding: 20px; /* Espacement intérieur */
-  display: flex; /* Activer Flexbox */
-  align-items: center; /* Aligner verticalement */
-  gap: 20px; /* Espacement entre les sections */
-}
+  }
+  .profil-page{
+    h3 {
+    text-align: center;
+  }
+  }
+  .card-profile{
+     /* Ajustez selon vos besoins */
+ /* Centrer le container */
+    border: 2px solid #ddd; /* Bordure pour le cadre */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Effet d'ombre */
+    background-color: #fff; /* Couleur de fond */
+    padding: 15px; /* Espacement intérieur */ /* Activer Flexbox */
+    align-items: center; /* Aligner verticalement */
+    gap: 20px; /* Espacement entre les sections */
+  }
 
-.img-profile {
-  flex: 1; /* Assure une largeur proportionnelle */
-  display: flex;
-  flex-direction: column; /* Aligner les éléments verticalement */
-  align-items: center; /* Centrer horizontalement */
-}
+  .img-profile {
+    flex: 1; /* Assure une largeur proportionnelle */
+    display: flex;
+    flex-direction: column; /* Aligner les éléments verticalement */
+    align-items: center; /* Centrer horizontalement */
+  }
 
-.avatar-profil {
-  width: 150px; /* Taille de l'image */
-  height: 150px;
-  border-radius: 50%; /* Pour une image ronde */
-  object-fit: cover; /* S'assurer que l'image est bien centrée */
-  border: 2px solid #ccc; /* Optionnel : bordure autour de l'image */
-  margin-bottom: 10px;
-}
+  .avatar-profil {
+    width: 150px; /* Taille de l'image */
+    height: 150px;
+    border-radius: 50%; /* Pour une image ronde */
+    object-fit: cover; /* S'assurer que l'image est bien centrée */
+    border: 2px solid #ccc; /* Optionnel : bordure autour de l'image */
+    margin-bottom: 10px;
+  }
 
-.card-info {
-  flex: 2; /* Occupe plus d'espace que l'image */
-  display: flex;
-  flex-direction: column; /* Les informations s'empilent verticalement */
-  gap: 10px;
-  text-align: center; /* Espacement entre les informations */
-}
+  .card-info {
+    flex: 2; /* Occupe plus d'espace que l'image */
+    display: flex;
+    flex-direction: column; /* Les informations s'empilent verticalement */
+    gap: 10px;
+    text-align: left; /* Espacement entre les informations */
+  }
 
-.card-info p {
-  margin: 0; /* Supprimer le margin par défaut */
-  font-size: 1.1rem; /* Taille du texte */
-  color: #333; /* Couleur du texte */
-}
+  .card-info p {
+    margin: 0; /* Supprimer le margin par défaut */
+    font-size: 1.1rem; /* Taille du texte */
+    color: #333; /* Couleur du texte */
+  }
 
-.edit-icon {
-  margin-left: 10px; /* Espacement avec le texte */
-  color: #555; /* Couleur de l'icône */
-  cursor: pointer; /* Change le curseur */
-  transition: color 0.2s ease;
-}
+  .edit-icon {
+    margin-left: 10px; /* Espacement avec le texte */
+    color: #555; /* Couleur de l'icône */
+    cursor: pointer; /* Change le curseur */
+    transition: color 0.2s ease;
+  }
 
-.edit-icon:hover {
-  color: #007BFF; /* Couleur au survol */
-}
+  .edit-icon:hover {
+    color: #007BFF; /* Couleur au survol */
+  }
 
-.btn-light {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #f8f9fa; /* Couleur claire */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #333;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-}
+  .btn-light {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f8f9fa; /* Couleur claire */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
 
-.btn-light:hover {
-  background-color: #e2e6ea; /* Couleur au survol */
+  .btn-light:hover {
+    background-color: #e2e6ea; /* Couleur au survol */
+  }
 }
