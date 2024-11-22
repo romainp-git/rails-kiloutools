@@ -203,7 +203,7 @@ users.each_with_index do |user, index|
       puts "No photo found for: #{current_user.username}. Default photo uploaded."
     end
 
-    puts "URL photo: #{result}"
+    # puts "URL photo: #{result}"
 
   rescue => e
     puts "Failed to create user #{user[:email]}: #{e.message}"
@@ -345,16 +345,40 @@ end
 # BOOKINGS CREATION
 
 # Statuts possibles pour les réservations
-STATUS = ["En attente", "Accepté", "Refusé"]
+#STATUS = ["En attente", "Accepté", "Refusé"]
+STATUS = ["Pending", "Accepted", "Refused"]
 
 # Générer 10 réservations avec des données fictives
-30.times do
-  Booking.create!(
-    start_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
-    end_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
-    status: STATUS.sample,
-    amount: Faker::Commerce.price,
-    product_id: Product.all.sample.id,
+40.times do
+  start_date = Faker::Date.between(from: '2024-10-01', to: '2025-02-01')
+  end_date = Faker::Date.between(from: start_date + 1, to: start_date + 30)
+  today = Date.today
+
+  # Récupérer un produit aléatoire
+  product = Product.all.sample
+
+  # Calculer le statut en fonction des dates
+  status = if end_date < today
+            "Accepted" # Réservations passée
+          elsif today.between?(start_date, end_date)
+            "Accepted" # Réservations en cours
+          else
+            STATUS.sample # Réservations futures
+          end
+
+  # Calculer le montant total (price * nombre de jours)
+  number_of_days = (end_date - start_date).to_i
+  amount = product.price * number_of_days
+
+  # Créer la réservation
+  current_booking = Booking.create!(
+    start_date: start_date,
+    end_date: end_date,
+    status: status,
+    amount: amount,
+    product_id: product.id,
     user_id: User.all.sample.id
   )
+
+  puts "Created booking: #{current_booking.start_date} => #{current_booking.end_date} #{current_booking.status} for #{current_booking.amount}€"
 end
