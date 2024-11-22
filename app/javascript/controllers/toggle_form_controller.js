@@ -5,6 +5,8 @@ export default class extends Controller {
                     "productInput", "cityInput", "startDateInput", "endDateInput"];
 
   connect() {
+    this.buttons = document.querySelectorAll('.product-link');
+
     document.addEventListener("click", this.handleClickOutside.bind(this));
     document.addEventListener("click", this.preventDisabledButtonAction);
 
@@ -15,13 +17,14 @@ export default class extends Controller {
   disconnect() {
     document.removeEventListener("click", this.handleClickOutside.bind(this));
     document.removeEventListener("click", this.preventDisabledButtonAction);
+
+    this.buttons = null;
   }
 
   expand() {
     this.element.classList.add("expanded");
     this.summaryTarget.classList.add("d-none");
     this.formTarget.classList.remove("d-none");
-
     this.updateButtonState();
   }
 
@@ -49,31 +52,30 @@ export default class extends Controller {
   }
 
   updateButtonState() {
-    const buttons = document.querySelectorAll('.product-link');
     const isExpanded = this.element.classList.contains("expanded");
 
-    buttons.forEach((button) => {
+    this.buttons.forEach((button) => {
       const productCard = button.querySelector('.product-card');
 
       if (isExpanded) {
         button.disabled = true;
         if (productCard) {
-          productCard.classList.add("disabled-card"); // Ajoute une classe au product-card
+          productCard.classList.add("disabled-card");
         }
       } else {
         setTimeout(() => {
           button.disabled = false;
           if (productCard) {
-            productCard.classList.remove("disabled-card"); // Supprime la classe au product-card
+            productCard.classList.remove("disabled-card");
           }
-        }, 10); // Délai de 500 ms
+        }, 10);
       }
     });
   }
 
   preventDisabledButtonAction(event) {
     const button = event.target.closest('.product-link');
-    console.log(button)
+
     if (button && button.disabled) {
       event.preventDefault();
       event.stopPropagation();

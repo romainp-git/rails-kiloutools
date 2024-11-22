@@ -20,6 +20,7 @@ export default class extends Controller {
     const query = event.target.value;
 
     if (query.length < 3) {
+      this.resultsTarget.removeChild(this.list);
       this.list.innerHTML = "";
       return;
     }
@@ -28,7 +29,6 @@ export default class extends Controller {
       .then((response) => response.json())
       .then((data) => {
         this.updateResults(data.features);
-        console.log(data.features);
       });
   }
 
