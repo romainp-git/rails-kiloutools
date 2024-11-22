@@ -220,11 +220,11 @@ products = [
     name: "Tondeuse à gazon",
     description: "Tondeuse à gazon électrique pour jardins de taille moyenne.",
     state: Product::STATES.sample,
-    model: "GLM 120",
+    model: "GLM120",
     price: 150.0,
     brand_id: Brand.find_by(name: "Bosch").id,
     category_id: Category.find_by(name: "Jardinage").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "PYM").id
   },
   {
     name: "Perceuse",
@@ -234,17 +234,17 @@ products = [
     price: 80.0,
     brand_id: Brand.find_by(name: "DeWalt").id,
     category_id: Category.find_by(name: "Bricolage").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "PYM").id
   },
   {
     name: "Scie circulaire",
     description: "Scie circulaire portable pour coupes précises.",
     state: Product::STATES.sample,
-    model: "561534-7",
+    model: "5615347",
     price: 120.0,
     brand_id: Brand.find_by(name: "Makita").id,
     category_id: Category.find_by(name: "Menuiserie").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "SAM").id
   },
   {
     name: "Clé à molette",
@@ -254,7 +254,7 @@ products = [
     price: 20.0,
     brand_id: Brand.find_by(name: "Stanley").id,
     category_id: Category.find_by(name: "Plomberie").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "SAM").id
   },
   {
     name: "Truelle",
@@ -264,7 +264,7 @@ products = [
     price: 15.0,
     brand_id: Brand.find_by(name: "Ryobi").id,
     category_id: Category.find_by(name: "Maçonnerie").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "ROM").id
   },
   {
     name: "Pistolet à peinture",
@@ -274,37 +274,37 @@ products = [
     price: 70.0,
     brand_id: Brand.find_by(name: "Black & Decker").id,
     category_id: Category.find_by(name: "Peinture").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "ROM").id
   },
   {
     name: "Cric hydraulique",
     description: "Cric hydraulique pour levage de véhicules.",
     state: Product::STATES.sample,
-    model: "3-Ton",
+    model: "3Ton",
     price: 50.0,
     brand_id: Brand.find_by(name: "Craftsman").id,
     category_id: Category.find_by(name: "Mécanique").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "ABE").id
   },
   {
     name: "Poste à souder",
     description: "Poste à souder à l'arc pour travaux de soudure.",
     state: Product::STATES.sample,
-    model: "Easyweld 2.0",
+    model: "Easyweld20",
     price: 200.0,
     brand_id: Brand.find_by(name: "Husqvarna").id,
     category_id: Category.find_by(name: "Soudure").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "ABE").id
   },
   {
     name: "Aspirateur",
     description: "Aspirateur sans fil pour nettoyage domestique.",
     state: Product::STATES.sample,
-    model: "V8 Absolute",
+    model: "V8Absolute",
     price: 100.0,
     brand_id: Brand.find_by(name: "Karcher").id,
     category_id: Category.find_by(name: "Nettoyage").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "CGU").id
   },
   {
     name: "Scie sauteuse",
@@ -314,13 +314,32 @@ products = [
     price: 90.0,
     brand_id: Brand.find_by(name: "Bosch").id,
     category_id: Category.find_by(name: "Bricolage").id,
-    user_id: User.all.sample.id
+    user_id: User.find_by(username: "JDE").id
   }
 ]
 
 products.each do |product|
-  Product.create!(product)
+  current_product = Product.create!(product)
+
+  puts "Created product: #{current_product.name} model : #{current_product.model}"
+
+  # Chemin de la photo de l'utilisateur
+  product_photo_path = Rails.root.join('app', 'assets', 'images', "TOOLS_#{current_product.model}.png")
+  default_photo_path = Rails.root.join('app', 'assets', 'images', 'no_picture.jpg')    # Upload de la photo sur Cloudinary
+
+  # Vérifier si la photo de l'utilisateur existe
+  if File.exist?(product_photo_path)
+    result = Cloudinary::Uploader.upload(product_photo_path)
+    current_product.photos.attach(io: URI.open(result['secure_url']), filename: result['original_filename'])
+    puts "Uploaded photo for: #{current_product.model}"
+  else
+    # Si la photo n'existe pas, utiliser la photo par défaut
+    result = Cloudinary::Uploader.upload(default_photo_path)
+    current_product.photo.attach(io: URI.open(result['secure_url']), filename: result['original_filename'])
+    puts "No photo found for: #{current_product.model}. Default photo uploaded."
+  end
 end
+
 
 # ==========================================================================
 # BOOKINGS CREATION
@@ -329,7 +348,7 @@ end
 STATUS = ["En attente", "Accepté", "Refusé"]
 
 # Générer 10 réservations avec des données fictives
-10.times do
+30.times do
   Booking.create!(
     start_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
     end_date: Faker::Date.between(from: '2024-01-01', to: '2024-12-31'),
