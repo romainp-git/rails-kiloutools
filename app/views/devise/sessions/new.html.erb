@@ -1,8 +1,6 @@
 
-<div class="container-session container mt-5">
-  <h2 class="text-center mb-4">Log in</h2>
-
-  <div class="card mx-auto" style="max-width: 400px;">
+<div class="container-session container" style="margin-top: 70px;">
+  <div class="card mx-auto my-3 border-0 bg-white" style="max-width: 400px;">
     <div class="card-body">
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "form" }) do |f| %>
         <div class="form-inputs">
