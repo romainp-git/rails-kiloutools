@@ -8,6 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+require 'open-uri'
 
 Booking.destroy_all
 Product.destroy_all
@@ -86,6 +87,19 @@ addresses = [
   "707 Rue de la Gare, 59120 Loos, France"
 ]
 
+descriptions = [
+  "Passionné de rénovation, je passe mes week-ends à transformer mon jardin en un véritable havre de paix. J'adore bricoler avec le bois et créer des meubles uniques. N'hésitez pas à me contacter pour louer mes outils de menuiserie !",
+  "Amoureuse des DIY, je suis toujours à la recherche de nouveaux projets créatifs. Je suis équipée pour tout type de travaux de décoration et de rénovation. Louez mes outils pour donner vie à vos idées les plus folles !",
+  "Ancien maçon de métier, je suis un expert en rénovation. Je possède un large éventail d'outils pour tous les travaux de maçonnerie, de plâtrerie et d'électricité. N'hésitez pas à faire appel à moi pour vos projets de rénovation !",
+  "Passionnée de jardinage, je cultive mon propre potager et entretiens mon jardin avec soin. Je dispose de tous les outils nécessaires pour l'entretien de votre jardin. Louez mon matériel pour profiter d'un jardin verdoyant !",
+  "Mécanicien amateur, je répare tout ce qui tombe sous ma main. Je possède un garage bien équipé et je suis prêt à partager mes outils avec d'autres passionnés de mécanique. N'hésitez pas à me solliciter !",
+  "Adepte du relooking, j'adore transformer les meubles et les objets du quotidien. Je suis équipée de tout le matériel nécessaire pour la peinture, le ponçage et la tapisserie. Louez mes outils pour donner une seconde vie à vos meubles !",
+  "Électricien de formation, je suis à l'aise avec tous les travaux électriques. Je possède un matériel professionnel et je suis prêt à le partager avec ceux qui ont besoin d'effectuer des travaux électriques en toute sécurité.",
+  "Bricoleuse du dimanche, j'aime relever de nouveaux défis et apprendre de nouvelles techniques. Je suis équipée pour les petits travaux de bricolage et de jardinage. N'hésitez pas à me contacter !",
+  "Menuisier de métier, je réalise des meubles sur mesure et des travaux d'agencement. Je possède un atelier bien équipé et je suis prêt à partager mes outils avec d'autres passionnés de bois.",
+  "Artisan polyvalent, je suis capable de réaliser de nombreux travaux : plomberie, peinture, carrelage... Je possède un large éventail d'outils et je suis prêt à vous aider dans vos projets."
+]
+
 users = [
   {
     email: "pym@gmail.com",
@@ -116,46 +130,46 @@ users = [
     username: "ABE"
   },
   {
-    email: "luc.bernard@example.com",
+    email: "pyh@gmail.com",
     password: "password",
-    first_name: "Luc",
-    last_name: "Bernard",
-    username: "luc bernard"
+    first_name: "Pierre-Yves",
+    last_name: "HOORENS",
+    username: "PYH"
   },
   {
-    email: "claire.roux@example.com",
+    email: "afl@gmail.com",
     password: "password",
-    first_name: "Claire",
-    last_name: "Roux",
-    username: "claire roux"
+    first_name: "Arnaud",
+    last_name: "FLORIANI",
+    username: "AFL"
   },
   {
-    email: "marc.leclerc@example.com",
+    email: "cgu@gmail.com",
     password: "password",
-    first_name: "Marc",
-    last_name: "Leclerc",
-    username: "marc leclerc"
+    first_name: "Camille",
+    last_name: "GUILMAIN",
+    username: "CGU"
   },
   {
-    email: "isabelle.moreau@example.com",
+    email: "cba@gmail.com",
     password: "password",
-    first_name: "Isabelle",
-    last_name: "Moreau",
-    username: "isabelle moreau"
+    first_name: "Clara",
+    last_name: "BARBE",
+    username: "CBA"
   },
   {
-    email: "julien.girard@example.com",
+    email: "jde@gmail.com",
     password: "password",
-    first_name: "Julien",
-    last_name: "Girard",
-    username: "julien girard"
+    first_name: "Jean",
+    last_name: "DELABRE",
+    username: "JDE"
   },
   {
-    email: "laura.dubois@example.com",
+    email: "jtc@gmail.com",
     password: "password",
-    first_name: "Laura",
-    last_name: "Dubois",
-    username: "laura dubois"
+    first_name: "John",
+    last_name: "TCHOMGUI",
+    username: "JTC"
   }
 ]
 
@@ -168,9 +182,29 @@ users.each_with_index do |user, index|
       first_name: user[:first_name],
       last_name: user[:last_name],
       username: user[:username],
-      address: addresses[index] || Faker::Address.full_address # Utiliser Faker si l'index dépasse le tableau
+      address: addresses[index] || Faker::Address.full_address, # Utiliser Faker si l'index dépasse le tableau
+      description:descriptions[index]
     )
     puts "Created user: #{current_user.email}"
+
+    # Chemin de la photo de l'utilisateur
+    username_photo_path = Rails.root.join('app', 'assets', 'images', "#{current_user.username}.png")
+    default_photo_path = Rails.root.join('app', 'assets', 'images', 'no_profile.png')    # Upload de la photo sur Cloudinary
+
+    # Vérifier si la photo de l'utilisateur existe
+    if File.exist?(username_photo_path)
+      result = Cloudinary::Uploader.upload(username_photo_path)
+      current_user.photo.attach(io: URI.open(result['secure_url']), filename: result['original_filename'])
+      puts "Uploaded photo for: #{current_user.username}"
+    else
+      # Si la photo n'existe pas, utiliser la photo par défaut
+      result = Cloudinary::Uploader.upload(default_photo_path)
+      current_user.photo.attach(io: URI.open(result['secure_url']), filename: result['original_filename'])
+      puts "No photo found for: #{current_user.username}. Default photo uploaded."
+    end
+
+    puts "URL photo: #{result}"
+
   rescue => e
     puts "Failed to create user #{user[:email]}: #{e.message}"
   end
