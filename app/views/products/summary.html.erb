@@ -16,7 +16,7 @@
           <tr>
             <td>
               <div class="d-flex align-items-center">
-                <img src="<%= product.photos %>" alt="Product Image" class="img-thumbnail" style="max-width: 50px;">
+                <%= cl_image_tag product.photos[0].key , class: "img-thumbnail rounded", height: 50, width: 50 %>
                 <span class="ms-3"><%= product.name %></span>
               </div>
             </td>
@@ -28,7 +28,6 @@
                        data-action="change->toggle-product#toggle"
                        data-toggle-product-target="checkbox"
                        data-product-id="<%= product.id %>">
-                <label class="form-check-label" for="product_<%= product.id %>">Activer/Désactiver</label>
               </div>
             </td>
             <td>
