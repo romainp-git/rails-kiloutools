@@ -2,6 +2,10 @@
   margin-bottom: 3rem;
 }
 
+.container h3{
+  text-align: left;
+}
+
 .dashboard-renter .dashboard-title {
   font-size: 2rem;
   color: #333;
@@ -16,7 +20,7 @@
   width: 50px;
   height: 50px;
   border: 2px solid #e9ecef;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(209, 209, 209, 0.1);
 }
 
 .dashboard-renter .dashboard-stats .dashboard-card {
@@ -27,7 +31,7 @@
 
 .dashboard-renter .dashboard-stats .dashboard-card:hover {
   transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(209, 209, 209, 0.1);
 }
 
 .dashboard-renter .dashboard-card-title {
@@ -52,12 +56,13 @@
   background: #fff;
   border-radius: 15px;
   transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 6px rgba(209, 209, 209, 0.1);
 }
 
-.dashboard-renter .dashboard-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
+// .dashboard-renter .dashboard-card:hover {
+//   transform: scale(1.03);
+
+// }
 
 .dashboard-renter .dashboard-btn-group .btn {
   border-radius: 0;
@@ -66,4 +71,17 @@
 
 .dashboard-renter .dashboard-btn-group .btn:hover {
   background-color: #f8f9fa;
+}
+
+.notif {
+  background-color: rgb(234, 61, 61);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 5px;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }

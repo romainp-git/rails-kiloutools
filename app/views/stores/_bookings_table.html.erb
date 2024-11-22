@@ -17,7 +17,8 @@
             <%= link_to booking_path(item) do %>
               <div class="d-flex align-items-center">
                 <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
-                <%= item.product.owner.username %>
+                <span class="mx-3"><%= item.product.owner.username %></span>
+
               </div>
             <% end %>
           </td>

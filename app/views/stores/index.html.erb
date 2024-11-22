@@ -2,7 +2,6 @@
 
   <div class="dashboard-header d-flex justify-content-between align-items-center mb-5">
     <div>
-    <%=  %>
       <h1 class="dashboard-title fw-bold">Bonjour <%= @user.first_name %> <span>👋</span></h1>
       <p class="dashboard-subtitle text-secondary fs-5">Bienvenue dans votre espace loueur</p>
     </div>
@@ -13,8 +12,8 @@
     <div class="col-md-4">
       <div class="dashboard-card card shadow-sm border-0 text-center p-4">
         <div class="card-body">
-          <h4 class="dashboard-card-title text-muted mb-3">Revenu total </h4>
-          <p class="dashboard-card-value display-4 fw-bold text-primary"><%= @bookings.where(status: 'Accepted').sum(:amount) %> €</p>
+          <h4 class="dashboard-card-title text-muted mb-3 text-align-left">Revenu total </h4>
+          <p class="dashboard-card-value display-4 fw-bold "><%= @bookings.where(status: 'Accepted').sum(:amount) %> €</p>
         </div>
       </div>
     </div>
@@ -22,7 +21,7 @@
       <div class="dashboard-card card shadow-sm border-0 text-center p-4">
         <div class="card-body">
           <h4 class="dashboard-card-title text-muted mb-3">Locations validé</h4>
-          <p class="dashboard-card-value display-4 fw-bold text-primary"><%= @bookings.where(status: 'Accepted').count %></p>
+          <p class="dashboard-card-value display-4 fw-bold "><%= @bookings.where(status: 'Accepted').count %></p>
         </div>
       </div>
     </div>
@@ -30,7 +29,7 @@
       <div class="dashboard-card card shadow-sm border-0 text-center p-4">
         <div class="card-body">
           <h4 class="dashboard-card-title text-muted mb-3">Locations en attente</h4>
-          <p class="dashboard-card-value display-4 fw-bold text-primary"><%= @bookings.where(status: 'Pending').count %></p>
+          <p class="dashboard-card-value display-4 fw-bold "><%= @bookings.where(status: 'Pending').count %></p>
         </div>
       </div>
     </div>
@@ -44,9 +43,12 @@
       <div class="col-md-6">
         <div class="dashboard-card card shadow-sm border-0 text-center p-4">
           <%=link_to new_product_path do %>
-            <div class="card-body">
-              <h5 class="dashboard-card-title text-dark fw-bold mb-2">Ajouter un produit</h5>
-              <p class="dashboard-card-text text-muted">Augmentez votre parc matériel en ajoutant des produits</p>
+              <div class="card-body">
+                <div class = "d-flex ">
+                  <%= image_tag 'add.png', height: 20, width: 20 %>
+                  <h5 class="dashboard-card-title text-dark fw-bold mb-2 mx-2">Ajouter un produit</h5>
+                </div>
+                <p class="dashboard-card-text text-muted">Augmentez votre parc matériel en ajoutant des produits</p>
             </div>
           <% end %>
         </div>
@@ -54,8 +56,11 @@
       <div class="col-md-6">
         <div class="dashboard-card card shadow-sm border-0 text-center p-4">
           <%=link_to product_summary_path do %>
-            <div class="card-body">
-              <h5 class="dashboard-card-title text-dark fw-bold mb-2">Mes annonces</h5>
+              <div class="card-body">
+                <div class="d-flex ">
+                  <%= image_tag 'list.png', height: 20, width: 20 %>
+                  <h5 class="dashboard-card-title text-dark fw-bold mb-2 mx-2">Mes annonces</h5>
+              </div>
               <p class="dashboard-card-text text-muted">Modifiez vos produits en location</p>
             </div>
           <% end %>
@@ -68,28 +73,37 @@
     <h3 class="dashboard-section-title fw-bold mb-3">Vos réservations</h3>
     <p class="dashboard-section-subtitle text-muted mb-4">Les réservations que vous avez reçues</p>
     <% if @bookings.any? %>
-        <ul class="nav nav-tabs mb-4" id="reservationTabs" role="tablist">
+        <ul class="nav nav-tabs mb-4 filtered-tabs" id="reservationTabs" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">
-              Toutes
-            </button>
+              <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab">
+                  Toutes <span class="notif"><%= @bookings.count if @bookings.count > 0 %></span>
+              </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted" type="button" role="tab">
-              Acceptées
-            </button>
+              <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab">
+                  Annulées
+                  <% if @bookings.select { |booking| booking.status == 'Refused' }.count > 0 %>
+                    <span class="notif"><%= @bookings.select { |booking| booking.status == 'Refused' }.count %></span>
+                  <% end %>
+              </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="cancelled-tab" data-bs-toggle="tab" data-bs-target="#cancelled" type="button" role="tab">
-              Annulées
-            </button>
+              <button class="nav-link" id="accepted-tab" data-bs-toggle="tab" data-bs-target="#accepted" type="button" role="tab">
+                  Acceptées
+                  <% if @bookings.select { |booking| booking.status == 'Accepted' }.count > 0 %>
+                    <span class="notif"><%= @bookings.select { |booking| booking.status == 'Accepted' }.count %></span>
+                  <% end %>
+              </button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">
-              En attente
-            </button>
+              <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">
+                  En attente
+                  <% if @bookings.select { |booking| booking.status == 'Pending' }.count > 0 %>
+                    <span class="notif"><%= @bookings.select { |booking| booking.status == 'Pending' }.count %></span>
+                  <% end %>
+              </button>
           </li>
-        </ul>
+      </ul>
 
         <div class="tab-content" id="reservationTabsContent">
           <div class="tab-pane fade show active" id="all" role="tabpanel">

@@ -1,90 +1,100 @@
-<div class="container my-5">
-  <div class="mb-4">
-    <h1 class="fw-bold">Ma réservation n°<%= @booking.id %></h1>
-  </div>
-  <%=  %>
-<div class="row">
+<div class="container my-5 dashboard-renter py-5">
 
+  <div class="dashboard-header d-flex justify-content-between align-items-center mb-5">
+    <div>
+      <h1 class="dashboard-title fw-bold">Ma réservation n°<%= @booking.id %> <span>👋</span></h1>
+      <p class="dashboard-subtitle text-secondary fs-5">Demande envoyé le <%= @booking.created_at.strftime("%d/%m/%Y %H:%M:%S") %></p>
+    </div>
+  </div>
+  <div class="row">
+    <!-- Colonne principale -->
     <div class="col-lg-8 mb-4">
-  <div class="card mb-4 p-4">
-    <h5 class="fw-bold">Votre demande</h5>
-    <div class="d-flex justify-content-between align-items-center mt-4">
-      <div class="text-center">
-        <p class="fw-bold text-uppercase mb-1"><%= l(@booking.start_date, format: :short) %></p>
-        <p class="mb-0">Départ matériel<br><strong>Après 15:00</strong></p>
+      <!-- Carte Demande -->
+      <div class=" mb-4 p-4 dashboard-card">
+        <h5 class="fw-bold">Votre demande</h5>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <div class="text-center">
+            <p class="fw-bold text-uppercase mb-1"><%= l(@booking.start_date, format: :short) %></p>
+            <p class="mb-0">Départ matériel<br><strong>Après 15:00</strong></p>
+          </div>
+          <div>
+            <i class="bi bi-arrow-right fs-4"></i>
+          </div>
+          <div class="text-center">
+            <p class="fw-bold text-uppercase mb-1"><%= l(@booking.end_date, format: :short) %></p>
+            <p class="mb-0">Retour matériel<br><strong>Avant 12:00</strong></p>
+          </div>
+        </div>
       </div>
-      <div>
-        <i class="bi bi-arrow-right fs-4"></i>
+
+      <!-- Carte Avis -->
+      <div class=" mb-4 p-4 dashboard-card d-none">
+        <h5 class="fw-bold">Partager votre avis</h5>
+        <p>Ce avis sera publié sur le profil du loueur.</p>
+        <div class="my-3">
+          <span class="text-warning fs-5">★★★★★</span>
+          <span class="ms-2 fw-bold">5 / 5</span>
+        </div>
+        <textarea class="form-control mb-3" rows="4" placeholder="Le matériel était en très bon état, Yanis est quelqu’un de sérieux..."></textarea>
+        <button class="btn btn-primary w-100" disabled>Publier</button>
       </div>
-      <div class="text-center">
-        <p class="fw-bold text-uppercase mb-1"><%= l(@booking.end_date, format: :short) %></p>
-        <p class="mb-0">Retour matériel<br><strong>Avant 12:00</strong></p>
-      </div>
-    </div>
-  </div>
 
-  <div class="card mb-4 p-4 d-none">
-    <h5 class="fw-bold">Partager votre avis</h5>
-    <p>Ce avis sera publié sur le profil du loueur.</p>
-    <div class="my-3">
-      <span class="text-warning fs-5">★★★★★</span>
-      <span class="ms-2 fw-bold">5 / 5</span>
-    </div>
-    <textarea class="form-control mb-3" rows="4" placeholder="Le matériel était en très bon état, Yanis est quelqu’un de sérieux..."></textarea>
-    <button class="btn btn-primary w-100" disabled>Publier</button>
-  </div>
-
-
-      <div class="card p-4">
+      <!-- Carte Liste Matériel -->
+      <div class=" mb-4 p-4 dashboard-card">
         <h5 class="fw-bold">Liste matériel</h5>
         <div class="d-flex justify-content-between align-items-center mt-4">
-          <div class="d-flex align-item-center">
+          <div class="d-flex align-items-center">
             <% if @booking.product.photos.present? %>
-              <%= cl_image_tag @booking.product.photos[0].key , class: "rounded", height: 50, width: 50 %>
+              <%= cl_image_tag @booking.product.photos[0].key, class: "rounded dashboard-avatar" %>
             <% else %>
-              <%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %>
+              <%= image_tag 'no_picture.jpg', class: "rounded dashboard-avatar", alt: "No picture available" %>
             <% end %>
-          <div>
-            <p class="fw-bold mb-0"><%= @booking.product.name %></p>
-            <p class="mb-0"><%= @booking.product.category.name %></p>
-            <p class="mb-0">Quantité: 1</p>
-          </div>
+            <div class="ms-3">
+              <p class="fw-bold mb-0"><%= @booking.product.name %></p>
+              <p class="mb-0"><%= @booking.product.category.name %></p>
+              <p class="mb-0">Quantité: 1</p>
+            </div>
           </div>
           <div class="text-end">
-            <p class="fw-bold  mb-0"><%= @booking.amount %>€ TTC</p>
-             <% if @booking.status == "Pending" %>
-                <span class="badge bg-secondary"><%= @booking.status%></span>
-              <% else %>
-                <span class="badge <%= @booking.status == 'Refused' ? 'bg-danger' : 'bg-success' %>">
-                  <%= @booking.status%>
-                </span>
+            <p class="fw-bold mb-0"><%= @booking.amount %>€ TTC</p>
+            <% if @booking.status == "Pending" %>
+              <span class="badge bg-secondary"><%= @booking.status %></span>
+            <% else %>
+              <span class="badge <%= @booking.status == 'Refused' ? 'bg-danger' : 'bg-success' %>">
+                <%= @booking.status %>
+              </span>
             <% end %>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Colonne secondaire -->
     <div class="col-lg-4">
-      <div class="card p-4">
+      <div class=" p-4 dashboard-card">
         <div class="d-flex align-items-center mb-3">
-          <%= cl_image_tag @booking.product.owner.photo.key, class: "avatar mr-4",  style: "max-width: 50px;" %>
+          <% if @booking.product.owner.photo.present? %>
+            <%= cl_image_tag @booking.product.owner.photo.key, class: "dashboard-avatar me-3" %>
+          <% else %>
+            <%= image_tag 'no_picture.jpg', class: "dashboard-avatar me-3", alt: "No picture available" %>
+          <% end %>
           <div>
             <p class="fw-bold mb-0"><%= @booking.product.owner.username %></p>
-            <p class="text-muted mb-0 d-none">⭐️ - (Aucun avis vérifié)</p>
+            <p class="text-muted mb-0 d-none ">⭐️⭐️⭐️⭐️⭐️ (120)</p>
           </div>
         </div>
         <ul class="list-unstyled">
-          <li><%= @booking.product.price %>€ x <%= (@booking.end_date - @booking.start_date).to_i%> jour(s)</li>
-          <li>Prix location HT: <strong><%= ht = @booking.amount - @booking.amount * 0.2%>€</strong></li>
+          <li><%= @booking.product.price %>€ x <%= (@booking.end_date - @booking.start_date).to_i %> jour(s)</li>
+          <li>Prix location HT: <strong><%= ht = (@booking.amount - @booking.amount * 0.2).round(2) %>€</strong></li>
           <li>Services: <strong>0.00€</strong></li>
           <li>Frais de service HT (5%): <strong><%= (ht * 0.05).round(2) %>€</strong></li>
-          <%=  %>
         </ul>
         <hr>
         <p>Total (HT): <strong><%= ht %>€</strong></p>
-        <p>TVA: <strong><%= @booking.amount * 0.2%>€</strong></p>
+        <p>TVA: <strong><%= (@booking.amount * 0.2).round(2) %>€</strong></p>
         <p>Total TTC: <strong><%= @booking.amount %>€</strong></p>
         <hr>
-        <p>Dépôt de garantie: <strong><%= @booking.amount * 0.15%>€</strong></p>
+        <p>Dépôt de garantie: <strong><%= (@booking.amount * 0.15).round(2) %>€</strong></p>
         <p>Valeur de remplacement: <strong>2800.00€</strong></p>
       </div>
     </div>
