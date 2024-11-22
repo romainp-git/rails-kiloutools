@@ -51,6 +51,7 @@
                             <td>
                               <%= link_to booking_path(item) do %>
                                 <div class ="d-fex">
+
                                   <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
                                   <% if item.product.owner.photo.present? %>
                                     <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
