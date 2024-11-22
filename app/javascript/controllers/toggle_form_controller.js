@@ -52,19 +52,23 @@ export default class extends Controller {
     const buttons = document.querySelectorAll('.product-link');
     const isExpanded = this.element.classList.contains("expanded");
 
-    if (isExpanded) {
-      // Désactive immédiatement les boutons
-      buttons.forEach((button) => {
+    buttons.forEach((button) => {
+      const productCard = button.querySelector('.product-card');
+
+      if (isExpanded) {
         button.disabled = true;
-      });
-    } else {
-      // Réactive les boutons après un délai (par exemple, 500 ms)
-      setTimeout(() => {
-        buttons.forEach((button) => {
+        if (productCard) {
+          productCard.classList.add("disabled-card"); // Ajoute une classe au product-card
+        }
+      } else {
+        setTimeout(() => {
           button.disabled = false;
-        });
-      }, 500); // Délai de 500 ms
-    }
+          if (productCard) {
+            productCard.classList.remove("disabled-card"); // Supprime la classe au product-card
+          }
+        }, 10); // Délai de 500 ms
+      }
+    });
   }
 
   preventDisabledButtonAction(event) {
