@@ -90,9 +90,11 @@
                             toggle_form_target: "endDateInput"
                           } %>
       </div>
-      <div class="col-lg-2 col-12 d-block px-1">
-        <%= f.button :submit, "Rechercher", class: "btn w-100 rounded-3" %>
-      </div>
+      <%= button_tag type: "submit", class: "floating-btn" do %>
+        <div>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

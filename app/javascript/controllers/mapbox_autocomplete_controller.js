@@ -8,6 +8,7 @@ export default class extends Controller {
   connect() {
     this.baseUrl = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
     this.list = document.createElement("ul");
+    this.list.className = 'autocomplete-list';
     document.addEventListener("click", this.handleClickOutside.bind(this));
   }
 
@@ -37,6 +38,8 @@ export default class extends Controller {
 
     features.forEach((feature) => {
       const item = document.createElement("li");
+
+      item.className = "autocomplete-item";
       item.textContent = feature.place_name;
       item.addEventListener("click", () => this.selectSuggestion(feature));
       this.list.appendChild(item);

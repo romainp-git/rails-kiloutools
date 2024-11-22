@@ -31,6 +31,10 @@ export default class extends Controller {
   }
 
   handleClickOutside(event) {
+    if (event.target.closest(".autocomplete-list")) {
+      return;
+    }
+
     if (!this.element.contains(event.target)) {
       this.collapse();
     }
