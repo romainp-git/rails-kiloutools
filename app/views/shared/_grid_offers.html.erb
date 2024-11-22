@@ -1,6 +1,6 @@
 <div class="product-cards">
   <% products.each do |product| %>
-
+  <%= link_to product_path(product), class: "product-link" do %>
     <div class="product-card">
       <div class="card-header">
         <div class="availability">
@@ -38,9 +38,10 @@
             ⭐⭐⭐⭐⭐ <span>(2)</span>
           </div>
         </div>
-        <%= link_to "Voir produit", product_path(product), class: "btn" %>
+
       </div>
     </div>
+    <% end %>
   <% end %>
 
 </div>

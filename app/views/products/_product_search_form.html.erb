@@ -17,18 +17,20 @@
 
       <p>
         <span><strong>Dates</strong></span>
-        <span data-toggle-form-target = "startDate">
-          <%= params.dig(:search, :start_date).blank? ? "" : params.dig(:search, :start_date) %>
-        </span>
-        -
-        <span data-toggle-form-target = "endDate">
-          <%= params.dig(:search, :end_date).blank? ? "" : params.dig(:search, :end_date) %>
+        <span>
+          <span data-toggle-form-target = "startDate">
+            <%= params.dig(:search, :start_date).blank? ? "" : params.dig(:search, :start_date) %>
+          </span>
+          /
+          <span data-toggle-form-target = "endDate">
+            <%= params.dig(:search, :end_date).blank? ? "" : params.dig(:search, :end_date) %>
+          </span>
         </span>
       </p>
     </div>
 
     <div class="floating-btn">
-      <i class="fa-solid fa-magnifying-glass"></i>
+      <i class="fa-solid fa-sort"></i>
     </div>
   </div>
 

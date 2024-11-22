@@ -5,18 +5,24 @@ export default class extends Controller {
                     "productInput", "cityInput", "startDateInput", "endDateInput"];
 
   connect() {
-    this.collapse();
     document.addEventListener("click", this.handleClickOutside.bind(this));
+    document.addEventListener("click", this.preventDisabledButtonAction);
+
+    this.collapse();
+    this.updateButtonState();
   }
 
   disconnect() {
     document.removeEventListener("click", this.handleClickOutside.bind(this));
+    document.removeEventListener("click", this.preventDisabledButtonAction);
   }
 
   expand() {
     this.element.classList.add("expanded");
     this.summaryTarget.classList.add("d-none");
     this.formTarget.classList.remove("d-none");
+
+    this.updateButtonState();
   }
 
   collapse() {
@@ -28,6 +34,8 @@ export default class extends Controller {
     this.element.classList.remove("expanded");
     this.formTarget.classList.add("d-none");
     this.summaryTarget.classList.remove("d-none");
+
+    this.updateButtonState();
   }
 
   handleClickOutside(event) {
@@ -37,6 +45,34 @@ export default class extends Controller {
 
     if (!this.element.contains(event.target)) {
       this.collapse();
+    }
+  }
+
+  updateButtonState() {
+    const buttons = document.querySelectorAll('.product-link');
+    const isExpanded = this.element.classList.contains("expanded");
+
+    if (isExpanded) {
+      // Désactive immédiatement les boutons
+      buttons.forEach((button) => {
+        button.disabled = true;
+      });
+    } else {
+      // Réactive les boutons après un délai (par exemple, 500 ms)
+      setTimeout(() => {
+        buttons.forEach((button) => {
+          button.disabled = false;
+        });
+      }, 500); // Délai de 500 ms
+    }
+  }
+
+  preventDisabledButtonAction(event) {
+    const button = event.target.closest('.product-link');
+    console.log(button)
+    if (button && button.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 }
