@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  include PgSearch::Model
   STATES = ["Neuf", "Comme neuf", "Très bon état", "Bon état", "Usagé"]
 
   belongs_to :brand
@@ -16,6 +17,16 @@ class Product < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_user_id?
+
+  pg_search_scope :global_search,
+  against: [ :name ],
+  associated_against: {
+    category: [ :name ],
+    brand: [ :name ],
+  },
+  using: {
+    tsearch: { prefix: true }
+  }
 
   def can_be_destroyed?
     bookings.empty?
