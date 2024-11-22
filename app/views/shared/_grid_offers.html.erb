@@ -1,16 +1,44 @@
 <div class="product-cards">
   <% products.each do |product| %>
+    <%= link_to product_path(product) do %>
     <div class="product-card">
-      <div class="product-card-image">
-        <%= render 'shared/products_carroussel', product: product %>
+      <div class="card-header">
+        <div class="availability">
+          <span class="status-circle"></span>
+          <span>Disponibilité confirmée</span>
+        </div>
+        <div class="product-card-image">
+          <%= render 'shared/products_carroussel', product: product %>
+        </div>
+        <p class="price"><%= product.price %>€/jour</p>
+        <% if product.owner.photo.present? %>
+          <%= image_tag product.owner.photo, class: "profile-img", alt: "#{product.owner.username}", onerror: "this.onerror=null;this.src='#{asset_path('no_profile.png')}';" %>
+        <% else %>
+          <%= image_tag 'no_profile.png', class: "profile-img", alt: "No picture available" %>
+        <% end %>
       </div>
-      <div class="product-card-content">
-        <h5 class="product-card-title"><%= product.name %></h5>
-        <p class="product-card-description"><%= product.description %></p>
-        <p class="product-card-price"><%= product.price %>€/jour</p>
-        <%= link_to "Voir produit", product_path(product), class: "btn w-100 rounded-3 mt-3"%>
+
+      <div class="card-body">
+         <p class="location">
+          <span>📍</span> <%= product.owner.address %>
+        </p>
+        <h3><%= product.name %></h3>
+        <p class="description">
+          <%= product.description %>
+        </p>
+
+      </div>
+
+      <div class="card-footer">
+        <div class="tags">
+          <span class="tag"><%= product.category.name %></span>
+        </div>
+        <div class="rating">
+          ⭐⭐⭐⭐⭐ <span>(2)</span>
+        </div>
       </div>
     </div>
+    <% end %>
   <% end %>
 
 </div>
