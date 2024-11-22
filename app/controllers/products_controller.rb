@@ -183,7 +183,7 @@ class ProductsController < ApplicationController
         products = products.near(search_params[:address], 10)
       end
       if search_params[:name].present?
-        products = products.where("products.name ILIKE ?", "%#{search_params[:name]}%")
+        products = Product.global_search(search_params[:name])
       end
       if search_params[:start_date].present? && search_params[:end_date].present?
         start_date = Date.parse(search_params[:start_date])
