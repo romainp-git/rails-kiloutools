@@ -1,42 +1,42 @@
-<div class="container py-5">
+<div class="my-annonces-container py-5">
   <h1 class="mb-4">Liste de vos produits</h1>
 
-  <div class="table-responsive">
-    <table class="table table-hover align-middle">
-      <thead class="table-light">
-        <tr>
-          <th>Produit</th>
-          <th>Description</th>
-          <th>Activer/Désactiver</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @products.each do |product| %>
-          <tr>
-            <td>
-              <div class="d-flex align-items-center">
-                <img src="<%= product.photos %>" alt="Product Image" class="img-thumbnail" style="max-width: 50px;">
-                <span class="ms-3"><%= product.name %></span>
-              </div>
-            </td>
-            <td><%= product.description %></td>
-            <td>
-              <div class="form-check form-switch" data-controller="toggle-product">
-                <input class="form-check-input" type="checkbox" role="switch" id="product_<%= product.id %>"
-                       <%= "checked" if product.active %>
-                       data-action="change->toggle-product#toggle"
-                       data-toggle-product-target="checkbox"
-                       data-product-id="<%= product.id %>">
-                <label class="form-check-label" for="product_<%= product.id %>">Activer/Désactiver</label>
-              </div>
-            </td>
-            <td>
-              <%= link_to 'Editer', edit_product_path(product), class: 'btn btn-outline-primary btn-sm' %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="my-annonces-list">
+    <% @products.each do |product| %>
+      <div class="my-annonces-item d-flex p-3 mb-3 align-items-center">
+        <!-- Image produit -->
+        <div class="my-annonces-image">
+          <% if product.photos.present? %>
+            <%= cl_image_tag product.photos[0].key, class: "img-thumbnail rounded my-annonces-img", height: 100, width: 100 %>
+          <% else %>
+            <%= image_tag 'no_picture.jpg', class: "img-thumbnail rounded my-annonces-img", alt: "No picture available", height: 100, width: 100 %>
+          <% end %>
+        </div>
+
+        <!-- Informations produit -->
+        <div class="my-annonces-details ms-3 flex-grow-1">
+          <h5 class="my-annonces-title mb-1"><%= product.name %></h5>
+          <p class="my-annonces-description mb-1"><%= product.description %></p>
+        </div>
+
+
+        <div class="form-check form-switch me-3" data-controller="toggle-product">
+          <input class="form-check-input" type="checkbox" role="switch" id="product_<%= product.id %>"
+                 <%= "checked" if product.active %>
+                 data-action="change->toggle-product#toggle"
+                 data-toggle-product-target="checkbox"
+                 data-product-id="<%= product.id %>">
+          <span class="badge ms-2 <%= product.active ? 'bg-success' : 'bg-danger' %>" data-toggle-product-target="badge">
+            <%= product.active ? 'En ligne' : 'Hors ligne' %>
+          </span>
+        </div>
+
+
+        <div class="my-annonces-actions d-flex flex-column align-items-center">
+          <%= link_to 'Editer', edit_product_path(product), class: 'btn btn-warning btn-sm mb-2' %>
+
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

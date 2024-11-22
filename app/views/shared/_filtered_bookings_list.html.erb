@@ -41,7 +41,7 @@
                             <td>
                               <%= link_to booking_path(item) do %>
                                 <div class ="d-fex">
-                                  <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                  <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
                                   <%= item.product.owner.username %>
                                 </div>
                               <% end %>
@@ -63,7 +63,11 @@
                               <% end %>
                             </td>
                             <% end %>
-                            <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
+                            <% if item.product.photos.present? %>
+                              <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                            <% else %>
+                              <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                            <% end %>
                             <td><%= link_to item.start_date, booking_path(item) %></td>
                             <td><%= link_to item.end_date, booking_path(item) %></td>
                             <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -95,7 +99,7 @@
                           <td>
                             <%= link_to booking_path(item) do %>
                               <div class ="d-fex">
-                                <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
                                 <%= item.product.owner.username %>
                               </div>
                             <% end %>
@@ -104,7 +108,11 @@
                             <span class="badge bg-success"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <% if item.product.photos.present? %>
+                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% else %>
+                            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                          <% end %>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -137,7 +145,7 @@
                           <td>
                             <%= link_to booking_path(item) do %>
                               <div class ="d-fex">
-                                <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                <%= cl_image_tag item.product.owner.photo, class: "avatar",  style: "max-width: 50px;" %>
                                 <%= item.product.owner.username %>
                               </div>
                             <% end %>
@@ -146,7 +154,11 @@
                             <span class="badge bg-danger"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <% if item.product.photos.present? %>
+                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% else %>
+                            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                          <% end %>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
@@ -179,7 +191,7 @@
                           <td>
                             <%= link_to booking_path(item) do %>
                               <div class ="d-fex">
-                                <img src="<%= item.product.owner.photo %>" alt="Product Image" style="max-width: 50px;">
+                                <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
                                 <%= item.product.owner.username %>
                               </div>
                             <% end %>
@@ -188,7 +200,11 @@
                             <span class="badge bg-secondary"><%= item.status.capitalize %></span>
                             <% end %>
                           </td>
-                          <td><img src="<%= item.product.photos %>" alt="Product Image" style="max-width: 50px;"></td>
+                          <% if item.product.photos.present? %>
+                            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+                          <% else %>
+                            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+                          <% end %>
                           <td><%= link_to item.start_date, booking_path(item) %></td>
                           <td><%= link_to item.end_date, booking_path(item) %></td>
                           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>

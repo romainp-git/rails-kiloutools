@@ -4,16 +4,16 @@
   <%= simple_form_for :search, url: search_products_path, method: :get, html: { class: 'row align-items-end' } do |f| %>
     <div class="col-lg-5 col-md-6 col-12 px-1">
       <%= f.input :name,
-                  label: "Nom du produit",
-                  placeholder: "Exemple : Perceuse",
+                  label: false,
+                  placeholder: "Perceuse, Visseuse, Scie...",
                   wrapper_html: {class: 'mb-lg-0' },
                   input_html: { class: 'form-control'},
                   required: false %>
     </div>
     <div class="col-lg-5 col-md-6 col-12 px-1">
       <%= f.input :address,
-                  label: "Ville",
-                  placeholder: "Exemple : Lille",
+                  label: false,
+                  placeholder: "Lille, Paris, Tourcoing...",
                   wrapper_html: {class: 'mb-lg-0' },
                   input_html: {
                     class: 'form-control',
