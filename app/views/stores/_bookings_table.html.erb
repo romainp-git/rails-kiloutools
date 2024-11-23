@@ -16,13 +16,21 @@
           <td>
             <%= link_to booking_path(item) do %>
               <div class="d-flex align-items-center">
-                <%= cl_image_tag item.product.owner.photo.key, class: "avatar",  style: "max-width: 50px;" %>
-                <span class="mx-3"><%= item.product.owner.username %></span>
+              <% if item.user.photo.present? %>
+                  <%= cl_image_tag item.user.photo.key, class: "avatar",  style: "max-width: 50px;" %>
+                <% else %>
+                  <%= image_tag 'no_profile.png', class: "avatar", alt: "No picture available", height: 50, width: 50 %>
+                <% end %>
+                <span class="mx-3"><%= item.user.username %></span>
 
               </div>
             <% end %>
           </td>
-          <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+          <% if item.product.photos.present? %>
+            <td><%= cl_image_tag item.product.photos[0].key , class: "rounded", height: 50, width: 50 %></td>
+          <% else %>
+            <td><%= image_tag 'no_picture.jpg', class: "rounded", alt: "No picture available", height: 50, width: 50 %></td>
+          <% end %>
           <td><%= link_to item.start_date, booking_path(item) %></td>
           <td><%= link_to item.end_date, booking_path(item) %></td>
           <td><%= link_to "#{item.amount} €", booking_path(item) %></td>
