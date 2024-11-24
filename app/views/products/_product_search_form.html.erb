@@ -2,44 +2,47 @@
   <div class="search-summary" data-toggle-form-target="summary" data-action="click->toggle-form#expand">
     <div class="search-details">
       <p>
-        <span><strong>Produit</strong></span>
+        <span class="label">Produit</span>
         <span data-toggle-form-target = "product">
           <%= params.dig(:search, :name).blank? ? "Tous" : params.dig(:search, :name) %>
         </span>
       </p>
 
       <p>
-        <span><strong>Ville</strong></span>
+        <span class="label">Ville</span>
         <span data-toggle-form-target = "city">
           <%= params.dig(:search, :address).blank? ? "Partout" : params.dig(:search, :address) %>
         </span>
       </p>
 
       <p>
-        <span><strong>Dates</strong></span>
+        <span class="label">Départ</span>
         <span>
           <span data-toggle-form-target = "startDate">
             <%= params.dig(:search, :start_date).blank? ? "" : params.dig(:search, :start_date) %>
           </span>
-          /
-          <span data-toggle-form-target = "endDate">
-            <%= params.dig(:search, :end_date).blank? ? "" : params.dig(:search, :end_date) %>
-          </span>
+        </span>
+      </p>
+      <p>
+        <span class="label">Retour</span>
+        <span data-toggle-form-target = "endDate">
+          <%= params.dig(:search, :end_date).blank? ? "" : params.dig(:search, :end_date) %>
         </span>
       </p>
     </div>
 
-    <div class="floating-btn">
-      <i class="fa-solid fa-sort"></i>
+    <div class="rounded-btn">
+      <%= image_tag "filter-32.svg"%>
     </div>
   </div>
 
   <div class="search-form d-none" data-toggle-form-target="form" data-controller="datepicker">
-    <%= simple_form_for :search, url: search_products_path, method: :get, html: { class: 'row align-items-end justify-content-end' } do |f| %>
-      <div class="col-md-6 col-12 px-1">
+    <%= simple_form_for :search, url: search_products_path, method: :get, html: { class: 'row align-items-center justify-content-center' } do |f| %>
+      <div class="col-3 px-1">
         <%= f.input :name,
                     label: false,
                     placeholder: "Perceuse, Visseuse, Scie...",
+                    wrapper_html: { style: 'margin-bottom: 0 !important'},
                     input_html: {
                       class: 'form-control',
                       value: params.dig(:search, :name),
@@ -48,13 +51,14 @@
                     required: false %>
       </div>
 
-      <div class="col-md-6 col-12 px-1" data-controller='mapbox-autocomplete'
+      <div class="col-4 px-1" data-controller='mapbox-autocomplete'
     data-mapbox-autocomplete-api-key-value=<%= ENV["MAPBOX_API_KEY"] %>>
         <%= f.input :address,
                     label: false,
                     placeholder: "Lille, Paris, Tourcoing...",
+                    wrapper_html: { style: 'margin-bottom: 0 !important'},
                     input_html: {
-                      class: 'form-control mb-0',
+                      class: 'form-control',
                       value: params.dig(:search, :address),
                       autocomplete: 'off',
                       data: {
@@ -69,11 +73,11 @@
 
       <%= f.hidden_field :bookings_dates, value: [], data: { datepicker_target: "bookingsDates" } %>
 
-      <div class="col-md-6 col-12 px-1 mb-3">
+      <div class="col-2 px-1">
         <%= f.text_field :start_date,
                           class: "form-control",
                           label: false,
-                          placeholder: "Choisissez une date",
+                          placeholder: "Début",
                           value: params.dig(:search, :start_date)&.to_date&.strftime("%Y-%m-%d"),
                           data: {
                             datepicker_target: "startDate",
@@ -81,18 +85,18 @@
                           } %>
       </div>
 
-      <div class="col-md-6 col-12 px-1 mb-3">
+      <div class="col-2 px-1">
         <%= f.text_field :end_date,
                           class: "form-control",
                           label: false,
-                          placeholder: "Choisissez une date",
+                          placeholder: "Fin",
                           value: params.dig(:search, :end_date)&.to_date&.strftime("%Y-%m-%d"),
                           data: {
                             datepicker_target: "endDate",
                             toggle_form_target: "endDateInput"
                           } %>
       </div>
-      <%= button_tag type: "submit", class: "floating-btn" do %>
+      <%= button_tag type: "submit", class: "rounded-btn" do %>
         <div>
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
